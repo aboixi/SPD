@@ -1,0 +1,13 @@
+<application>
+  <display-name>SPD</display-name>
+  <module>
+    <web>
+      <web-uri>SPD.war</web-uri>
+      <context-root>/SPD</context-root>
+    </web>
+  </module>
+  <module>
+    <ejb>SPD.jar</ejb>
+  </module>
+</application>
+
