@@ -57,7 +57,7 @@ public class LoginMBean implements Serializable{
 			if (usuariEmpresa.getDni().equals("invalid")){
 				return "accessError";
 			}else{
-				activeSession.setAttribute("sessioUsuariEmpresa", usuariEmpresa);
+				activeSession.setAttribute("sessioEmpresa", usuariEmpresa);
 				return "vistaPerfilEmpresa";
 			}			
 		}

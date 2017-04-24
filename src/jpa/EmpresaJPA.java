@@ -45,7 +45,7 @@ public class EmpresaJPA implements Serializable {
 	/**
 	 * Relacions de persistencia
 	 */
-	@OneToMany(targetEntity=UsuariEmpresaJPA.class,mappedBy="dni", cascade={CascadeType.ALL},orphanRemoval=true)
+	@OneToMany(targetEntity=UsuariEmpresaJPA.class,mappedBy="empresa", cascade={CascadeType.ALL},orphanRemoval=true)
 	private Collection<UsuariEmpresaJPA> usuarisEmpresa;
 	@OneToMany(targetEntity=PacientJPA.class,mappedBy="cip", cascade={CascadeType.ALL},orphanRemoval=true)
 	private Collection<PacientJPA> pacients;
