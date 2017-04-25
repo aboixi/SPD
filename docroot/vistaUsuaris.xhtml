@@ -43,9 +43,7 @@
 							
             			<h:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
 							<p:button outcome="/vistaNouUsuari" value="Agregar" icon="fa fa-plus-circle" style="margin-bottom:10px" styleClass="raised-btn"></p:button>
-<!-- 							<p:commandButton id="botoEliminar" value="Eliminar usuari seleccionat"> <p:ajax update="usuari" listener="#{eliminarUsuari.eliminar}"/></p:commandButton> -->
-	  					<p:commandButton actionListener="#{eliminarUsuari.eliminar}" value="Elimina usuari seleccionat" icon="fa fa-minus-circle" update=":formulariLlistaUsuaris" style="margin-bottom:10px" styleClass="raised-btn"/>                      				
-
+	  						<p:commandButton actionListener="#{eliminarUsuari.eliminar}" action="#{llistarUsuaris.llistar}" value="Elimina usuari seleccionat" icon="fa fa-minus-circle" update="formulariLlistaUsuaris" style="margin-bottom:10px" styleClass="raised-btn"/>                      				
             			</h:panelGrid>
             		</h:form>
                 </div>   

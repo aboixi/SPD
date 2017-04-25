@@ -24,14 +24,14 @@ public class EliminarUsuariMBean implements Serializable{
 	private Collection<UsuariEmpresaJPA> usuaris;
 	private static final long serialVersionUID = 1L;
 	
-	public String eliminar() throws NamingException{
+	public void eliminar() throws NamingException{
 		String dni=usuari.getDni();
 		String cif=usuari.getEmpresa();
 		Properties props = System.getProperties();
 		Context ctx = new InitialContext(props);
 		usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
 		usuarisRemotEJB.eliminarUsuari(cif, dni);
-		return "vistaUsuaris";
+//		return "vistaUsuaris";
 	}
 
 	/**
