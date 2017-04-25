@@ -40,6 +40,7 @@ public class LlistarUsuarisMBean implements Serializable{
 		return "vistaUsuaris";
 	}
 	
+	
 	public String getSessionCif(){
  		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);

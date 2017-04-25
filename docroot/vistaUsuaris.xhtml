@@ -14,11 +14,15 @@
                 <div class="card card-w-title">
 					<h1>Usuaris</h1>
                     <h:form id="formulariLlistaUsuaris">
-						<p:dataTable id="llistaUsuaris" var="item" value="#{llistarUsuaris.usuaris}" selectionMode="single" selection="#{#}" rowKey="#{item.nom}">
+						<p:dataTable id="llistaUsuaris" var="item" value="#{llistarUsuaris.usuaris}" selectionMode="single" selection="#{eliminarUsuari.usuari}" rowKey="#{item.dni}">
 							<f:facet name="header">
 			                	Llista d'usuaris
 			                </f:facet>
-			                
+						    
+						    <p:column headerText="DNI">
+						        <h:outputText value="#{item.dni}" />
+						    </p:column>
+						    
 						    <p:column headerText="Nom">
 						        <h:outputText value="#{item.nom}" />
 						    </p:column>
@@ -36,12 +40,12 @@
 						    </p:column>
 
 							</p:dataTable>
-            		</h:form>
-            		<h:form>
+							
             			<h:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
-<!--							<p:button outcome="/newUserView" value="Agregar" icon="fa fa-plus-circle" style="margin-bottom:10px" styleClass="raised-btn"></p:button>
-            				<p:button outcome="/usersView" value="Eliminar" icon="fa fa-minus-circle" style="margin-bottom:10px" styleClass="raised-btn"></p:button>
-  -->            				
+							<p:button outcome="/vistaNouUsuari" value="Agregar" icon="fa fa-plus-circle" style="margin-bottom:10px" styleClass="raised-btn"></p:button>
+<!-- 							<p:commandButton id="botoEliminar" value="Eliminar usuari seleccionat"> <p:ajax update="usuari" listener="#{eliminarUsuari.eliminar}"/></p:commandButton> -->
+	  					<p:commandButton actionListener="#{eliminarUsuari.eliminar}" value="Elimina usuari seleccionat" icon="fa fa-minus-circle" update=":formulariLlistaUsuaris" style="margin-bottom:10px" styleClass="raised-btn"/>                      				
+
             			</h:panelGrid>
             		</h:form>
                 </div>   
@@ -50,7 +54,7 @@
             	<!-- Right Side -->
                 <div class="card card-w-title">
                 <h1>Dades</h1>
-                  		<h:form>
+                  		<h:form id="formulariDadesUsuari">
 						<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
 							
 							<h:outputLabel for="pudni" value="DNI: " />
@@ -65,27 +69,27 @@
 							
 							<h:outputLabel for="pusurname1" value="Primer cognom: " />
 							<p:inplace id="pusurname1" editor="true">
-				            <p:inputText value="cognom 1" required="true" label="text" />
+				            <p:inputText value="" required="true" label="text" />
 				        	</p:inplace>
 							
 							<h:outputLabel for="pusurname2" value="Segon cognom: " />
 							<p:inplace id="pusurname2" editor="true">
-				            <p:inputText value="cognom 2" required="true" label="text" />
+				            <p:inputText value="" required="true" label="text" />
 				        	</p:inplace>
 							
 							<h:outputLabel for="puphone" value="Telèfon: " />
 							<p:inplace id="puphone" editor="true">
-				            <p:inputText value="600600600" required="true" label="text" />
+				            <p:inputText value="" required="true" label="text" />
 				        	</p:inplace>
 							
 							<h:outputLabel for="puusername" value="Nom d'usuari: " />
 							<p:inplace id="puusername" editor="true">
-				            <p:inputText value="username" required="true" label="text" />
+				            <p:inputText value="" required="true" label="text" />
 				        	</p:inplace>
 							
 							<h:outputLabel for="pupass" value="Clau de pas: " />
 							<p:inplace id="pupass" editor="true">
-							<h:inputSecret id="pupassword" value="password"></h:inputSecret>
+							<h:inputSecret id="pupassword" value=""></h:inputSecret>
 							</p:inplace>
 							
 <!-- 							<p:commandButton action="#{#}" value="Registrar" icon="ui-icon-disk"></p:commandButton>  	
@@ -100,3 +104,12 @@
         </div>
     </ui:define>
 </ui:composition>
+
+
+<!-- 	
+            			<h:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
+							<p:button outcome="/vistaNouUsuari" value="Agregar" icon="fa fa-plus-circle" style="margin-bottom:10px" styleClass="raised-btn"></p:button>
+           					<p:commandButton actionListener="#{eliminarUsuari.eliminar}" value="Elimina usuari seleccionat" icon="fa fa-minus-circle" update="formulariLlistaUsuaris" style="margin-bottom:10px" styleClass="raised-btn"/>            				
+            			</h:panelGrid>
+
+-->

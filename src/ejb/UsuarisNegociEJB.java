@@ -6,6 +6,7 @@
 package ejb;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
@@ -128,6 +129,23 @@ public class UsuarisNegociEJB implements UsuarisNegociRemote{
 		@SuppressWarnings("unchecked")
 		Collection<UsuariEmpresaJPA> usuaris = entman.createQuery("FROM UsuariEmpresaJPA a WHERE a.empresa = '" + cif +"'").getResultList();
 	    return usuaris;
+	}
+	
+	public Collection<UsuariEmpresaJPA> eliminarUsuari(String cif, String dni){
+		UsuariEmpresaJPA usuari=null;
+		@SuppressWarnings("unchecked")
+		Collection<UsuariEmpresaJPA> usuaris = entman.createQuery("FROM UsuariEmpresaJPA a WHERE a.empresa = '" + cif +"'").getResultList();
+		Iterator<UsuariEmpresaJPA> iter = usuaris.iterator();
+		boolean trobat = false;
+		while (iter.hasNext()&&!(trobat)){
+			usuari = iter.next();
+			if(usuari.getDni().equals(dni)){
+				entman.remove(usuari);
+				usuaris.remove(usuari);
+				trobat=true;
+			}
+		}
+		return usuaris;
 	}
 }
 

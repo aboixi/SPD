@@ -21,4 +21,5 @@ public interface UsuarisNegociRemote {
 	public EmpresaJPA modificarEmpresa (String nif, String nom, String poblacio, String carrer, String cp, String telefon, String fax,String correu, String clau, String contacte);
 	public String crearUsuari (String dni, String nom, String cognom1, String cognom2, String telefon, String empresa, String tipus);
 	public Collection<UsuariEmpresaJPA> llistarUsuaris (String cif); 
+	public Collection<UsuariEmpresaJPA> eliminarUsuari(String cif, String dni);
 }
