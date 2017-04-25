@@ -5,6 +5,8 @@
 
 package ejb;
 
+import java.util.Collection;
+
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
@@ -120,6 +122,12 @@ public class UsuarisNegociEJB implements UsuarisNegociRemote{
 		}else{
 			return "usuariExistent";
 		}
+	}
+	
+	public Collection<UsuariEmpresaJPA> llistarUsuaris (String cif){
+		@SuppressWarnings("unchecked")
+		Collection<UsuariEmpresaJPA> usuaris = entman.createQuery("FROM UsuariEmpresaJPA a WHERE a.empresa = '" + cif +"'").getResultList();
+	    return usuaris;
 	}
 }
 
