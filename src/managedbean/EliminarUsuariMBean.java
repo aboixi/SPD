@@ -25,20 +25,7 @@ public class EliminarUsuariMBean implements Serializable{
 	private UsuariEmpresaJPA usuari;
 	private Collection<UsuariEmpresaJPA> usuaris;
 	private static final long serialVersionUID = 1L;
-	
-	public String modificar() throws Exception{
-		Properties props = System.getProperties();
-		Context ctx = new InitialContext(props);
-		usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
-		String missatge=usuarisRemotEJB.modificarUsuari(usuari.getDni(), usuari.getNom(), usuari.getCognom1(), usuari.getCognom2(), usuari.getTelefon(), usuari.getClau());
-		if (missatge.equals("canviCorrecte")){
-			msgInfo();
-			return "vistaUsuaris";
-		}else{
-			msgError();
-			return "vistaUsuaris";
-		}
-	}
+
 	public void eliminar() throws NamingException{
 		String dni=usuari.getDni();
 		String cif=usuari.getEmpresa();
@@ -47,7 +34,6 @@ public class EliminarUsuariMBean implements Serializable{
 		usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
 		usuarisRemotEJB.eliminarUsuari(cif, dni);
 	}
-	
 	public void consultar(){}
 
  	public void msgInfo(){
