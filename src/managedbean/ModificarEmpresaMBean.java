@@ -40,7 +40,7 @@ public class ModificarEmpresaMBean implements Serializable{
 		EmpresaJPA empresa=usuarisRemotEJB.modificarEmpresa(cif, nom, poblacio, carrer, cp, telefon, fax, correu, clau, contacte);
 		actualitzarUsuariSessio(empresa);
 		msgInfo();
-		return "vistaPerfilEmpresa";
+		return "vistaEmpresaPerfil";
 	}
  	
  	public void actualitzarUsuariSessio(EmpresaJPA empresa){

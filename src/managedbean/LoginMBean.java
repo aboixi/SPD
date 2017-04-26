@@ -50,7 +50,7 @@ public class LoginMBean implements Serializable{
 				return "accessError";
 			}else{
 				activeSession.setAttribute("sessioEmpresa", empresa);
-				return "vistaPerfilEmpresa";
+				return "vistaEmpresaPerfil";
 			}
 		}else{
 			UsuariEmpresaJPA usuariEmpresa = (UsuariEmpresaJPA) usuari;
@@ -58,7 +58,7 @@ public class LoginMBean implements Serializable{
 				return "accessError";
 			}else{
 				activeSession.setAttribute("sessioEmpresa", usuariEmpresa);
-				return "vistaPerfilEmpresa";
+				return "vistaEmpresaPerfil";
 			}			
 		}
 	}

@@ -32,10 +32,10 @@ public class ModificarUsuariMBean implements Serializable{
 		String missatge=usuarisRemotEJB.modificarUsuari(eliminarUsuariMBean.getUsuari().getDni(), eliminarUsuariMBean.getUsuari().getNom(), eliminarUsuariMBean.getUsuari().getCognom1(), eliminarUsuariMBean.getUsuari().getCognom2(), eliminarUsuariMBean.getUsuari().getTelefon(), eliminarUsuariMBean.getUsuari().getClau());
 		if (missatge.equals("canviCorrecte")){
 			msgInfo();
-			return "vistaUsuaris";
+			return "vistaEmpresaUsuaris";
 		}else{
 			msgError();
-			return "vistaUsuaris";
+			return "vistaEmpresaUsuaris";
 		}
 	}
 	
