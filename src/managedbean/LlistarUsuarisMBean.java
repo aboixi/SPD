@@ -36,10 +36,8 @@ public class LlistarUsuarisMBean implements Serializable{
 		this.usuaris = usuarisRemotEJB.llistarUsuaris(cif);
 		this.usuaris.toArray();
 		this.setUsuaris(usuaris);
-//		setSessionLlistaUsuaris(usuaris);
 		return "vistaUsuaris";
 	}
-	
 	
 	public String getSessionCif(){
  		FacesContext facesContext = FacesContext.getCurrentInstance();

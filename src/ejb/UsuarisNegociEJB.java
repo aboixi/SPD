@@ -95,12 +95,10 @@ public class UsuarisNegociEJB implements UsuarisNegociRemote{
 		empresa.setFax(fax);
 		empresa.setCorreu(correu);
 		empresa.setClau(clau);
-		empresa.setContacte(contacte);
-	
+		empresa.setContacte(contacte);	
 		entman.merge(empresa);
 		entman.flush();
-		entman.refresh(empresa);
-		
+		entman.refresh(empresa);		
 		return empresa;
 	}
 	
@@ -146,6 +144,24 @@ public class UsuarisNegociEJB implements UsuarisNegociRemote{
 			}
 		}
 		return usuaris;
+	}
+
+	public String modificarUsuari(String dni, String nom, String cognom1, String cognom2, String telefon, String clau)throws PersistenceException{
+		UsuariEmpresaJPA usuari = entman.find(UsuariEmpresaJPA.class, dni);
+		usuari.setNom(nom);
+		usuari.setCognom1(cognom1);
+		usuari.setCognom2(cognom2);
+		usuari.setTelefon(telefon);
+		usuari.setClau(clau);
+		try{
+			entman.merge(usuari);
+			entman.flush();
+			entman.refresh(usuari);
+			return "canviCorrecte";
+		}catch (PersistenceException e) {
+			System.out.println(e);
+			return "persistenceException";
+		}
 	}
 }
 

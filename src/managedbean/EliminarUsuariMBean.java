@@ -5,8 +5,10 @@ import java.util.Collection;
 import java.util.Properties;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -24,6 +26,19 @@ public class EliminarUsuariMBean implements Serializable{
 	private Collection<UsuariEmpresaJPA> usuaris;
 	private static final long serialVersionUID = 1L;
 	
+	public String modificar() throws Exception{
+		Properties props = System.getProperties();
+		Context ctx = new InitialContext(props);
+		usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
+		String missatge=usuarisRemotEJB.modificarUsuari(usuari.getDni(), usuari.getNom(), usuari.getCognom1(), usuari.getCognom2(), usuari.getTelefon(), usuari.getClau());
+		if (missatge.equals("canviCorrecte")){
+			msgInfo();
+			return "vistaUsuaris";
+		}else{
+			msgError();
+			return "vistaUsuaris";
+		}
+	}
 	public void eliminar() throws NamingException{
 		String dni=usuari.getDni();
 		String cif=usuari.getEmpresa();
@@ -31,9 +46,16 @@ public class EliminarUsuariMBean implements Serializable{
 		Context ctx = new InitialContext(props);
 		usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
 		usuarisRemotEJB.eliminarUsuari(cif, dni);
-//		return "vistaUsuaris";
 	}
+	
+	public void consultar(){}
 
+ 	public void msgInfo(){
+ 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Canvi correcte."));
+ 	}
+ 	public void msgError(){
+ 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Revisa les dades."));
+ 	}
 	/**
 	 * @return the usuari
 	 */
