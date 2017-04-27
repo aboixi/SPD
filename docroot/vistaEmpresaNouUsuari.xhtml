@@ -14,7 +14,7 @@
                 <div class="card card-w-title">
                 <h1>Alta nou usuari</h1>
                  <p:messages showDetail="true" showSummary="false" autoUpdate="true" closable="true" />
-                    		<h:form>
+                    		<h:form id="formularinouusuari">
 								<h:panelGrid id="nouusuarigrid" columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
 									<h:outputText value="DNI/NIE: " />
 									<p:inputText id="dni" value="#{crearUsuari.dni}" required="true"
@@ -47,7 +47,6 @@
 									<h:message for="empresa"/>
 								
 									<p:commandButton id="boto" actionListener="#{crearUsuari.nouUsuari}" value="Alta nou usuari" icon="fa fa-save" update="nouusuarigrid"/>
-						
 								</h:panelGrid>
 						</h:form>
                 </div>   

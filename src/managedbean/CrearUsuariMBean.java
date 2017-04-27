@@ -11,6 +11,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.context.RequestContext;
+
 import ejb.UsuarisNegociRemote;
 import jpa.EmpresaJPA;
 
@@ -39,9 +41,9 @@ public class CrearUsuariMBean implements Serializable{
 		if (missatge.equals("procesCorrecte")){
 			msgCorrecte();
 		}else if(missatge.equals("usuariExistent")){
-			msgAvis();
-		}else if(missatge.equals("errorCorreuRepetit")){
 			msgError();
+		}else if(missatge.equals("nomUsuariRepetit")){
+			msgAvis();
 		}
 	}
 	
@@ -50,14 +52,11 @@ public class CrearUsuariMBean implements Serializable{
  	}
  	
  	public void msgAvis(){
- 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Avís", "L'usuari ja existeix al sistema."));
+ 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Avís", "El nom d'usuari per entrar al sistema serà el seu DNI"));
  	}
  	
  	public void msgError(){
- 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Problema amb el format de dades a inserir, revisa-les."));
- 	}
- 	public void msgInfo(){
- 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "El Nom d'usuari per entrar al sistema és: primera lletra del nom + cognom + primera lletra del segon cognom \n Clau per entrar 123456789"));
+ 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "L'usuari ja existeix al sistema."));
  	}
 
 	/**

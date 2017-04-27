@@ -102,26 +102,36 @@ public class UsuarisNegociEJB implements UsuarisNegociRemote{
 		return empresa;
 	}
 	
-	public String crearUsuari (String dni, String nom, String cognom1, String cognom2, String telefon, String empresa, String tipus){	
+	public String crearUsuari (String dni, String nom, String cognom1, String cognom2, String telefon, String empresa, String tipus)throws PersistenceException{	
 		UsuariEmpresaJPA usuari = entman.find(UsuariEmpresaJPA.class, dni);
-		if (usuari==null){			
+		UsuariEmpresaJPA usuariRepetit = null;
+		if (usuari==null){
 			Character primer = nom.charAt(0);
 			String segon = cognom1;
 			Character tercer = cognom2.charAt(0);
 			String nomUsuari=primer.toString().concat(segon).concat(tercer.toString()).toLowerCase();
 			String clau="123456789";
-			usuari = new UsuariEmpresaJPA(dni,nom,cognom1,cognom2,telefon,empresa, nomUsuari, clau, tipus);
 			try{
-				entman.persist(usuari);
+				usuariRepetit=(UsuariEmpresaJPA) entman.createQuery("FROM UsuariEmpresaJPA a WHERE a.usuari = '" + nomUsuari +"'").getSingleResult();
 			}catch (PersistenceException e) {
 				System.out.println(e);
-				return "errorAlInserir";
-			}
-			return "procesCorrecte";
+				}
+			if (usuariRepetit==null){
+				usuari = new UsuariEmpresaJPA(dni,nom,cognom1,cognom2,telefon,empresa, nomUsuari, clau, tipus);
+				entman.persist(usuari);
+				return "procesCorrecte";
+			}else{
+				nomUsuari=dni.toLowerCase();
+				usuari = new UsuariEmpresaJPA(dni,nom,cognom1,cognom2,telefon,empresa, nomUsuari, clau, tipus);
+				entman.persist(usuari);
+				return "nomUsuariRepetit";
+				}
 		}else{
 			return "usuariExistent";
-		}
+			}
 	}
+	
+
 	
 	public Collection<UsuariEmpresaJPA> llistarUsuaris (String cif){
 		@SuppressWarnings("unchecked")
@@ -165,5 +175,27 @@ public class UsuarisNegociEJB implements UsuarisNegociRemote{
 	}
 }
 
-
+/**
+ * 	public String crearUsuari (String dni, String nom, String cognom1, String cognom2, String telefon, String empresa, String tipus)throws PersistenceException{	
+		UsuariEmpresaJPA usuari = entman.find(UsuariEmpresaJPA.class, dni);
+		if (usuari==null){			
+			Character primer = nom.charAt(0);
+			String segon = cognom1;
+			Character tercer = cognom2.charAt(0);
+			String nomUsuari=primer.toString().concat(segon).concat(tercer.toString()).toLowerCase();
+			String clau="123456789";
+			usuari = new UsuariEmpresaJPA(dni,nom,cognom1,cognom2,telefon,empresa, nomUsuari, clau, tipus);
+			try{
+				entman.persist(usuari);
+			}catch (PersistenceException e) {
+				usuari.setUsuari(dni.toLowerCase());
+				entman.persist(usuari);
+				System.out.println(e);
+				return "errorAlInserir";
+			}return "procesCorrecte";
+		}else{
+			return "usuariExistent";
+		}
+	}
+ */
 
