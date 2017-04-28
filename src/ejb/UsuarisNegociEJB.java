@@ -175,27 +175,3 @@ public class UsuarisNegociEJB implements UsuarisNegociRemote{
 	}
 }
 
-/**
- * 	public String crearUsuari (String dni, String nom, String cognom1, String cognom2, String telefon, String empresa, String tipus)throws PersistenceException{	
-		UsuariEmpresaJPA usuari = entman.find(UsuariEmpresaJPA.class, dni);
-		if (usuari==null){			
-			Character primer = nom.charAt(0);
-			String segon = cognom1;
-			Character tercer = cognom2.charAt(0);
-			String nomUsuari=primer.toString().concat(segon).concat(tercer.toString()).toLowerCase();
-			String clau="123456789";
-			usuari = new UsuariEmpresaJPA(dni,nom,cognom1,cognom2,telefon,empresa, nomUsuari, clau, tipus);
-			try{
-				entman.persist(usuari);
-			}catch (PersistenceException e) {
-				usuari.setUsuari(dni.toLowerCase());
-				entman.persist(usuari);
-				System.out.println(e);
-				return "errorAlInserir";
-			}return "procesCorrecte";
-		}else{
-			return "usuariExistent";
-		}
-	}
- */
-

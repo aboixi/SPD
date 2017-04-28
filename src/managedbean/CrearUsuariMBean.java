@@ -11,8 +11,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.context.RequestContext;
-
 import ejb.UsuarisNegociRemote;
 import jpa.EmpresaJPA;
 
@@ -28,24 +26,43 @@ public class CrearUsuariMBean implements Serializable{
 	private String cognom2;
 	private String telefon;
 	private String empresa;
+	@SuppressWarnings("unused")
+	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;	
+	
+ 	public String nouUsuari() throws Exception{
+ 		if (checkSession()){
+			EmpresaJPA empresa = getSessionObject();
+			Properties props = System.getProperties();
+			Context ctx = new InitialContext(props);
+			usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
+			String missatge=usuarisRemotEJB.crearUsuari(dni,nom,cognom1,cognom2,telefon,empresa.getCif(),empresa.getTipus());
+			if (missatge.equals("procesCorrecte")){
+				clearFields();
+				msgCorrecte();
+				return null;
+			}else if(missatge.equals("usuariExistent")){
+				clearFields();
+				msgError();
+				return null;
+			}else if(missatge.equals("nomUsuariRepetit")){
+				clearFields();
+				msgAvis();
+			}
+			return null;
+		}else{
+			return "accesError";
+			}
+ 		}
 
- 	public void nouUsuari() throws Exception{
- 		FacesContext facesContext = FacesContext.getCurrentInstance();
-		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
-		EmpresaJPA empresa = (EmpresaJPA) activeSession.getAttribute("sessioEmpresa");
-		Properties props = System.getProperties();
-		Context ctx = new InitialContext(props);
-		usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
-		String missatge=usuarisRemotEJB.crearUsuari(dni,nom,cognom1,cognom2,telefon,empresa.getCif(),empresa.getTipus());
-		if (missatge.equals("procesCorrecte")){
-			msgCorrecte();
-		}else if(missatge.equals("usuariExistent")){
-			msgError();
-		}else if(missatge.equals("nomUsuariRepetit")){
-			msgAvis();
-		}
-	}
+ 	public void clearFields(){
+ 		setDni(null);
+ 		setNom(null);
+ 		setCognom1(null);
+ 		setCognom2(null);
+ 		setTelefon(null);
+ 		setEmpresa(null);
+ 	}
 	
  	public void msgCorrecte(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Nou usuari creat."));
@@ -58,6 +75,24 @@ public class CrearUsuariMBean implements Serializable{
  	public void msgError(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "L'usuari ja existeix al sistema."));
  	}
+ 	
+	public boolean checkSession(){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
+		
+		if (activeSession!=null && activeSession.getAttribute("sessioEmpresa")!=null){
+			return (this.sessionOK=true);
+		}else{
+			return (this.sessionOK=false);
+		}
+	}
+	
+	public EmpresaJPA getSessionObject(){
+ 		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
+		EmpresaJPA empresa = (EmpresaJPA) activeSession.getAttribute("sessioEmpresa");
+		return empresa;
+	}
 
 	/**
 	 * @return the dni

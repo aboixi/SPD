@@ -30,17 +30,23 @@ public class ModificarEmpresaMBean implements Serializable{
 	private String correu;
 	private String contacte;
 	private String clau;
+	@SuppressWarnings("unused")
+	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;	
 
  	public String modificar() throws Exception{
- 		donarValorAtributs();
-		Properties props = System.getProperties();
-		Context ctx = new InitialContext(props);
-		usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
-		EmpresaJPA empresa=usuarisRemotEJB.modificarEmpresa(cif, nom, poblacio, carrer, cp, telefon, fax, correu, clau, contacte);
-		actualitzarUsuariSessio(empresa);
-		msgInfo();
-		return "vistaEmpresaPerfil";
+ 		if (checkSession()){
+ 			donarValorAtributs();
+ 			Properties props = System.getProperties();
+ 			Context ctx = new InitialContext(props);
+ 			usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
+ 			EmpresaJPA empresa=usuarisRemotEJB.modificarEmpresa(cif, nom, poblacio, carrer, cp, telefon, fax, correu, clau, contacte);
+ 			actualitzarUsuariSessio(empresa);
+ 			msgInfo();
+ 			return "vistaEmpresaPerfil";
+ 		}else{
+ 			return "accessError";
+ 		}
 	}
  	
  	public void actualitzarUsuariSessio(EmpresaJPA empresa){
@@ -64,6 +70,17 @@ public class ModificarEmpresaMBean implements Serializable{
  		this.contacte=empresa.getContacte();
  		this.clau=empresa.getClau();
  	}
+ 	
+	public boolean checkSession(){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
+		
+		if (activeSession!=null && activeSession.getAttribute("sessioEmpresa")!=null){
+			return (this.sessionOK=true);
+		}else{
+			return (this.sessionOK=false);
+		}
+	}
  	
  	public void msgInfo(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Operació efectuada."));
