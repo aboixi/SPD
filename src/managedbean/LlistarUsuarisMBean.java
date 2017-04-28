@@ -26,17 +26,34 @@ public class LlistarUsuarisMBean implements Serializable{
 	@EJB (name="UsuarisNegociEJB")
 	UsuarisNegociRemote usuarisRemotEJB;
 	private Collection<UsuariEmpresaJPA> usuaris;
+	@SuppressWarnings("unused")
+	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
 	public String llistar()throws Exception{
-		String cif=getSessionCif();
-		Properties props = System.getProperties();
-		Context ctx = new InitialContext(props);
-		usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
-		this.usuaris = usuarisRemotEJB.llistarUsuaris(cif);
-		this.usuaris.toArray();
-		this.setUsuaris(usuaris);
-		return "vistaEmpresaUsuaris";
+		if (checkSession()){
+			String cif=getSessionCif();
+			Properties props = System.getProperties();
+			Context ctx = new InitialContext(props);
+			usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
+			this.usuaris = usuarisRemotEJB.llistarUsuaris(cif);
+			this.usuaris.toArray();
+			this.setUsuaris(usuaris);
+			return "vistaEmpresaUsuaris";
+		}else{
+			return "accessError";
+		}
+	}
+	
+	public boolean checkSession(){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
+		
+		if (activeSession!=null && activeSession.getAttribute("sessioEmpresa")!=null){
+			return (this.sessionOK=true);
+		}else{
+			return (this.sessionOK=false);
+		}
 	}
 	
 	public String getSessionCif(){
