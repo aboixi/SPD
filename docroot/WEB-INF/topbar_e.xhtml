@@ -31,9 +31,10 @@
             </a>
             <ul id="topbar-menu" class="fadeInDown animated">
                 <li>
-                     <a href="./vistaLogin.xhtml">
-                        <i class="topbar-icon fa fa-circle-o-notch" ></i>
-                        <span class="topbar-item-name">SORTIR</span>
+                     <a href="#">
+                     	<h:form>
+                        <p:commandButton action="#{loginUsuari.logout}" value="Sortir"  styleClass="black-btn"/>
+                        </h:form>
                     </a>
                 </li>
             </ul>

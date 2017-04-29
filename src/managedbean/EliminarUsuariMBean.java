@@ -37,12 +37,17 @@ public class EliminarUsuariMBean implements Serializable{
 			Context ctx = new InitialContext(props);
 			usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
 			usuarisRemotEJB.eliminarUsuari(cif, dni);
+			clearFields();
 			return null;
 		}else{
 			return "accessError";
 		}
 	}
 	public void consultar(){}
+	
+ 	public void clearFields(){
+ 		setUsuari(null);
+ 	}
 	
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();

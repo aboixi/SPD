@@ -54,6 +54,16 @@ public class ModificarEmpresaMBean implements Serializable{
  		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
  		activeSession.setAttribute("sessioEmpresa", empresa);
  	}
+ 	public boolean compara(EmpresaJPA emp){
+ 		boolean sonIguals=false;
+ 		if(this.nom.equals(emp.getNom())&&this.poblacio.equals(emp.getPoblacio())&&this.carrer.equals(emp.getCarrer())&&
+ 				this.cp.equals(emp.getCp())&&this.telefon.equals(emp.getTelefon())&&this.fax.equals(emp.getFax())
+ 				&&this.correu.equals(emp.getCorreu())&&this.clau.equals(emp.getClau())&&this.contacte.equals(emp.getContacte())){
+ 			return sonIguals;
+ 		}else{
+ 			return sonIguals=false;
+ 		}
+ 	}
  	
  	public void donarValorAtributs(){
  		FacesContext facesContext = FacesContext.getCurrentInstance();

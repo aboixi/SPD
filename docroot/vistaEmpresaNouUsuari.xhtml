@@ -46,7 +46,7 @@
 									<h:outputText id="empresa" value="#{sessionScope.sessioEmpresa.nom}"/>
 									<h:message for="empresa"/>
 								
-									<p:commandButton id="boto" actionListener="#{crearUsuari.nouUsuari}" value="Alta nou usuari" icon="fa fa-save" update="nouusuarigrid"/>
+									<p:commandButton id="boto" actionListener="#{crearUsuari.nouUsuari}" action="#{llistarUsuaris.llistar}" value="Alta nou usuari" icon="fa fa-save" update="nouusuarigrid"/>
 								</h:panelGrid>
 						</h:form>
                 </div>   
