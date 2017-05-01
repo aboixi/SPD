@@ -9,10 +9,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.servlet.http.HttpSession;
 
 import ejb.UsuarisNegociRemote;
-//import jpa.EmpresaJPA;
 
 @ManagedBean(name = "registrarEmpresa")
 @SessionScoped

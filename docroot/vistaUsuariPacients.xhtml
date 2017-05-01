@@ -1,0 +1,121 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+                
+    <ui:define name="title">SimpleSPD-Pacients</ui:define>
+
+    <ui:define name="content">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-lg-6">
+            	<!-- Left Side -->
+                <div class="card card-w-title">
+                <h1>Llistat de pacients</h1>
+                    <h:form id="formulariLlistaPacients">
+						<p:dataTable id="taulaPacients" var="item" value="#{llistarPacients.pacients}" selectionMode="single" selection="#{#}" rowKey="#{item.cognom1}">
+							<f:facet name="header">
+			                	Pacients
+			                </f:facet>
+						    
+						    <p:column headerText="Nom">
+						        <h:outputText value="#{item.nom}" />
+						    </p:column>
+						 
+						    <p:column headerText="Cognom1">
+						        <h:outputText value="#{item.cognom1}" />
+						    </p:column>
+						    
+						    <p:column headerText="Cognom2">
+						        <h:outputText value="#{item.cognom2}" />
+						    </p:column>
+						    
+						    <p:column headerText="Ubicacio">
+						        <h:outputText value="#{item.residencia}" />
+						    </p:column>
+						    
+						    <p:column headerText="Farmacia">
+						        <h:outputText value="#{item.farmacia}" />
+						    </p:column>
+
+			<!--			    <f:facet name="footer">
+						    	<h:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
+				            		<p:commandButton actionListener="#{#}" value="Agregar" update="workersform"></p:commandButton>
+				            		<p:commandButton actionListener="#{#}" value="Modificar" update="workersform"></p:commandButton>
+				            		<p:commandButton actionListener="#{#}" value="Eliminar" update="workersform"></p:commandButton>
+			            		</h:panelGrid>
+			        		</f:facet>
+			  -->
+							</p:dataTable>
+            		</h:form>
+            		<h:form>
+            			<h:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
+							<p:button outcome="/test" value="Agregar" icon="fa fa-plus-circle" style="margin-bottom:10px" styleClass="raised-btn"></p:button>
+            				<p:button outcome="/test" value="Eliminar" icon="fa fa-minus-circle" style="margin-bottom:10px" styleClass="raised-btn"></p:button>
+            				<p:button outcome="/test" value="Expedient Assistencial" icon="fa fa-folder-open" style="margin-bottom:10px" styleClass="raised-btn"></p:button>
+            			</h:panelGrid>
+            		</h:form>
+                </div>   
+            </div>
+            <div class="ui-g-12 ui-lg-6">
+            	<!-- Right Side -->
+                <div class="card card-w-title">
+                <h1>Fitxa del Pacient</h1>
+                  		<h:form>
+						<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+						
+							<h:outputLabel for="ppcip" value="CIP: " />
+							<p:inplace id="ppcip" editor="false">
+				            <p:inputText value="XXXX000000" required="true" disabled="true" label="text" />
+				        	</p:inplace>
+
+							<h:outputLabel for="ppname" value="Nom: " />
+							<p:inplace id="ppname" editor="true">
+				            <p:inputText value="nom del pacient" required="true" label="text" />
+				        	</p:inplace>
+							
+							<h:outputLabel for="ppsurname1" value="Primer cognom: " />
+							<p:inplace id="ppsurname1" editor="true">
+				            <p:inputText value="cognom 1" required="true" label="text" />
+				        	</p:inplace>
+							
+							<h:outputLabel for="ppsurname2" value="Segon cognom: " />
+							<p:inplace id="ppsurname2" editor="true">
+				            <p:inputText value="cognom 2" required="true" label="text" />
+				        	</p:inplace>
+				        	
+				        	<h:outputLabel for="ppmetge" value="Metge de capcelera: " />
+							<p:inplace id="ppmetge" editor="true">
+				            <p:inputText value="nom del metge" required="true" label="text" />
+				        	</p:inplace>
+				        	
+				        	<h:outputLabel for="ppalergies" value="Al·lèrgies: " />
+				            <p:inputTextarea rows="3" placeholder="Llistat d'al·lèrgies"/>
+				        	
+				        	<h:outputLabel for="ppdiseases" value="Malalties cròniques: " />
+				            <p:inputTextarea rows="3" placeholder="Llistat de malalties"/>
+							
+							<h:outputLabel for="ppautoritzation" value="Autorització " />
+				            <p:inputSwitch />
+				        	
+				        	<h:outputLabel for="ppspdactive" value="SPD Actiu " />
+				            <p:inputSwitch />
+				        	
+				        	<h:outputLabel for="ppexitus" value="Èxitus: " />
+				            <p:inputSwitch />
+						
+							
+<!-- 						<p:commandButton action="#{#}" value="Registrar" icon="ui-icon-disk"></p:commandButton>  -->	
+							
+							<p:button outcome="/test" value="Modificar" icon="ui-icon-disk">	</p:button>
+							
+						</h:panelGrid>
+					</h:form>
+				</div>
+			</div>         
+        </div>
+        
+    </ui:define>
+
+</ui:composition>

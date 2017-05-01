@@ -62,7 +62,7 @@ public class LoginMBean implements Serializable{
 			}else{
 				activeSession.setAttribute("sessioUsuari", usuariEmpresa);
 				clearFields();
-				return "vistaEmpresaPerfil";
+				return "test";
 			}			
 		}
 	}
