@@ -131,8 +131,6 @@ public class UsuarisNegociEJB implements UsuarisNegociRemote{
 			}
 	}
 	
-
-	
 	public Collection<UsuariEmpresaJPA> llistarUsuaris (String cif){
 		@SuppressWarnings("unchecked")
 		Collection<UsuariEmpresaJPA> usuaris = entman.createQuery("FROM UsuariEmpresaJPA a WHERE a.empresa = '" + cif +"'").getResultList();

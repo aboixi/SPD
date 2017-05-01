@@ -14,50 +14,59 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpSession;
 
+import ejb.PacientsNegociRemote;
 import ejb.UsuarisNegociRemote;
+import jpa.PacientJPA;
 import jpa.UsuariEmpresaJPA;
 
-@ManagedBean (name="eliminarUsuari")
+@ManagedBean (name="eliminarPacient")
 @SessionScoped
-public class EliminarUsuariMBean implements Serializable{
+public class eliminarPacientMBean implements Serializable{
 	
-	@EJB (name="UsuarisNegociEJB")
-	UsuarisNegociRemote usuarisRemotEJB;
-	private UsuariEmpresaJPA usuari;
-	private Collection<UsuariEmpresaJPA> usuaris;
+	@EJB (name="PacientsNegociEJB")
+	PacientsNegociRemote PacientsRemotEJB;
+	private PacientJPA pacient;
+	private Collection<PacientJPA> pacients;
 	@SuppressWarnings("unused")
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 
 	public String eliminar() throws NamingException{
 		if (checkSession()){
-			String dni=usuari.getDni();
-			String cif=usuari.getEmpresa();
+			String cif=getSessionCif();
+			String cip=pacient.getCip();
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
-			usuarisRemotEJB.eliminarUsuari(cif, dni);
+			PacientsRemotEJB = (PacientsNegociRemote) ctx.lookup("java:app/SPD.jar/PacientsNegociEJB!ejb.PacientsNegociRemote");
+			PacientsRemotEJB.eliminarPacient(cip, cif);
 			clearFields();
 			return null;
 		}else{
 			return "accessError";
 		}
 	}
-	public void actualitzaFormulari(){}
+	public void consultar(){}
 	
  	public void clearFields(){
- 		setUsuari(null);
+ 		setPacient(null);
  	}
 	
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
 		
-		if (activeSession!=null && activeSession.getAttribute("sessioEmpresa")!=null){
+		if (activeSession!=null && activeSession.getAttribute("sessioUsuari")!=null){
 			return (this.sessionOK=true);
 		}else{
 			return (this.sessionOK=false);
 		}
+	}
+	
+	public String getSessionCif(){
+ 		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
+		UsuariEmpresaJPA usuari = (UsuariEmpresaJPA) activeSession.getAttribute("sessioUsuari");
+		return usuari.getEmpresa();
 	}
 
  	public void msgInfo(){
@@ -67,30 +76,27 @@ public class EliminarUsuariMBean implements Serializable{
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Revisa les dades."));
  	}
 	/**
-	 * @return the usuari
+	 * @return the pacient
 	 */
-	public UsuariEmpresaJPA getUsuari() {
-		return usuari;
+	public PacientJPA getPacient() {
+		return pacient;
 	}
-
 	/**
-	 * @param usuari the usuari to set
+	 * @param pacient the pacient to set
 	 */
-	public void setUsuari(UsuariEmpresaJPA usuari) {
-		this.usuari = usuari;
+	public void setPacient(PacientJPA pacient) {
+		this.pacient = pacient;
 	}
-
 	/**
-	 * @return the usuaris
+	 * @return the pacients
 	 */
-	public Collection<UsuariEmpresaJPA> getUsuaris() {
-		return usuaris;
+	public Collection<PacientJPA> getPacients() {
+		return pacients;
 	}
-
 	/**
-	 * @param usuaris the usuaris to set
+	 * @param pacients the pacients to set
 	 */
-	public void setUsuaris(Collection<UsuariEmpresaJPA> usuaris) {
-		this.usuaris = usuaris;
+	public void setPacients(Collection<PacientJPA> pacients) {
+		this.pacients = pacients;
 	}
 }

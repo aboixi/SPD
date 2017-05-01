@@ -18,7 +18,7 @@
 							<f:facet name="header">
 			                	Llista d'usuaris
 			                </f:facet>
-			                <p:ajax event="rowSelect" listener="#{eliminarUsuari.consultar}" update=":formulariDadesUsuari"/>
+			                <p:ajax event="rowSelect" listener="#{eliminarUsuari.actualitzaFormulari}" update=":formulariDadesUsuari"/>
 						    <p:column headerText="DNI">
 						        <h:outputText value="#{item.dni}" />
 						    </p:column>

@@ -37,8 +37,12 @@ public class PacientJPA implements Serializable {
 	private boolean spd;
 	@Column(name = "residencia")
 	private String residencia;
+	@Column(name = "nom_residencia")
+	private String nomResidencia;
 	@Column(name = "farmacia")
 	private String farmacia;
+	@Column(name = "nom_farmacia")
+	private String nomFarmacia;
 
 	/**
 	 * Relacions de persistencia
@@ -178,6 +182,20 @@ public class PacientJPA implements Serializable {
 	}
 
 	/**
+	 * @return the nomResidencia
+	 */
+	public String getNomResidencia() {
+		return nomResidencia;
+	}
+
+	/**
+	 * @param nomResidencia the nomResidencia to set
+	 */
+	public void setNomResidencia(String nomResidencia) {
+		this.nomResidencia = nomResidencia;
+	}
+
+	/**
 	 * @return the farmacia
 	 */
 	public String getFarmacia() {
@@ -189,5 +207,19 @@ public class PacientJPA implements Serializable {
 	 */
 	public void setFarmacia(String farmacia) {
 		this.farmacia = farmacia;
+	}
+
+	/**
+	 * @return the nomFarmacia
+	 */
+	public String getNomFarmacia() {
+		return nomFarmacia;
+	}
+
+	/**
+	 * @param nomFarmacia the nomFarmacia to set
+	 */
+	public void setNomFarmacia(String nomFarmacia) {
+		this.nomFarmacia = nomFarmacia;
 	}
 }

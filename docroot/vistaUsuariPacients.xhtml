@@ -12,12 +12,17 @@
             <div class="ui-g-12 ui-lg-6">
             	<!-- Left Side -->
                 <div class="card card-w-title">
-                <h1>Llistat de pacients</h1>
+					<h1>Pacients</h1>
                     <h:form id="formulariLlistaPacients">
-						<p:dataTable id="taulaPacients" var="item" value="#{llistarPacients.pacients}" selectionMode="single" selection="#{#}" rowKey="#{item.cognom1}">
+						<p:dataTable id="llistaPacients" var="item" value="#{llistarPacients.pacients}" selectionMode="single" selection="#{eliminarPacient.pacient}" rowKey="#{item.cip}">
 							<f:facet name="header">
-			                	Pacients
+			                	Llista d'usuaris
 			                </f:facet>
+			                <p:ajax event="rowSelect" listener="#{#}" update=":formulariLlistaPacients"/>
+			                
+						    <p:column headerText="CIP">
+						        <h:outputText value="#{item.cip}" />
+						    </p:column>
 						    
 						    <p:column headerText="Nom">
 						        <h:outputText value="#{item.nom}" />
@@ -31,30 +36,19 @@
 						        <h:outputText value="#{item.cognom2}" />
 						    </p:column>
 						    
-						    <p:column headerText="Ubicacio">
-						        <h:outputText value="#{item.residencia}" />
+						    <p:column headerText="Residencia">
+						        <h:outputText value="#{item.nomResidencia}" />
 						    </p:column>
 						    
 						    <p:column headerText="Farmacia">
-						        <h:outputText value="#{item.farmacia}" />
+						        <h:outputText value="#{item.nomFarmacia}" />
 						    </p:column>
 
-			<!--			    <f:facet name="footer">
-						    	<h:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
-				            		<p:commandButton actionListener="#{#}" value="Agregar" update="workersform"></p:commandButton>
-				            		<p:commandButton actionListener="#{#}" value="Modificar" update="workersform"></p:commandButton>
-				            		<p:commandButton actionListener="#{#}" value="Eliminar" update="workersform"></p:commandButton>
-			            		</h:panelGrid>
-			        		</f:facet>
-			  -->
 							</p:dataTable>
-            		</h:form>
-            		<h:form>
-            			<h:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
-							<p:button outcome="/test" value="Agregar" icon="fa fa-plus-circle" style="margin-bottom:10px" styleClass="raised-btn"></p:button>
-            				<p:button outcome="/test" value="Eliminar" icon="fa fa-minus-circle" style="margin-bottom:10px" styleClass="raised-btn"></p:button>
-            				<p:button outcome="/test" value="Expedient Assistencial" icon="fa fa-folder-open" style="margin-bottom:10px" styleClass="raised-btn"></p:button>
-            			</h:panelGrid>
+							
+            			<h:panelGrid columns="4" layout="grid" styleClass="ui-panelgrid-blank form-group">
+	  						<p:commandButton actionListener="#{eliminarPacient.eliminar}" action="#{llistarPacients.llistar}" value="Eliminar" icon="fa fa-minus-circle" update="formulariLlistaPacients" style="margin-bottom:10px" styleClass="raised-btn"/>
+	        			</h:panelGrid>
             		</h:form>
                 </div>   
             </div>
@@ -106,8 +100,7 @@
 				            <p:inputSwitch />
 						
 							
-<!-- 						<p:commandButton action="#{#}" value="Registrar" icon="ui-icon-disk"></p:commandButton>  -->	
-							
+					
 							<p:button outcome="/test" value="Modificar" icon="ui-icon-disk">	</p:button>
 							
 						</h:panelGrid>

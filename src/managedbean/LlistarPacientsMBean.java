@@ -13,7 +13,6 @@ import javax.naming.InitialContext;
 import javax.servlet.http.HttpSession;
 
 import ejb.PacientsNegociRemote;
-import jpa.EmpresaJPA;
 import jpa.PacientJPA;
 import jpa.UsuariEmpresaJPA;
 
