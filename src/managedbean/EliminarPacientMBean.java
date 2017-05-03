@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Properties;
 
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -15,13 +14,12 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpSession;
 
 import ejb.PacientsNegociRemote;
-import ejb.UsuarisNegociRemote;
 import jpa.PacientJPA;
 import jpa.UsuariEmpresaJPA;
 
 @ManagedBean (name="eliminarPacient")
 @SessionScoped
-public class eliminarPacientMBean implements Serializable{
+public class EliminarPacientMBean implements Serializable{
 	
 	@EJB (name="PacientsNegociEJB")
 	PacientsNegociRemote PacientsRemotEJB;
@@ -30,7 +28,7 @@ public class eliminarPacientMBean implements Serializable{
 	@SuppressWarnings("unused")
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
-
+	
 	public String eliminar() throws NamingException{
 		if (checkSession()){
 			String cif=getSessionCif();
@@ -45,8 +43,9 @@ public class eliminarPacientMBean implements Serializable{
 			return "accessError";
 		}
 	}
-	public void consultar(){}
 	
+	public void actualitzar(){}
+		
  	public void clearFields(){
  		setPacient(null);
  	}
@@ -68,7 +67,7 @@ public class eliminarPacientMBean implements Serializable{
 		UsuariEmpresaJPA usuari = (UsuariEmpresaJPA) activeSession.getAttribute("sessioUsuari");
 		return usuari.getEmpresa();
 	}
-
+/*
  	public void msgInfo(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Canvi correcte."));
  	}
@@ -98,5 +97,5 @@ public class eliminarPacientMBean implements Serializable{
 	 */
 	public void setPacients(Collection<PacientJPA> pacients) {
 		this.pacients = pacients;
-	}
+	}	
 }

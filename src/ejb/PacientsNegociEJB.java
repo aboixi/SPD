@@ -13,10 +13,9 @@ import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
+import javax.persistence.PersistenceException;
 import jpa.EmpresaJPA;
 import jpa.PacientJPA;
-import jpa.UsuariEmpresaJPA;
 
 
 @Stateless
@@ -53,5 +52,34 @@ public class PacientsNegociEJB implements PacientsNegociRemote{
 		}else{
 			return pacients;
 		}	
+	}
+	
+	public String modificarPacient(String cip, String nom, String cognom1, String cognom2, String farmacia, String malalties, 
+			String alergies, String metge, boolean autoritzacio, boolean spd, boolean hospitalitzat, boolean exitus)throws PersistenceException{
+		PacientJPA pacient = entman.find(PacientJPA.class, cip);
+		EmpresaJPA empresa = entman.find(EmpresaJPA.class, farmacia);
+		pacient.setNom(nom);
+		pacient.setCognom1(cognom1);
+		pacient.setCognom2(cognom2);
+		pacient.setFarmacia(farmacia);
+		pacient.setNomFarmacia(empresa.getNom());
+		pacient.setMalalties(malalties);
+		pacient.setAlergies(alergies);
+		pacient.setMetge(metge);
+		pacient.setSpd(spd);
+		try{
+			entman.merge(pacient);
+			entman.flush();
+			entman.refresh(pacient);
+			return "canviCorrecte";
+		}catch (PersistenceException e) {
+			System.out.println(e);
+			return "persistenceException";
+		}
+	}
+	public Collection<EmpresaJPA> consultarFarmacies(){
+		@SuppressWarnings("unchecked")
+		Collection<EmpresaJPA> farmacies = entman.createQuery("FROM EmpresaJPA e WHERE e.tipus = 'Farmacia'").getResultList();
+		return farmacies;
 	}
 }

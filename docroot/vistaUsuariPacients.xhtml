@@ -18,8 +18,7 @@
 							<f:facet name="header">
 			                	Llista d'usuaris
 			                </f:facet>
-			                <p:ajax event="rowSelect" listener="#{#}" update=":formulariLlistaPacients"/>
-			                
+			                <p:ajax event="rowSelect" listener="#{modificarPacient.consultaFarmacies}" update="formulariDadesPacient"/>
 						    <p:column headerText="CIP">
 						        <h:outputText value="#{item.cip}" />
 						    </p:column>
@@ -52,61 +51,72 @@
             		</h:form>
                 </div>   
             </div>
-            <div class="ui-g-12 ui-lg-6">
+               <div class="ui-g-12 ui-lg-6">
             	<!-- Right Side -->
                 <div class="card card-w-title">
-                <h1>Fitxa del Pacient</h1>
-                  		<h:form>
+                <h1>Dades</h1>
+                  		<h:form id="formulariDadesPacient">
+                  		<p:messages showDetail="true" showSummary="false" autoUpdate="true" closable="false" />
 						<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
 						
 							<h:outputLabel for="ppcip" value="CIP: " />
 							<p:inplace id="ppcip" editor="false">
-				            <p:inputText value="XXXX000000" required="true" disabled="true" label="text" />
+				            <p:inputText value="#{eliminarPacient.pacient.cip}" required="true" disabled="true" label="text" />
 				        	</p:inplace>
 
 							<h:outputLabel for="ppname" value="Nom: " />
 							<p:inplace id="ppname" editor="true">
-				            <p:inputText value="nom del pacient" required="true" label="text" />
+				            <p:inputText value="#{eliminarPacient.pacient.nom}" required="true" label="text" />
 				        	</p:inplace>
 							
 							<h:outputLabel for="ppsurname1" value="Primer cognom: " />
 							<p:inplace id="ppsurname1" editor="true">
-				            <p:inputText value="cognom 1" required="true" label="text" />
+				            <p:inputText value="#{eliminarPacient.pacient.cognom1}" required="true" label="text" />
 				        	</p:inplace>
 							
 							<h:outputLabel for="ppsurname2" value="Segon cognom: " />
 							<p:inplace id="ppsurname2" editor="true">
-				            <p:inputText value="cognom 2" required="true" label="text" />
+				            <p:inputText value="#{eliminarPacient.pacient.cognom2}" required="true" label="text" />
 				        	</p:inplace>
 				        	
 				        	<h:outputLabel for="ppmetge" value="Metge de capcelera: " />
 							<p:inplace id="ppmetge" editor="true">
-				            <p:inputText value="nom del metge" required="true" label="text" />
+				            <p:inputText value="#{eliminarPacient.pacient.metge}" required="false" label="text" />
 				        	</p:inplace>
-				        	
-				        	<h:outputLabel for="ppalergies" value="Al·lèrgies: " />
-				            <p:inputTextarea rows="3" placeholder="Llistat d'al·lèrgies"/>
+				        </h:panelGrid>
+						<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+			        		<h:outputLabel for="ppalergies" value="Al·lèrgies: " />
+				            <p:inputTextarea rows="3" placeholder="Llistat d'al·lèrgies" value="#{eliminarPacient.pacient.alergies}"/>
 				        	
 				        	<h:outputLabel for="ppdiseases" value="Malalties cròniques: " />
-				            <p:inputTextarea rows="3" placeholder="Llistat de malalties"/>
+				            <p:inputTextarea rows="3" placeholder="Llistat de malalties" value="#{eliminarPacient.pacient.malalties}"/>
 							
 							<h:outputLabel for="ppautoritzation" value="Autorització " />
 				            <p:inputSwitch />
 				        	
 				        	<h:outputLabel for="ppspdactive" value="SPD Actiu " />
-				            <p:inputSwitch />
-				        	
-				        	<h:outputLabel for="ppexitus" value="Èxitus: " />
-				            <p:inputSwitch />
-						
+				            <p:inputSwitch value="#{eliminarPacient.pacient.spd}"/>
+
+				            <h:outputLabel for="pphospital" value="Hospitalitzat " />
+				            <p:inputSwitch value="#{eliminarPacient.pacient.hospitalitzat}"/>
+				            				        	
+				        	<h:outputLabel for="ppexitus" value="Èxitus " />
+				            <p:inputSwitch value="#{eliminarPacient.pacient.exitus}"/>
+				            
+		           			<h:outputLabel for="eafarmacia" value="Farmàcia assignada: " />
+		           			<p:selectOneMenu id="eafarmacia" value="" style="margin-bottom:10px;">
+		           			<f:selectItem itemLabel="#{eliminarPacient.pacient.nomFarmacia}" itemValue="#{eliminarPacient.pacient.nomFarmacia}" />
+            				<f:selectItems value="#{modificarPacient.llistaNomsFarmacies}" />
+                       		</p:selectOneMenu>
+ 
+<!-- 						<p:commandButton action="#{#}" value="Registrar" icon="ui-icon-disk"></p:commandButton>  -->	
 							
-					
 							<p:button outcome="/test" value="Modificar" icon="ui-icon-disk">	</p:button>
 							
 						</h:panelGrid>
 					</h:form>
 				</div>
-			</div>         
+			</div>   
         </div>
         
     </ui:define>

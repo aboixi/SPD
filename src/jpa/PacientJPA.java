@@ -43,7 +43,12 @@ public class PacientJPA implements Serializable {
 	private String farmacia;
 	@Column(name = "nom_farmacia")
 	private String nomFarmacia;
-
+	@Column(name = "autoritzacio")
+	private String autoritzacio;
+	@Column(name = "hospitalitzat")
+	private String hospitalitzat;
+	@Column(name = "exitus")
+	private String exitus;
 	/**
 	 * Relacions de persistencia
 	 */
@@ -221,5 +226,47 @@ public class PacientJPA implements Serializable {
 	 */
 	public void setNomFarmacia(String nomFarmacia) {
 		this.nomFarmacia = nomFarmacia;
+	}
+
+	/**
+	 * @return the autoritzacio
+	 */
+	public String getAutoritzacio() {
+		return autoritzacio;
+	}
+
+	/**
+	 * @param autoritzacio the autoritzacio to set
+	 */
+	public void setAutoritzacio(String autoritzacio) {
+		this.autoritzacio = autoritzacio;
+	}
+
+	/**
+	 * @return the hospitalitzat
+	 */
+	public String getHospitalitzat() {
+		return hospitalitzat;
+	}
+
+	/**
+	 * @param hospitalitzat the hospitalitzat to set
+	 */
+	public void setHospitalitzat(String hospitalitzat) {
+		this.hospitalitzat = hospitalitzat;
+	}
+
+	/**
+	 * @return the exitus
+	 */
+	public String getExitus() {
+		return exitus;
+	}
+
+	/**
+	 * @param exitus the exitus to set
+	 */
+	public void setExitus(String exitus) {
+		this.exitus = exitus;
 	}
 }

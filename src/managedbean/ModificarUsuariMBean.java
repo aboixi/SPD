@@ -30,17 +30,17 @@ public class ModificarUsuariMBean implements Serializable{
 	
 	public String modificar() throws Exception{
 		if (checkSession()){
-		Properties props = System.getProperties();
-		Context ctx = new InitialContext(props);
-		usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
-		String missatge=usuarisRemotEJB.modificarUsuari(eliminarUsuariMBean.getUsuari().getDni(), eliminarUsuariMBean.getUsuari().getNom(), eliminarUsuariMBean.getUsuari().getCognom1(), eliminarUsuariMBean.getUsuari().getCognom2(), eliminarUsuariMBean.getUsuari().getTelefon(), eliminarUsuariMBean.getUsuari().getClau());
-		if (missatge.equals("canviCorrecte")){
-			msgInfo();
-			return "vistaEmpresaUsuaris";
-		}else{
-			msgError();
-			return "vistaEmpresaUsuaris";
-		}
+			Properties props = System.getProperties();
+			Context ctx = new InitialContext(props);
+			usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
+			String missatge=usuarisRemotEJB.modificarUsuari(eliminarUsuariMBean.getUsuari().getDni(), eliminarUsuariMBean.getUsuari().getNom(), eliminarUsuariMBean.getUsuari().getCognom1(), eliminarUsuariMBean.getUsuari().getCognom2(), eliminarUsuariMBean.getUsuari().getTelefon(), eliminarUsuariMBean.getUsuari().getClau());
+			if (missatge.equals("canviCorrecte")){
+				msgInfo();
+				return "vistaEmpresaUsuaris";
+			}else{
+				msgError();
+				return "vistaEmpresaUsuaris";
+			}
 		}else{
 			return "accessError";
 		}
