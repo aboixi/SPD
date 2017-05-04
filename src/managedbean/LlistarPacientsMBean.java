@@ -75,11 +75,4 @@ public class LlistarPacientsMBean implements Serializable{
 		UsuariEmpresaJPA usuari = (UsuariEmpresaJPA) activeSession.getAttribute("sessioUsuari");
 		return usuari.getEmpresa();
 	}
-	
-	public void setSessionLlistaUsuaris(Collection<UsuariEmpresaJPA> usuaris){
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
-		activeSession.removeAttribute("usuarisEmpresa");
-		activeSession.setAttribute("usuarisEmpresa", usuaris);
-	}
 }

@@ -46,6 +46,7 @@
 							</p:dataTable>
 							
             			<h:panelGrid columns="4" layout="grid" styleClass="ui-panelgrid-blank form-group">
+            				<p:button outcome="/vistaUsuariNouPacient" value="Agregar" icon="fa fa-plus-circle" style="margin-bottom:10px" styleClass="raised-btn"></p:button>
 	  						<p:commandButton actionListener="#{eliminarPacient.eliminar}" action="#{llistarPacients.llistar}" value="Eliminar" icon="fa fa-minus-circle" update="formulariLlistaPacients" style="margin-bottom:10px" styleClass="raised-btn"/>
 	        			</h:panelGrid>
             		</h:form>

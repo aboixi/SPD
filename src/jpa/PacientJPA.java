@@ -60,6 +60,25 @@ public class PacientJPA implements Serializable {
 		super();
 	}
 
+	public PacientJPA(String cip, String nom, String cognom1, String cognom2, String metge, String alergies,
+			String malalties, boolean spd, boolean autoritzacio, boolean hospitalitzat, String cifResidencia, String nomResidencia) {
+		super();
+		this.cip = cip;
+		this.nom = nom;
+		this.cognom1 = cognom1;
+		this.cognom2 = cognom2;
+		this.metge = metge;
+		this.alergies = alergies;
+		this.malalties = malalties;
+		this.spd = spd;
+		this.autoritzacio = autoritzacio;
+		this.hospitalitzat = hospitalitzat;
+		this.residencia = cifResidencia;
+		this.nomResidencia = nomResidencia;
+		this.farmacia="00000000F";
+		this.nomFarmacia="NINGUNA FARMACIA";
+	}
+
 	/**
 	 * @return the cip
 	 */

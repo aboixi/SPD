@@ -17,7 +17,6 @@ import javax.persistence.PersistenceException;
 import jpa.EmpresaJPA;
 import jpa.PacientJPA;
 
-
 @Stateless
 public class PacientsNegociEJB implements PacientsNegociRemote{
 	@PersistenceContext(unitName="SPD") 
@@ -132,5 +131,31 @@ public class PacientsNegociEJB implements PacientsNegociRemote{
 		@SuppressWarnings("unchecked")
 		Collection<EmpresaJPA> farmacies = entman.createQuery("FROM EmpresaJPA e WHERE e.tipus = 'Farmacia'").getResultList();
 		return farmacies;
+	}
+	
+	public String crearPacient (String cip, String nom, String cognom1, String cognom2, String malalties,String alergies, String metge, 
+			String cifResidencia, String nomResidencia, String cifFarmacia, String nomFarmacia, boolean autoritzacio, boolean spd, boolean hospitalitzat, boolean exitus)
+					throws PersistenceException{	
+		PacientJPA pacient = null;
+		
+		try{
+			pacient = entman.find(PacientJPA.class, cip);
+		}catch (PersistenceException e){
+			System.out.println(e);
+		}
+		
+		if (pacient==null){
+			pacient = new PacientJPA(cip, nom, cognom1, cognom2, metge, alergies, malalties, spd, autoritzacio, hospitalitzat, cifResidencia, nomResidencia);
+			pacient.setFarmacia(cifFarmacia);
+			pacient.setNomFarmacia(nomFarmacia);
+			entman.persist(pacient);
+			return "procesCorrecte";
+		}else{
+			return "pacientExistent";
+		}
+	}
+	public EmpresaJPA consultarEmpresa(String cif){
+		EmpresaJPA empresa = entman.find(EmpresaJPA.class, cif);
+		return empresa;
 	}
 }
