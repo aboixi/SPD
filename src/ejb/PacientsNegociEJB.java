@@ -36,8 +36,7 @@ public class PacientsNegociEJB implements PacientsNegociRemote{
 		PacientJPA pacient = entman.find(PacientJPA.class, cip);
 		@SuppressWarnings("unchecked")
 		Collection<PacientJPA> pacients = entman.createQuery("FROM PacientJPA p WHERE p.residencia = '" + cif +"' "+" OR p.farmacia = '" + cif +"'").getResultList();
-		if (empresa.getTipus().equals("Residencia")
-				&& pacient.getResidencia().equals(empresa.getCif())){
+		if (empresa.getTipus().equals("Residencia")&& pacient.getResidencia().equals(empresa.getCif())){
 			Iterator<PacientJPA> iter = pacients.iterator();
 			boolean trobat = false;
 			while (iter.hasNext()&&!(trobat)){
@@ -49,34 +48,86 @@ public class PacientsNegociEJB implements PacientsNegociRemote{
 				}
 			}
 			return pacients;
-		}else{
+			
+		}else if(empresa.getTipus().equals("Farmacia")&& pacient.getResidencia().equals(empresa.getCif())){
+			Iterator<PacientJPA> iter = pacients.iterator();
+			boolean trobat = false;
+			while (iter.hasNext()&&!(trobat)){
+				pacient = iter.next();
+				if(pacient.getCip().equals(cip)){
+					entman.remove(pacient);
+					pacients.remove(pacient);
+					trobat=true;
+				}
+			}
 			return pacients;
-		}	
+		}
+		return pacients;	
 	}
 	
-	public String modificarPacient(String cip, String nom, String cognom1, String cognom2, String farmacia, String malalties, 
+	public String modificarPacient(String cif, String cip, String nom, String cognom1, String cognom2, String nomFarmacia, String cifFarmacia, String malalties, 
 			String alergies, String metge, boolean autoritzacio, boolean spd, boolean hospitalitzat, boolean exitus)throws PersistenceException{
 		PacientJPA pacient = entman.find(PacientJPA.class, cip);
-		EmpresaJPA empresa = entman.find(EmpresaJPA.class, farmacia);
-		pacient.setNom(nom);
-		pacient.setCognom1(cognom1);
-		pacient.setCognom2(cognom2);
-		pacient.setFarmacia(farmacia);
-		pacient.setNomFarmacia(empresa.getNom());
-		pacient.setMalalties(malalties);
-		pacient.setAlergies(alergies);
-		pacient.setMetge(metge);
-		pacient.setSpd(spd);
-		try{
-			entman.merge(pacient);
-			entman.flush();
-			entman.refresh(pacient);
-			return "canviCorrecte";
-		}catch (PersistenceException e) {
-			System.out.println(e);
-			return "persistenceException";
+		EmpresaJPA empresa = entman.find(EmpresaJPA.class, cif);
+		EmpresaJPA farmacia = entman.find(EmpresaJPA.class, cifFarmacia);
+		String nouCif=cifFarmacia;
+		if (!(farmacia.getNom().equals(nomFarmacia))){
+			try{
+				String query = "SELECT f.cif "+"FROM EmpresaJPA f "+"WHERE f.nom = '" + nomFarmacia +"'";
+				nouCif = entman.createQuery(query, String.class).getSingleResult();
+			}catch (PersistenceException e) {
+				System.out.println(e);
+			}	
 		}
+		
+		if (empresa.getTipus().equals("Residencia")&& pacient.getResidencia().equals(empresa.getCif())){
+			pacient.setNom(nom);
+			pacient.setCognom1(cognom1);
+			pacient.setCognom2(cognom2);
+			pacient.setNomFarmacia(nomFarmacia);
+			pacient.setFarmacia(nouCif);
+			pacient.setMalalties(malalties);
+			pacient.setAlergies(alergies);
+			pacient.setMetge(metge);
+			pacient.setAutoritzacio(autoritzacio);
+			pacient.setSpd(spd);
+			pacient.setHospitalitzat(hospitalitzat);
+			pacient.setExitus(exitus);		
+			try{
+				entman.merge(pacient);
+				entman.flush();
+				entman.refresh(pacient);
+				return "canviCorrecte";
+			}catch (PersistenceException e) {
+				System.out.println(e);
+				return "persistenceException";
+			}
+		}else if (empresa.getTipus().equals("Farmacia")&& pacient.getResidencia().equals(empresa.getCif())){
+			pacient.setNom(nom);
+			pacient.setCognom1(cognom1);
+			pacient.setCognom2(cognom2);
+			pacient.setNomFarmacia(nomFarmacia);
+			pacient.setFarmacia(nouCif);
+			pacient.setMalalties(malalties);
+			pacient.setAlergies(alergies);
+			pacient.setMetge(metge);
+			pacient.setAutoritzacio(autoritzacio);
+			pacient.setSpd(spd);
+			pacient.setHospitalitzat(hospitalitzat);
+			pacient.setExitus(exitus);		
+			try{
+				entman.merge(pacient);
+				entman.flush();
+				entman.refresh(pacient);
+				return "canviCorrecte";
+			}catch (PersistenceException e) {
+				System.out.println(e);
+				return "persistenceException";
+			}
+		}
+		return "canviNoGuardat";
 	}
+	
 	public Collection<EmpresaJPA> consultarFarmacies(){
 		@SuppressWarnings("unchecked")
 		Collection<EmpresaJPA> farmacies = entman.createQuery("FROM EmpresaJPA e WHERE e.tipus = 'Farmacia'").getResultList();

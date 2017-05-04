@@ -37,25 +37,30 @@ public class ModificarPacientMBean implements Serializable{
 	
 	public String modificar() throws Exception{
 		if (checkSession()){
+			String cif = getSessionCif();
 			consultaFarmacies();
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
 			pacientsRemotEJB = (PacientsNegociRemote) ctx.lookup("java:app/SPD.jar/PacientsNegociEJB!ejb.PacientsNegociRemote");
 			String missatge=null;
-			//		String missatge=pacientsRemotEJB.modificarUsuari(eliminarPacientMBean.getPacient().getCip(), eliminarPacientMBean.getPacient().getNom(), eliminarPacientMBean.getUsuari().getCognom1(), eliminarUsuariMBean.getUsuari().getCognom2(), eliminarUsuariMBean.getUsuari().getTelefon(), eliminarUsuariMBean.getUsuari().getClau());
+			missatge=pacientsRemotEJB.modificarPacient(cif, eliminarPacientMBean.getPacient().getCip(),eliminarPacientMBean.getPacient().getNom(),eliminarPacientMBean.getPacient().getCognom1(),eliminarPacientMBean.getPacient().getCognom2(),
+					eliminarPacientMBean.getPacient().getNomFarmacia(),eliminarPacientMBean.getPacient().getFarmacia(),eliminarPacientMBean.getPacient().getMalalties(),eliminarPacientMBean.getPacient().getAlergies(),eliminarPacientMBean.getPacient().getMetge(),eliminarPacientMBean.getPacient().getAutoritzacio(),
+					eliminarPacientMBean.getPacient().isSpd(),eliminarPacientMBean.getPacient().getHospitalitzat(),eliminarPacientMBean.getPacient().getExitus());
 			if (missatge.equals("canviCorrecte")){
 				msgInfo();
-				return "vistaEmpresaUsuaris";
-			}else{
+				return "vistaUsuariPacients";
+			}else if (missatge.equals("canviNoGuardat")){
 				msgError();
-				return "vistaEmpresaUsuaris";
+				return "vistaUsuariPacients";
 			}
 		}else{
 			return "accessError";
 		}
+		return null;
 	}
 	
 	public void consultaFarmacies() throws NamingException{
+		clearFields();//Evita que aparegui el llistat de farmacies quan l'usuari es d'una.
 		this.farmacies=null;
 		EmpresaJPA farmacia = null;
 		if (comprovaTipusUsuari().equals("Residencia")){
@@ -85,11 +90,15 @@ public class ModificarPacientMBean implements Serializable{
 		}
 	}
 	
+ 	public void clearFields(){
+ 		setLlistaNomsFarmacies(null);
+ 	}
+	
  	public void msgInfo(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Canvi correcte."));
  	}
  	public void msgError(){
- 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Revisa les dades."));
+ 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No estas autoritzat a modificar l'usuari."));
  	}
  	
 	public boolean checkSession(){
@@ -101,6 +110,13 @@ public class ModificarPacientMBean implements Serializable{
 		}else{
 			return (this.sessionOK=false);
 		}
+	}
+	
+	public String getSessionCif(){
+ 		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
+		UsuariEmpresaJPA usuari = (UsuariEmpresaJPA) activeSession.getAttribute("sessioUsuari");
+		return usuari.getEmpresa();
 	}
 
 	/**
@@ -158,5 +174,4 @@ public class ModificarPacientMBean implements Serializable{
 	public void setLlistaNomsFarmacies(String[] llistaNomsFarmacies) {
 		this.llistaNomsFarmacies = llistaNomsFarmacies;
 	}
-	
 }

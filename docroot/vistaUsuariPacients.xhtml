@@ -86,33 +86,31 @@
 				        </h:panelGrid>
 						<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
 			        		<h:outputLabel for="ppalergies" value="Al·lèrgies: " />
-				            <p:inputTextarea rows="3" placeholder="Llistat d'al·lèrgies" value="#{eliminarPacient.pacient.alergies}"/>
+				            <p:inputTextarea id="ppalergies" rows="3" placeholder="Llistat d'al·lèrgies" value="#{eliminarPacient.pacient.alergies}"/>
 				        	
 				        	<h:outputLabel for="ppdiseases" value="Malalties cròniques: " />
-				            <p:inputTextarea rows="3" placeholder="Llistat de malalties" value="#{eliminarPacient.pacient.malalties}"/>
+				            <p:inputTextarea id="ppdiseases" rows="3" placeholder="Llistat de malalties" value="#{eliminarPacient.pacient.malalties}"/>
 							
 							<h:outputLabel for="ppautoritzation" value="Autorització " />
-				            <p:inputSwitch />
+				            <p:inputSwitch id="ppautoritzation" value="#{eliminarPacient.pacient.autoritzacio}"/>
 				        	
 				        	<h:outputLabel for="ppspdactive" value="SPD Actiu " />
-				            <p:inputSwitch value="#{eliminarPacient.pacient.spd}"/>
+				            <p:inputSwitch id="ppspdactive"  value="#{eliminarPacient.pacient.spd}"/>
 
 				            <h:outputLabel for="pphospital" value="Hospitalitzat " />
-				            <p:inputSwitch value="#{eliminarPacient.pacient.hospitalitzat}"/>
+				            <p:inputSwitch id="pphospital" value="#{eliminarPacient.pacient.hospitalitzat}"/>
 				            				        	
 				        	<h:outputLabel for="ppexitus" value="Èxitus " />
-				            <p:inputSwitch value="#{eliminarPacient.pacient.exitus}"/>
+				            <p:inputSwitch id="ppexitus" value="#{eliminarPacient.pacient.exitus}"/>
 				            
 		           			<h:outputLabel for="eafarmacia" value="Farmàcia assignada: " />
-		           			<p:selectOneMenu id="eafarmacia" value="" style="margin-bottom:10px;">
+		           			<p:selectOneMenu id="eafarmacia" value="#{eliminarPacient.pacient.nomFarmacia}" style="margin-bottom:10px;">
 		           			<f:selectItem itemLabel="#{eliminarPacient.pacient.nomFarmacia}" itemValue="#{eliminarPacient.pacient.nomFarmacia}" />
             				<f:selectItems value="#{modificarPacient.llistaNomsFarmacies}" />
                        		</p:selectOneMenu>
  
-<!-- 						<p:commandButton action="#{#}" value="Registrar" icon="ui-icon-disk"></p:commandButton>  -->	
-							
-							<p:button outcome="/test" value="Modificar" icon="ui-icon-disk">	</p:button>
-							
+							<p:commandButton actionListener="#{modificarPacient.modificar}" action="#{llistarPacients.llistar}" value="Guardar" icon="ui-icon-disk" update=":formulariLlistaPacients" style="margin-bottom:10px" styleClass="raised-btn"/>
+						
 						</h:panelGrid>
 					</h:form>
 				</div>
