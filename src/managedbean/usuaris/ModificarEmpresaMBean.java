@@ -1,4 +1,4 @@
-package managedbean;
+package managedbean.usuaris;
 
 import java.io.Serializable;
 import java.util.Properties;
@@ -9,12 +9,14 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.servlet.http.HttpSession;
 
 import ejb.UsuarisNegociRemote;
+import jpa.EmpresaJPA;
 
-@ManagedBean(name = "registrarEmpresa")
+@ManagedBean(name = "modificarEmpresa")
 @SessionScoped
-public class RegistrarEmpresaMBean implements Serializable{
+public class ModificarEmpresaMBean implements Serializable{
 
 	@EJB(name="UsuarisNegociEJB")
 	UsuarisNegociRemote usuarisRemotEJB;
@@ -28,33 +30,70 @@ public class RegistrarEmpresaMBean implements Serializable{
 	private String correu;
 	private String contacte;
 	private String clau;
-	private String tipus;
+	@SuppressWarnings("unused")
+	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;	
 
- 	public void registrar() throws Exception{
-		Properties props = System.getProperties();
-		Context ctx = new InitialContext(props);
-		usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
-		String missatge=usuarisRemotEJB.registrarEmpresa(cif, nom, poblacio, carrer, cp, telefon, fax, correu, clau, contacte, tipus);
-		if (missatge.equals("registreCorrecte")){
-			msgCorrecte();
-		}else if(missatge.equals("errorEmpresaExistent")){
-			msgAvis();
-		}else if(missatge.equals("errorCorreuRepetit")){
-			msgError();
+ 	public String modificar() throws Exception{
+ 		if (checkSession()){
+ 			donarValorAtributs();
+ 			Properties props = System.getProperties();
+ 			Context ctx = new InitialContext(props);
+ 			usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
+ 			EmpresaJPA empresa=usuarisRemotEJB.modificarEmpresa(cif, nom, poblacio, carrer, cp, telefon, fax, correu, clau, contacte);
+ 			actualitzarUsuariSessio(empresa);
+ 			msgInfo();
+ 			return "vistaEmpresaPerfil";
+ 		}else{
+ 			return "accessError";
+ 		}
+	}
+ 	
+ 	public void actualitzarUsuariSessio(EmpresaJPA empresa){
+ 		FacesContext facesContext = FacesContext.getCurrentInstance();
+ 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
+ 		activeSession.setAttribute("sessioEmpresa", empresa);
+ 	}
+ 	public boolean compara(EmpresaJPA emp){
+ 		boolean sonIguals=false;
+ 		if(this.nom.equals(emp.getNom())&&this.poblacio.equals(emp.getPoblacio())&&this.carrer.equals(emp.getCarrer())&&
+ 				this.cp.equals(emp.getCp())&&this.telefon.equals(emp.getTelefon())&&this.fax.equals(emp.getFax())
+ 				&&this.correu.equals(emp.getCorreu())&&this.clau.equals(emp.getClau())&&this.contacte.equals(emp.getContacte())){
+ 			return sonIguals;
+ 		}else{
+ 			return sonIguals=false;
+ 		}
+ 	}
+ 	
+ 	public void donarValorAtributs(){
+ 		FacesContext facesContext = FacesContext.getCurrentInstance();
+ 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
+ 		EmpresaJPA empresa = (EmpresaJPA) activeSession.getAttribute("sessioEmpresa");
+ 		this.cif=empresa.getCif();
+ 		this.nom=empresa.getNom();
+ 		this.poblacio=empresa.getPoblacio();
+ 		this.carrer=empresa.getCarrer();
+ 		this.cp=empresa.getCp();
+ 		this.telefon=empresa.getTelefon();
+ 		this.fax=empresa.getFax();
+ 		this.correu=empresa.getCorreu();
+ 		this.contacte=empresa.getContacte();
+ 		this.clau=empresa.getClau();
+ 	}
+ 	
+	public boolean checkSession(){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
+		
+		if (activeSession!=null && activeSession.getAttribute("sessioEmpresa")!=null){
+			return (this.sessionOK=true);
+		}else{
+			return (this.sessionOK=false);
 		}
 	}
-	
- 	public void msgCorrecte(){
- 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Registre correcte, apreta el botó de Sortir."));
- 	}
  	
- 	public void msgAvis(){
- 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Avís", "L'empresa ja està registrada."));
- 	}
- 	
- 	public void msgError(){
- 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Tria un altre correu electrònic"));
+ 	public void msgInfo(){
+ 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Operació efectuada."));
  	}
 
 	/**
@@ -196,32 +235,4 @@ public class RegistrarEmpresaMBean implements Serializable{
 	public void setClau(String clau) {
 		this.clau = clau;
 	}
-
-	/**
-	 * @return the tipus
-	 */
-	public String getTipus() {
-		return tipus;
-	}
-
-	/**
-	 * @param tipus the tipus to set
-	 */
-	public void setTipus(String tipus) {
-		this.tipus = tipus;
-	}
 }
-/**
-	public String registrar() throws Exception{
-	Properties props = System.getProperties();
-	Context ctx = new InitialContext(props);
-	usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
-	if (usuarisRemotEJB.registrarEmpresa(cif, nom, poblacio, carrer, cp, telefon, fax, correu, clau, contacte, tipus)){
-		msgCorrecte();
-		return "vistaLogin";
-	}else{
-		msgError();
-		return null;
-	}
-}
-*/

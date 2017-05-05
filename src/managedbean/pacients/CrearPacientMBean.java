@@ -1,4 +1,4 @@
-package managedbean;
+package managedbean.pacients;
 
 import java.io.Serializable;
 import java.util.Properties;

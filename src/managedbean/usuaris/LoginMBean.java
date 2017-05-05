@@ -3,7 +3,7 @@
  * @author Albert Boix Isern
  */
 
-package managedbean;
+package managedbean.usuaris;
 
 import java.io.Serializable;
 import java.util.Properties;

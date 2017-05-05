@@ -1,61 +1,63 @@
-package managedbean;
+package managedbean.pacients;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Properties;
 
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpSession;
 
 import ejb.PacientsNegociRemote;
 import jpa.PacientJPA;
 import jpa.UsuariEmpresaJPA;
 
-@ManagedBean (name="eliminarPacient")
+/**
+ * Bean per llistar els usuaris vinculats a la empresa.
+ */
+@ManagedBean (name="llistarPacients")
 @SessionScoped
-public class EliminarPacientMBean implements Serializable{
+public class LlistarPacientsMBean implements Serializable{
 	
 	@EJB (name="PacientsNegociEJB")
-	PacientsNegociRemote PacientsRemotEJB;
-	private PacientJPA pacient;
+	PacientsNegociRemote pacientsRemotEJB;
 	private Collection<PacientJPA> pacients;
 	@SuppressWarnings("unused")
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
-	public String eliminar() throws NamingException{
+	public String llistar()throws Exception{
 		if (checkSession()){
 			String cif=getSessionCif();
-			String cip=pacient.getCip();
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			try{
-				PacientsRemotEJB = (PacientsNegociRemote) ctx.lookup("java:app/SPD.jar/PacientsNegociEJB!ejb.PacientsNegociRemote");
-				PacientsRemotEJB.eliminarPacient(cip, cif);
-			}catch (PersistenceException e){
-				clearFields();
-				msgError();
-			}
-			return null;
+			pacientsRemotEJB = (PacientsNegociRemote) ctx.lookup("java:app/SPD.jar/PacientsNegociEJB!ejb.PacientsNegociRemote");
+			this.pacients=pacientsRemotEJB.llistarPacients(cif);
+			this.setPacients(pacients);
+			return "vistaUsuariPacients";
 		}else{
 			return "accessError";
 		}
 	}
 	
-	public void actualitzar(){}
-		
- 	public void clearFields(){
- 		setPacient(null);
- 	}
-	
+	/**
+	 * @return the pacients
+	 */
+	public Collection<PacientJPA> getPacients() {
+		return pacients;
+	}
+
+	/**
+	 * @param pacients the pacients to set
+	 */
+	public void setPacients(Collection<PacientJPA> pacients) {
+		this.pacients = pacients;
+	}
+
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -73,30 +75,4 @@ public class EliminarPacientMBean implements Serializable{
 		UsuariEmpresaJPA usuari = (UsuariEmpresaJPA) activeSession.getAttribute("sessioUsuari");
 		return usuari.getEmpresa();
 	}
-	
- 	public void msgError(){
- 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No estas autoritzat a eliminar l'usuari."));
- 	}
-
-	public PacientJPA getPacient() {
-		return pacient;
-	}
-	/**
-	 * @param pacient the pacient to set
-	 */
-	public void setPacient(PacientJPA pacient) {
-		this.pacient = pacient;
-	}
-	/**
-	 * @return the pacients
-	 */
-	public Collection<PacientJPA> getPacients() {
-		return pacients;
-	}
-	/**
-	 * @param pacients the pacients to set
-	 */
-	public void setPacients(Collection<PacientJPA> pacients) {
-		this.pacients = pacients;
-	}	
 }

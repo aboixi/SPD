@@ -1,4 +1,4 @@
-package managedbean;
+package managedbean.usuaris;
 
 import java.io.Serializable;
 import java.util.Collection;
