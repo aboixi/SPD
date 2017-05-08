@@ -5,6 +5,9 @@
 
 package ejb;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
@@ -92,15 +95,81 @@ public class UsuarisNegociEJB implements UsuarisNegociRemote{
 		empresa.setFax(fax);
 		empresa.setCorreu(correu);
 		empresa.setClau(clau);
-		empresa.setContacte(contacte);
-	
+		empresa.setContacte(contacte);	
 		entman.merge(empresa);
 		entman.flush();
-		entman.refresh(empresa);
-		
+		entman.refresh(empresa);		
 		return empresa;
 	}
+	
+	public String crearUsuari (String dni, String nom, String cognom1, String cognom2, String telefon, String empresa, String tipus)throws PersistenceException{	
+		UsuariEmpresaJPA usuari = entman.find(UsuariEmpresaJPA.class, dni);
+		UsuariEmpresaJPA usuariRepetit = null;
+		if (usuari==null){
+			Character primer = nom.charAt(0);
+			String segon = cognom1;
+			Character tercer = cognom2.charAt(0);
+			String nomUsuari=primer.toString().concat(segon).concat(tercer.toString()).toLowerCase();
+			String clau="123456789";
+			try{
+				usuariRepetit=(UsuariEmpresaJPA) entman.createQuery("FROM UsuariEmpresaJPA a WHERE a.usuari = '" + nomUsuari +"'").getSingleResult();
+			}catch (PersistenceException e) {
+				System.out.println(e);
+				}
+			if (usuariRepetit==null){
+				usuari = new UsuariEmpresaJPA(dni,nom,cognom1,cognom2,telefon,empresa, nomUsuari, clau, tipus);
+				entman.persist(usuari);
+				return "procesCorrecte";
+			}else{
+				nomUsuari=dni.toLowerCase();
+				usuari = new UsuariEmpresaJPA(dni,nom,cognom1,cognom2,telefon,empresa, nomUsuari, clau, tipus);
+				entman.persist(usuari);
+				return "nomUsuariRepetit";
+				}
+		}else{
+			return "usuariExistent";
+			}
+	}
+	
+	public Collection<UsuariEmpresaJPA> llistarUsuaris (String cif){
+		@SuppressWarnings("unchecked")
+		Collection<UsuariEmpresaJPA> usuaris = entman.createQuery("FROM UsuariEmpresaJPA a WHERE a.empresa = '" + cif +"'").getResultList();
+	    return usuaris;
+	}
+	
+	public Collection<UsuariEmpresaJPA> eliminarUsuari(String cif, String dni){
+		UsuariEmpresaJPA usuari=null;
+		@SuppressWarnings("unchecked")
+		Collection<UsuariEmpresaJPA> usuaris = entman.createQuery("FROM UsuariEmpresaJPA a WHERE a.empresa = '" + cif +"'").getResultList();
+		Iterator<UsuariEmpresaJPA> iter = usuaris.iterator();
+		boolean trobat = false;
+		while (iter.hasNext()&&!(trobat)){
+			usuari = iter.next();
+			if(usuari.getDni().equals(dni)){
+				entman.remove(usuari);
+				usuaris.remove(usuari);
+				trobat=true;
+			}
+		}
+		return usuaris;
+	}
+
+	public String modificarUsuari(String dni, String nom, String cognom1, String cognom2, String telefon, String clau)throws PersistenceException{
+		UsuariEmpresaJPA usuari = entman.find(UsuariEmpresaJPA.class, dni);
+		usuari.setNom(nom);
+		usuari.setCognom1(cognom1);
+		usuari.setCognom2(cognom2);
+		usuari.setTelefon(telefon);
+		usuari.setClau(clau);
+		try{
+			entman.merge(usuari);
+			entman.flush();
+			entman.refresh(usuari);
+			return "canviCorrecte";
+		}catch (PersistenceException e) {
+			System.out.println(e);
+			return "persistenceException";
+		}
+	}
 }
-
-
 

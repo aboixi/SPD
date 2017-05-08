@@ -45,10 +45,13 @@ public class EmpresaJPA implements Serializable {
 	/**
 	 * Relacions de persistencia
 	 */
-	@OneToMany(targetEntity=UsuariEmpresaJPA.class,mappedBy="dni", cascade={CascadeType.ALL},orphanRemoval=true)
+
+	@OneToMany(targetEntity=UsuariEmpresaJPA.class,mappedBy="empresa", cascade={CascadeType.ALL},orphanRemoval=true)
 	private Collection<UsuariEmpresaJPA> usuarisEmpresa;
-	@OneToMany(targetEntity=PacientJPA.class,mappedBy="cip", cascade={CascadeType.ALL},orphanRemoval=true)
-	private Collection<PacientJPA> pacients;
+	@OneToMany(targetEntity=PacientJPA.class,mappedBy="residencia", cascade={CascadeType.ALL},orphanRemoval=true)
+	private Collection<PacientJPA> pacientsResidencia;
+	@OneToMany(targetEntity=PacientJPA.class,mappedBy="farmacia", cascade={CascadeType.ALL},orphanRemoval=true)
+	private Collection<PacientJPA> pacientsFarmacia;
 
 	/**
 	 * Constructor
@@ -81,13 +84,6 @@ public class EmpresaJPA implements Serializable {
 	 */
 	public String getCif() {
 		return cif;
-	}
-
-	/**
-	 * @param cif the cif to set
-	 */
-	public void setCif(String cif) {
-		this.cif = cif;
 	}
 
 	/**
@@ -173,6 +169,7 @@ public class EmpresaJPA implements Serializable {
 	public void setFax(String fax) {
 		this.fax = fax;
 	}
+
 	/**
 	 * @return the correu
 	 */
@@ -186,7 +183,7 @@ public class EmpresaJPA implements Serializable {
 	public void setCorreu(String correu) {
 		this.correu = correu;
 	}
-	
+
 	/**
 	 * @return the clau
 	 */
@@ -195,7 +192,7 @@ public class EmpresaJPA implements Serializable {
 	}
 
 	/**
-	 * @param correu the clau to set
+	 * @param clau the clau to set
 	 */
 	public void setClau(String clau) {
 		this.clau = clau;
@@ -244,16 +241,37 @@ public class EmpresaJPA implements Serializable {
 	}
 
 	/**
-	 * @return the pacients
+	 * @return the pacientsResidencia
 	 */
-	public Collection<PacientJPA> getPacients() {
-		return pacients;
+	public Collection<PacientJPA> getPacientsResidencia() {
+		return pacientsResidencia;
 	}
 
 	/**
-	 * @param pacients the pacients to set
+	 * @param pacientsResidencia the pacientsResidencia to set
 	 */
-	public void setPacients(Collection<PacientJPA> pacients) {
-		this.pacients = pacients;
+	public void setPacientsResidencia(Collection<PacientJPA> pacientsResidencia) {
+		this.pacientsResidencia = pacientsResidencia;
+	}
+
+	/**
+	 * @return the pacientsFarmacia
+	 */
+	public Collection<PacientJPA> getPacientsFarmacia() {
+		return pacientsFarmacia;
+	}
+
+	/**
+	 * @param pacientsFarmacia the pacientsFarmacia to set
+	 */
+	public void setPacientsFarmacia(Collection<PacientJPA> pacientsFarmacia) {
+		this.pacientsFarmacia = pacientsFarmacia;
+	}
+
+	/**
+	 * @param cif the cif to set
+	 */
+	public void setCif(String cif) {
+		this.cif = cif;
 	}
 }

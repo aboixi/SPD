@@ -5,8 +5,6 @@
 package jpa;
 
 import java.io.Serializable;
-//import java.util.Collection;
-
 import javax.persistence.*;
 
 /**
@@ -28,7 +26,7 @@ public class UsuariEmpresaJPA implements Serializable {
 	@Column(name = "cognom2")
 	private String cognom2;
 	@Column(name = "telefon")
-	private int telefon;
+	private String telefon;
 	@Column(name = "empresa")
 	private String empresa;
 	@Column(name = "tipusEmpresa")
@@ -37,11 +35,6 @@ public class UsuariEmpresaJPA implements Serializable {
 	private String usuari;
 	@Column(name = "clau")
 	private String clau;
-
-	/**
-	 * Relacions de persistencia
-	 */
-
 	
 	/**
 	 * Constructor
@@ -50,8 +43,8 @@ public class UsuariEmpresaJPA implements Serializable {
 		super();
 	}
 	
-	public UsuariEmpresaJPA(String dni, String nom, String cognom1, String cognom2, int telefon, String empresa,
-			String usuari, String clau) {
+	public UsuariEmpresaJPA(String dni, String nom, String cognom1, String cognom2, String telefon, String empresa,
+			String usuari, String clau, String tipus) {
 		super();
 		this.dni = dni;
 		this.nom = nom;
@@ -61,6 +54,7 @@ public class UsuariEmpresaJPA implements Serializable {
 		this.empresa = empresa;
 		this.usuari = usuari;
 		this.clau = clau;
+		this.tipusEmpresa = tipus;
 	}
 	
 	/**
@@ -122,14 +116,14 @@ public class UsuariEmpresaJPA implements Serializable {
 	/**
 	 * @return the telefon
 	 */
-	public int getTelefon() {
+	public String getTelefon() {
 		return telefon;
 	}
 
 	/**
 	 * @param telefon the telefon to set
 	 */
-	public void setTelefon(int telefon) {
+	public void setTelefon(String telefon) {
 		this.telefon = telefon;
 	}
 

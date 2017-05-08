@@ -115,6 +115,14 @@ body {
     color: #ffffff;
     margin-left: 8px;
     font-weight: bold; }
+  .layout-wrapper .topbar .clock {
+    display: inline-block;
+    float: right;
+    color: #ffffff;
+    position: relative;
+    padding-top: 0px;
+    text-align: middle;
+    margin-top: 1px; }
   .layout-wrapper .topbar #user-display {
     display: block;
     float: right;
@@ -151,7 +159,7 @@ body {
     position: absolute;
     right: 32px;
     top: 60px;
-    width: 250px;
+    width: 90px;
     z-index: 1001;
     list-style-type: none;
     padding: 0;

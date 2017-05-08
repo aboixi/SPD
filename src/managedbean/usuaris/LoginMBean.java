@@ -3,7 +3,7 @@
  * @author Albert Boix Isern
  */
 
-package managedbean;
+package managedbean.usuaris;
 
 import java.io.Serializable;
 import java.util.Properties;
@@ -47,32 +47,41 @@ public class LoginMBean implements Serializable{
 		if (tipusUsuari=="jpa.EmpresaJPA"){ 
 			EmpresaJPA empresa = (EmpresaJPA) usuari;
 			if (empresa.getCif().equals("invalid")){
+				clearFields();
 				return "accessError";
 			}else{
 				activeSession.setAttribute("sessioEmpresa", empresa);
-				return "vistaPerfilEmpresa";
+				clearFields();
+				return "vistaEmpresaPerfil";
 			}
 		}else{
 			UsuariEmpresaJPA usuariEmpresa = (UsuariEmpresaJPA) usuari;
 			if (usuariEmpresa.getDni().equals("invalid")){
+				clearFields();
 				return "accessError";
 			}else{
-				activeSession.setAttribute("sessioUsuariEmpresa", usuariEmpresa);
-				return "vistaPerfilEmpresa";
+				activeSession.setAttribute("sessioUsuari", usuariEmpresa);
+				clearFields();
+				return "test";
 			}			
 		}
 	}
 	
-	/**
-	 * Set an error message to be show in the error view.
-	 * @param e
-	 */
-	public void setErrorMsg(String e){
+	public String logout() throws Exception{
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
-		activeSession.setAttribute("errorMsg", e);
+		activeSession.removeAttribute("sessioEmpresa");
+		activeSession.removeAttribute("sessioUsuari");
+		activeSession.invalidate();
+		
+		return "vistaLogin";
 	}
-
+	
+ 	public void clearFields(){
+ 		setNom(null);
+ 		setClau(null);
+ 	}
+	
 	/**
 	 * @return the nom
 	 */
