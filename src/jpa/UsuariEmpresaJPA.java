@@ -5,8 +5,6 @@
 package jpa;
 
 import java.io.Serializable;
-//import java.util.Collection;
-
 import javax.persistence.*;
 
 /**
@@ -37,11 +35,6 @@ public class UsuariEmpresaJPA implements Serializable {
 	private String usuari;
 	@Column(name = "clau")
 	private String clau;
-
-	/**
-	 * Relacions de persistencia
-	 */
-
 	
 	/**
 	 * Constructor

@@ -49,9 +49,13 @@ public class PacientJPA implements Serializable {
 	private boolean hospitalitzat;
 	@Column(name = "exitus")
 	private boolean exitus;
+	
 	/**
 	 * Relacions de persistencia
 	 */
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "expedient", referencedColumnName = "id_expedient")
+	private ExpedientJPA expedient;
 	
 	/**
 	 * Constructor
@@ -250,7 +254,7 @@ public class PacientJPA implements Serializable {
 	/**
 	 * @return the autoritzacio
 	 */
-	public boolean getAutoritzacio() {
+	public boolean isAutoritzacio() {
 		return autoritzacio;
 	}
 
@@ -264,7 +268,7 @@ public class PacientJPA implements Serializable {
 	/**
 	 * @return the hospitalitzat
 	 */
-	public boolean getHospitalitzat() {
+	public boolean isHospitalitzat() {
 		return hospitalitzat;
 	}
 
@@ -278,7 +282,7 @@ public class PacientJPA implements Serializable {
 	/**
 	 * @return the exitus
 	 */
-	public boolean getExitus() {
+	public boolean isExitus() {
 		return exitus;
 	}
 
@@ -287,5 +291,19 @@ public class PacientJPA implements Serializable {
 	 */
 	public void setExitus(boolean exitus) {
 		this.exitus = exitus;
+	}
+
+	/**
+	 * @return the expedient
+	 */
+	public ExpedientJPA getExpedient() {
+		return expedient;
+	}
+
+	/**
+	 * @param expedient the expedient to set
+	 */
+	public void setExpedient(ExpedientJPA expedient) {
+		this.expedient = expedient;
 	}
 }

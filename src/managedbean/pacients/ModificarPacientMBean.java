@@ -44,8 +44,8 @@ public class ModificarPacientMBean implements Serializable{
 			pacientsRemotEJB = (PacientsNegociRemote) ctx.lookup("java:app/SPD.jar/PacientsNegociEJB!ejb.PacientsNegociRemote");
 			String missatge=null;
 			missatge=pacientsRemotEJB.modificarPacient(cif, eliminarPacientMBean.getPacient().getCip(),eliminarPacientMBean.getPacient().getNom(),eliminarPacientMBean.getPacient().getCognom1(),eliminarPacientMBean.getPacient().getCognom2(),
-					eliminarPacientMBean.getPacient().getNomFarmacia(),eliminarPacientMBean.getPacient().getFarmacia(),eliminarPacientMBean.getPacient().getMalalties(),eliminarPacientMBean.getPacient().getAlergies(),eliminarPacientMBean.getPacient().getMetge(),eliminarPacientMBean.getPacient().getAutoritzacio(),
-					eliminarPacientMBean.getPacient().isSpd(),eliminarPacientMBean.getPacient().getHospitalitzat(),eliminarPacientMBean.getPacient().getExitus());
+					eliminarPacientMBean.getPacient().getNomFarmacia(),eliminarPacientMBean.getPacient().getFarmacia(),eliminarPacientMBean.getPacient().getMalalties(),eliminarPacientMBean.getPacient().getAlergies(),eliminarPacientMBean.getPacient().getMetge(),eliminarPacientMBean.getPacient().isAutoritzacio(),
+					eliminarPacientMBean.getPacient().isSpd(),eliminarPacientMBean.getPacient().isHospitalitzat(),eliminarPacientMBean.getPacient().isExitus());
 			if (missatge.equals("canviCorrecte")){
 				msgInfo();
 				return "vistaUsuariPacients";
