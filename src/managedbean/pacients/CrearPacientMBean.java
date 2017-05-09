@@ -85,6 +85,13 @@ public class CrearPacientMBean implements Serializable{
 	}
 
  	public void clearFields(){
+ 		setCip(null);
+ 		setNom(null);
+ 		setCognom1(null);
+ 		setCognom2(null);
+ 		setMetge(null);
+ 		setAlergies(null);
+ 		setMalalties(null);
  	}
 	
  	public void msgCorrecte(){

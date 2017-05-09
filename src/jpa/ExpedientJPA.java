@@ -6,6 +6,7 @@ package jpa;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.persistence.*;
 
@@ -29,6 +30,7 @@ public class ExpedientJPA implements Serializable{
 	
 	public ExpedientJPA(){
 		super();
+		this.tractaments= new HashSet<TractamentJPA>();
 	}
 
 	public int getId() {

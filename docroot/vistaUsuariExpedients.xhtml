@@ -1,0 +1,115 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+                
+    <ui:define name="title">SimpleSPD-Pacients</ui:define>
+
+    <ui:define name="content">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-lg-6">
+            	<!-- Left Side -->
+                <div class="card card-w-title">
+					<h1>Expedients</h1>
+                    <h:form id="formulariLlistaExpedients">
+						<p:dataTable id="llistaExpedients" var="item" value="#{llistarExpedients.pacients}" selectionMode="single" selection="#{consultarExpedient.pacient}" rowKey="#{item.nom}">
+							<f:facet name="header">
+			                	Llista de Pacients
+			                </f:facet>
+ 			                <p:ajax event="rowSelect" listener="#{consultarExpedient.llistarTractaments}" update=":formulariDadesExpedient"/> 
+					    
+						    <p:column headerText="Nom">
+						        <h:outputText value="#{item.nom}" />
+						    </p:column>
+						 
+						    <p:column headerText="Cognom1">
+						        <h:outputText value="#{item.cognom1}" />
+						    </p:column>
+						    
+						    <p:column headerText="Cognom2">
+						        <h:outputText value="#{item.cognom2}" />
+						    </p:column>
+						    
+						    <p:column headerText="Residencia">
+						        <h:outputText value="#{item.nomResidencia}" />
+						    </p:column>
+						    
+						    <p:column headerText="Farmacia">
+						        <h:outputText value="#{item.nomFarmacia}" />
+						    </p:column>
+						    
+						    <p:column headerText="SPD">
+						        <h:outputText value="#{item.spd}" />
+						    </p:column>
+						    
+						    <p:column headerText="Hospitalitzat">
+						        <h:outputText value="#{item.hospitalitzat}" />
+						    </p:column>
+
+						</p:dataTable>
+            		</h:form>
+                </div>   
+            </div>
+               <div class="ui-g-12 ui-lg-6">
+            	<!-- Right Side -->
+                <div class="card card-w-title">
+	             <h1>Dades</h1>
+                  	<h:form id="formulariDadesExpedient">
+                  		<p:messages showDetail="true" showSummary="false" autoUpdate="true" closable="false" />
+						<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">							
+							<h:outputLabel value="CIP: " />
+				            <h:outputText value="#{consultarExpedient.pacient.cip}"/>
+  
+							<h:outputLabel value="Nom: " />
+				            <h:outputText value="#{consultarExpedient.pacient.nom}"/>
+							
+							<h:outputLabel value="Primer cognom: " />
+				            <h:outputText value="#{consultarExpedient.pacient.cognom1}"/>
+							
+							<h:outputLabel value="Segon cognom: " />
+				            <h:outputText value="#{consultarExpedient.pacient.cognom2}"/>
+				        </h:panelGrid>  
+				        <p:dataTable id="llistaTractaments" var="item" value="#{consultarExpedient.tractaments}">
+							<f:facet name="header">
+			                	Tractaments
+			                </f:facet>
+						    <p:column headerText="Inici">
+						        <h:outputText value="#{item.dataInici}" />
+						    </p:column>
+						    <p:column headerText="C.N.">
+						        <h:outputText value="#{item.medicament.cn}" />
+						    </p:column>
+						    <p:column headerText="Nom">
+						        <h:outputText value="#{item.nomComercial}" />
+						    </p:column>
+						    <p:column headerText="Quantitat">
+						        <h:outputText value="#{item.quantitatPresa}" />
+						    </p:column>
+						    <p:column headerText="Esmorçar">
+						        <h:outputText value="#{item.esmorcar}" />
+						    </p:column>
+						    <p:column headerText="Dinar">
+						        <h:outputText value="#{item.dinar}" />
+						    </p:column>
+						    <p:column headerText="Sopar">
+						        <h:outputText value="#{item.sopar}" />
+						    </p:column>
+						    <p:column headerText="Dormir">
+						        <h:outputText value="#{item.dormir}" />
+						    </p:column>
+						</p:dataTable>
+						<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+ <!--
+							<p:commandButton actionListener="#{modificarexpedient.modificar}" action="#{llistarexpedients.llistar}" value="Guardar" icon="ui-icon-disk" update=":formulariLlistaexpedients" style="margin-bottom:10px" styleClass="raised-btn"/>
+-->						
+						</h:panelGrid>
+					</h:form>
+			</div>
+			</div>   
+        </div>
+        
+    </ui:define>
+
+</ui:composition>

@@ -26,10 +26,30 @@ public class TractamentJPA implements Serializable{
 	private String quantFraccio;
 	@Column(name = "quant_setmanal")
 	private String quantitatSetmanal;
-	@Column(name = "hora")
-	private String hora;
-	@Column(name = "dies")
-	private String dies;
+	@Column(name = "quant_presa")
+	private String quantitatPresa;
+	@Column(name = "esmorcar")
+	private boolean esmorcar;
+	@Column(name = "dinar")
+	private boolean dinar;
+	@Column(name = "sopar")
+	private boolean sopar;
+	@Column(name = "dormir")
+	private boolean dormir;
+	@Column(name = "dilluns")
+	private boolean dilluns;
+	@Column(name = "dimarts")
+	private boolean dimarts;
+	@Column(name = "dimecres")
+	private boolean dimecres;
+	@Column(name = "dijous")
+	private boolean dijous;
+	@Column(name = "divendres")
+	private boolean divendres;
+	@Column(name = "dissabte")
+	private boolean dissabte;
+	@Column(name = "diumenge")
+	private boolean diumenge;
 	@Column(name = "fora_blister")
 	private boolean foraBlister;
 	
@@ -45,83 +65,283 @@ public class TractamentJPA implements Serializable{
 		super();
 	}
 
+	/**
+	 * @return the idTractament
+	 */
 	public int getIdTractament() {
 		return idTractament;
 	}
 
+	/**
+	 * @param idTractament the idTractament to set
+	 */
 	public void setIdTractament(int idTractament) {
 		this.idTractament = idTractament;
 	}
 
-	public MedicamentJPA getMedicament() {
-		return medicament;
-	}
-
-	public void setMedicament(MedicamentJPA medicament) {
-		this.medicament = medicament;
-	}
-
+	/**
+	 * @return the dataInici
+	 */
 	public Calendar getDataInici() {
 		return dataInici;
 	}
 
+	/**
+	 * @param dataInici the dataInici to set
+	 */
 	public void setDataInici(Calendar dataInici) {
 		this.dataInici = dataInici;
 	}
 
+	/**
+	 * @return the quantEntera
+	 */
 	public String getQuantEntera() {
 		return quantEntera;
 	}
 
+	/**
+	 * @param quantEntera the quantEntera to set
+	 */
 	public void setQuantEntera(String quantEntera) {
 		this.quantEntera = quantEntera;
 	}
 
+	/**
+	 * @return the quantFraccio
+	 */
 	public String getQuantFraccio() {
 		return quantFraccio;
 	}
 
+	/**
+	 * @param quantFraccio the quantFraccio to set
+	 */
 	public void setQuantFraccio(String quantFraccio) {
 		this.quantFraccio = quantFraccio;
 	}
 
+	/**
+	 * @return the quantitatSetmanal
+	 */
 	public String getQuantitatSetmanal() {
 		return quantitatSetmanal;
 	}
 
+	/**
+	 * @param quantitatSetmanal the quantitatSetmanal to set
+	 */
 	public void setQuantitatSetmanal(String quantitatSetmanal) {
 		this.quantitatSetmanal = quantitatSetmanal;
 	}
 
-	public String getHora() {
-		return hora;
+	/**
+	 * @return the quantitatPresa
+	 */
+	public String getQuantitatPresa() {
+		return quantitatPresa;
 	}
 
-	public void setHora(String hora) {
-		this.hora = hora;
+	/**
+	 * @param quantitatPresa the quantitatPresa to set
+	 */
+	public void setQuantitatPresa(String quantitatPresa) {
+		this.quantitatPresa = quantitatPresa;
 	}
 
-	public String getDies() {
-		return dies;
+	/**
+	 * @return the esmorcar
+	 */
+	public boolean isEsmorcar() {
+		return esmorcar;
 	}
 
-	public void setDies(String dies) {
-		this.dies = dies;
+	/**
+	 * @param esmorcar the esmorcar to set
+	 */
+	public void setEsmorcar(boolean esmorcar) {
+		this.esmorcar = esmorcar;
 	}
 
+	/**
+	 * @return the dinar
+	 */
+	public boolean isDinar() {
+		return dinar;
+	}
+
+	/**
+	 * @param dinar the dinar to set
+	 */
+	public void setDinar(boolean dinar) {
+		this.dinar = dinar;
+	}
+
+	/**
+	 * @return the sopar
+	 */
+	public boolean isSopar() {
+		return sopar;
+	}
+
+	/**
+	 * @param sopar the sopar to set
+	 */
+	public void setSopar(boolean sopar) {
+		this.sopar = sopar;
+	}
+
+	/**
+	 * @return the dormir
+	 */
+	public boolean isDormir() {
+		return dormir;
+	}
+
+	/**
+	 * @param dormir the dormir to set
+	 */
+	public void setDormir(boolean dormir) {
+		this.dormir = dormir;
+	}
+
+	/**
+	 * @return the dilluns
+	 */
+	public boolean isDilluns() {
+		return dilluns;
+	}
+
+	/**
+	 * @param dilluns the dilluns to set
+	 */
+	public void setDilluns(boolean dilluns) {
+		this.dilluns = dilluns;
+	}
+
+	/**
+	 * @return the dimarts
+	 */
+	public boolean isDimarts() {
+		return dimarts;
+	}
+
+	/**
+	 * @param dimarts the dimarts to set
+	 */
+	public void setDimarts(boolean dimarts) {
+		this.dimarts = dimarts;
+	}
+
+	/**
+	 * @return the dimecres
+	 */
+	public boolean isDimecres() {
+		return dimecres;
+	}
+
+	/**
+	 * @param dimecres the dimecres to set
+	 */
+	public void setDimecres(boolean dimecres) {
+		this.dimecres = dimecres;
+	}
+
+	/**
+	 * @return the dijous
+	 */
+	public boolean isDijous() {
+		return dijous;
+	}
+
+	/**
+	 * @param dijous the dijous to set
+	 */
+	public void setDijous(boolean dijous) {
+		this.dijous = dijous;
+	}
+
+	/**
+	 * @return the divendres
+	 */
+	public boolean isDivendres() {
+		return divendres;
+	}
+
+	/**
+	 * @param divendres the divendres to set
+	 */
+	public void setDivendres(boolean divendres) {
+		this.divendres = divendres;
+	}
+
+	/**
+	 * @return the dissabte
+	 */
+	public boolean isDissabte() {
+		return dissabte;
+	}
+
+	/**
+	 * @param dissabte the dissabte to set
+	 */
+	public void setDissabte(boolean dissabte) {
+		this.dissabte = dissabte;
+	}
+
+	/**
+	 * @return the diumenge
+	 */
+	public boolean isDiumenge() {
+		return diumenge;
+	}
+
+	/**
+	 * @param diumenge the diumenge to set
+	 */
+	public void setDiumenge(boolean diumenge) {
+		this.diumenge = diumenge;
+	}
+
+	/**
+	 * @return the foraBlister
+	 */
 	public boolean isForaBlister() {
 		return foraBlister;
 	}
 
+	/**
+	 * @param foraBlister the foraBlister to set
+	 */
 	public void setForaBlister(boolean foraBlister) {
 		this.foraBlister = foraBlister;
 	}
 
+	/**
+	 * @return the expedient
+	 */
 	public ExpedientJPA getExpedient() {
 		return expedient;
 	}
 
+	/**
+	 * @param expedient the expedient to set
+	 */
 	public void setExpedient(ExpedientJPA expedient) {
 		this.expedient = expedient;
+	}
+
+	/**
+	 * @return the medicament
+	 */
+	public MedicamentJPA getMedicament() {
+		return medicament;
+	}
+
+	/**
+	 * @param medicament the medicament to set
+	 */
+	public void setMedicament(MedicamentJPA medicament) {
+		this.medicament = medicament;
 	}
 }
