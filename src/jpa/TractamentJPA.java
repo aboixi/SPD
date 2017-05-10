@@ -5,7 +5,6 @@
 package jpa;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 import javax.persistence.*;
 
@@ -19,7 +18,7 @@ public class TractamentJPA implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO) 
 	private int idTractament;
 	@Column(name = "data_inici")
-	private Calendar dataInici;
+	private String dataInici;
 	@Column(name = "quantitat_entera")
 	private String quantEntera;	
 	@Column(name = "quant_fraccio")
@@ -53,11 +52,11 @@ public class TractamentJPA implements Serializable{
 	@Column(name = "fora_blister")
 	private boolean foraBlister;
 	
-	@ManyToOne(targetEntity=ExpedientJPA.class)
+	@ManyToOne(targetEntity=ExpedientJPA.class, fetch=FetchType.EAGER)
 	@JoinColumn(name = "expedient", referencedColumnName = "id_expedient")
 	private ExpedientJPA expedient;
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "medicament", referencedColumnName = "cn")
 	private MedicamentJPA medicament;
 	
@@ -82,14 +81,14 @@ public class TractamentJPA implements Serializable{
 	/**
 	 * @return the dataInici
 	 */
-	public Calendar getDataInici() {
+	public String getDataInici() {
 		return dataInici;
 	}
 
 	/**
 	 * @param dataInici the dataInici to set
 	 */
-	public void setDataInici(Calendar dataInici) {
+	public void setDataInici(String dataInici) {
 		this.dataInici = dataInici;
 	}
 

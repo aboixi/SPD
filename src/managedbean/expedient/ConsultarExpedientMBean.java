@@ -2,6 +2,7 @@ package managedbean.expedient;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Properties;
 
 import javax.ejb.EJB;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import ejb.ExpedientNegociRemote;
 import jpa.ExpedientJPA;
+import jpa.MedicamentJPA;
 import jpa.PacientJPA;
 import jpa.TractamentJPA;
 
@@ -40,8 +42,10 @@ public class ConsultarExpedientMBean implements Serializable{
 			Context ctx = new InitialContext(props);
 			ExpedientRemotEJB = (ExpedientNegociRemote) ctx.lookup("java:app/SPD.jar/ExpedientNegociEJB!ejb.ExpedientNegociRemote");
 			this.setExpedient(ExpedientRemotEJB.consultarExpedient(expedient.getPacient().getCip()));
-			pacient = expedient.getPacient();
-			return "vistaUsuariExpedients";
+			this.pacient = expedient.getPacient();
+			this.tractaments=expedient.getTractaments();
+			
+			return "vistaUsuariModificarExpedient";
 		}else{
 			return "accessError";
 		}
@@ -49,7 +53,8 @@ public class ConsultarExpedientMBean implements Serializable{
 	
 	public void llistarTractaments(){
 		try{
-			this.tractaments=pacient.getExpedient().getTractaments();
+			this.expedient=pacient.getExpedient();
+			this.tractaments=this.expedient.getTractaments();
 		}catch (Exception e){
 			System.out.println("Cap tractament a la base de dades");
 		}
@@ -107,6 +112,20 @@ public class ConsultarExpedientMBean implements Serializable{
 	public void setTractaments(Collection<TractamentJPA> tractaments) {
 		this.tractaments = tractaments;
 	}
-
-
 }
+
+/*
+public String consultar()throws Exception{
+if (checkSession()){
+	Properties props = System.getProperties();
+	Context ctx = new InitialContext(props);
+	ExpedientRemotEJB = (ExpedientNegociRemote) ctx.lookup("java:app/SPD.jar/ExpedientNegociEJB!ejb.ExpedientNegociRemote");
+	this.setExpedient(ExpedientRemotEJB.consultarExpedient(expedient.getPacient().getCip()));
+	this.pacient = expedient.getPacient();
+	this.tractaments=expedient.getTractaments();
+	return "vistaUsuariModificarExpedient";
+}else{
+	return "accessError";
+}
+}
+*/

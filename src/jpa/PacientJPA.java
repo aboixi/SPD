@@ -53,7 +53,7 @@ public class PacientJPA implements Serializable {
 	/**
 	 * Relacions de persistencia
 	 */
-	@OneToOne(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY)
+	@OneToOne(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
 	@JoinColumn(name = "expedient", referencedColumnName = "id_expedient")
 	private ExpedientJPA expedient;
 	

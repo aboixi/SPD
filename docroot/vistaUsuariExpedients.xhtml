@@ -48,7 +48,7 @@
 						        <h:outputText value="#{item.hospitalitzat}" />
 						    </p:column>
 
-						</p:dataTable>
+							</p:dataTable>
             		</h:form>
                 </div>   
             </div>
@@ -82,7 +82,7 @@
 						        <h:outputText value="#{item.medicament.cn}" />
 						    </p:column>
 						    <p:column headerText="Nom">
-						        <h:outputText value="#{item.nomComercial}" />
+						        <h:outputText value="#{item.medicament.nomComercial}" />
 						    </p:column>
 						    <p:column headerText="Quantitat">
 						        <h:outputText value="#{item.quantitatPresa}" />
@@ -101,9 +101,7 @@
 						    </p:column>
 						</p:dataTable>
 						<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
- <!--
-							<p:commandButton actionListener="#{modificarexpedient.modificar}" action="#{llistarexpedients.llistar}" value="Guardar" icon="ui-icon-disk" update=":formulariLlistaexpedients" style="margin-bottom:10px" styleClass="raised-btn"/>
--->						
+							<p:button outcome="vistaUsuariModificarExpedient" value="Modificar" icon="ui-icon-disk" style="margin-bottom:10px" styleClass="raised-btn"/>						
 						</h:panelGrid>
 					</h:form>
 			</div>
