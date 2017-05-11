@@ -21,7 +21,7 @@ public class ExpedientJPA implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO) 
 	private int id;
 	
-	@OneToMany(targetEntity=TractamentJPA.class,mappedBy="expedient", fetch=FetchType.EAGER, cascade={CascadeType.ALL},orphanRemoval=true)
+	@OneToMany(targetEntity=TractamentJPA.class,mappedBy="expedient", fetch=FetchType.EAGER, orphanRemoval=true)
 	private Collection<TractamentJPA> tractaments;
 	
 	@OneToOne(mappedBy = "expedient")
