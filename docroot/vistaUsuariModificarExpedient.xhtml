@@ -13,7 +13,7 @@
        			<div class="card card-w-title">	
        				<h1>Pacient</h1>
                 	<h:form>
-                	<p:messages showDetail="true" showSummary="false" autoUpdate="true" closable="true" />
+<!-- 				<p:messages showDetail="true" showSummary="false" autoUpdate="true" closable="true" />  -->                
 						<h:panelGrid columns="6" layout="grid" styleClass="ui-panelgrid-blank form-group">
 							<h:outputLabel value="Nom: " />
 				            <h:outputText value="#{consultarExpedient.pacient.cognom1}"/>		
@@ -25,7 +25,7 @@
 					</h:form>
                 	<h1>Expedient Assistencial</h1>
                   	<h:form id="formulariModificarExpedient">
-							<p:dataTable id="llistaExpedients" var="item" value="#{consultarExpedient.tractaments}" editable="true" >
+							<p:dataTable id="llistaExpedients" var="item" value="#{consultarExpedient.tractaments}" editable="true" selectionMode="single" selection="#{eliminarTractament.tractament}" rowKey="#{item.idTractament}">
  							<f:facet name="header">
  								Tractaments
  							</f:facet>	
@@ -149,9 +149,10 @@
 	                            <p:column style="width:32px" headerText="Editar">
 						           <p:rowEditor />
 						       </p:column>
+						       
 							</p:dataTable>
 							<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
-	            				<p:commandButton id="boto" actionListener="#{#}" value="Eliminar" icon="fa fa-minus-circle" update="formulariModificarExpedient" styleClass="raised-btn"/>
+	            				<p:commandButton id="boto" actionListener="#{eliminarTractament.eliminarTractament}" action="#{consultarExpedient.consultarTractaments}" value="Eliminar" icon="fa fa-minus-circle" update="formulariModificarExpedient" styleClass="raised-btn"/>
         					</h:panelGrid>
 	            		</h:form>
             	</div>
@@ -216,7 +217,8 @@
 								<p:selectBooleanCheckbox value="#{agregarTractament.diss}"/>
 								<p:commandButton type="button" value="Diu" styleClass="yellow-btn" style="width:35px"/>
 								<p:selectBooleanCheckbox value="#{agregarTractament.dium}" default="true" />
-								<p:commandButton id="botoMarcarDies" value="Tots" actionListener="#{agregarTractament.marcaTotsDies}" icon="fa fa-check-square-o" update="formulariNouTractament" styleClass="orange-btn raised-btn"/>
+								<p:commandButton id="botoMarcarDies" value="Tots" actionListener="#{agregarTractament.marcaTotsDies}" icon="fa fa-check-square-o" update="formulariNouTractament" styleClass="orange-btn raised-btn">
+								</p:commandButton>
 								<p>
 																
 								</p>

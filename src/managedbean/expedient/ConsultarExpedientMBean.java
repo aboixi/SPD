@@ -18,9 +18,6 @@ import jpa.PacientJPA;
 import jpa.TractamentJPA;
 
 
-/**
- * Bean per llistar els usuaris vinculats a la empresa.
- */
 @ManagedBean (name="consultarExpedient")
 @SessionScoped
 public class ConsultarExpedientMBean implements Serializable{
@@ -42,7 +39,6 @@ public class ConsultarExpedientMBean implements Serializable{
 			this.setExpedient(ExpedientRemotEJB.consultarExpedient(pacient.getExpedient().getId()));
 			this.pacient = expedient.getPacient();
 			this.tractaments=expedient.getTractaments();
-			
 			return "vistaUsuariModificarExpedient";
 		}else{
 			return "accessError";
@@ -110,20 +106,18 @@ public class ConsultarExpedientMBean implements Serializable{
 	public void setTractaments(Collection<TractamentJPA> tractaments) {
 		this.tractaments = tractaments;
 	}
-}
 
-/*
-public String consultar()throws Exception{
-if (checkSession()){
-	Properties props = System.getProperties();
-	Context ctx = new InitialContext(props);
-	ExpedientRemotEJB = (ExpedientNegociRemote) ctx.lookup("java:app/SPD.jar/ExpedientNegociEJB!ejb.ExpedientNegociRemote");
-	this.setExpedient(ExpedientRemotEJB.consultarExpedient(expedient.getPacient().getCip()));
-	this.pacient = expedient.getPacient();
-	this.tractaments=expedient.getTractaments();
-	return "vistaUsuariModificarExpedient";
-}else{
-	return "accessError";
+	/**
+	 * @return the expedientRemotEJB
+	 */
+	public ExpedientNegociRemote getExpedientRemotEJB() {
+		return ExpedientRemotEJB;
+	}
+
+	/**
+	 * @param expedientRemotEJB the expedientRemotEJB to set
+	 */
+	public void setExpedientRemotEJB(ExpedientNegociRemote expedientRemotEJB) {
+		ExpedientRemotEJB = expedientRemotEJB;
+	}
 }
-}
-*/

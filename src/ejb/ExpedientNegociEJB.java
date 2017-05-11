@@ -130,4 +130,14 @@ public class ExpedientNegociEJB implements ExpedientNegociRemote{
 			return "persistenceException";		
 		}
 	}
+	
+	public void eliminarTractament(int idTractament)throws PersistenceException{
+		try{
+			TractamentJPA tractament = entman.find(TractamentJPA.class, idTractament);
+			tractament.setExpedient(null);
+			entman.remove(tractament);
+		}catch (PersistenceException e){
+			System.out.println(e);
+		}
+	}
 }
