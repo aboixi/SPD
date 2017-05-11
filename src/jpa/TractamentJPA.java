@@ -15,7 +15,7 @@ public class TractamentJPA implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "id_tractament")
-	@GeneratedValue(strategy=GenerationType.AUTO) 
+	@GeneratedValue(strategy=GenerationType.TABLE) 
 	private int idTractament;
 	@Column(name = "data_inici")
 	private String dataInici;

@@ -2,7 +2,6 @@ package managedbean.expedient;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Properties;
 
 import javax.ejb.EJB;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpSession;
 
 import ejb.ExpedientNegociRemote;
 import jpa.ExpedientJPA;
-import jpa.MedicamentJPA;
 import jpa.PacientJPA;
 import jpa.TractamentJPA;
 
@@ -36,12 +34,12 @@ public class ConsultarExpedientMBean implements Serializable{
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
-	public String consultar()throws Exception{
+	public String consultarTractaments()throws Exception{
 		if (checkSession()){
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
 			ExpedientRemotEJB = (ExpedientNegociRemote) ctx.lookup("java:app/SPD.jar/ExpedientNegociEJB!ejb.ExpedientNegociRemote");
-			this.setExpedient(ExpedientRemotEJB.consultarExpedient(expedient.getPacient().getCip()));
+			this.setExpedient(ExpedientRemotEJB.consultarExpedient(pacient.getExpedient().getId()));
 			this.pacient = expedient.getPacient();
 			this.tractaments=expedient.getTractaments();
 			

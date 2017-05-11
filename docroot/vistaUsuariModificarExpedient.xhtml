@@ -13,7 +13,7 @@
        			<div class="card card-w-title">	
        				<h1>Pacient</h1>
                 	<h:form>
-                  		<p:messages showDetail="true" showSummary="false" autoUpdate="true" closable="false" />
+                	<p:messages showDetail="true" showSummary="false" autoUpdate="true" closable="true" />
 						<h:panelGrid columns="6" layout="grid" styleClass="ui-panelgrid-blank form-group">
 							<h:outputLabel value="Nom: " />
 				            <h:outputText value="#{consultarExpedient.pacient.cognom1}"/>		
@@ -150,25 +150,27 @@
 						           <p:rowEditor />
 						       </p:column>
 							</p:dataTable>
+							<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+	            				<p:commandButton id="boto" actionListener="#{#}" value="Eliminar" icon="fa fa-minus-circle" update="formulariModificarExpedient" styleClass="raised-btn"/>
+        					</h:panelGrid>
 	            		</h:form>
             	</div>
 			</div>
 			<div class="ui-g-12 ui-lg-6">
        			<div class="card card-w-title">	
                 	<h2>Nou Tractament</h2>
-						<h:form>
-	                  		<p:messages showDetail="true" showSummary="false" autoUpdate="true" closable="false" />
+						<h:form id="formulariNouTractament">
 							 <h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
 								<h:outputText value="Data d'inici: " />
-								<p:calendar id="inici" value="#{#}" required="false"/>
+								<p:calendar id="inici" value="#{agregarTractament.dataInici}" required="false"/>
 								<h:outputText value="CN: " />
-								<p:inputText id="cn" value="#{#}" required="false"/>
+								<p:inputText id="cn" value="#{agregarTractament.cn}" required="false"/>
 								<h:outputText value="Nom: " />
-								<p:inputText id="nom" value="#{#}" required="false"/>
+								<p:inputText id="nom" value="#{agregarTractament.nomComercial}" required="false"/>
 							</h:panelGrid>
 							<h:panelGrid columns="6" layout="grid" styleClass="ui-panelgrid-blank form-group">
 							<h:outputText value="Unitats: " />
-								<p:selectOneMenu id="unitats" value="#{item.quantEntera}">
+								<p:selectOneMenu id="unitats" value="#{agregarTractament.qEntera}">
 				                            <f:selectItem itemLabel="0" itemValue="0" />
 				                            <f:selectItem itemLabel="1" itemValue="1" />
 				                            <f:selectItem itemLabel="2" itemValue="2" />
@@ -178,46 +180,49 @@
 				                            <f:selectItem itemLabel="6" itemValue="6" />
 				                </p:selectOneMenu>
 				                <h:outputText value="Fracció: " />
-								<p:selectOneMenu id="fraccio" value="#{item.quantFraccio}">
+								<p:selectOneMenu id="fraccio" value="#{agregarTractament.qFraccio}">
 				                            <f:selectItem itemLabel="0" itemValue="0" />
 				                            <f:selectItem itemLabel="1/2" itemValue="1/2" />
 				                            <f:selectItem itemLabel="1/3" itemValue="1/3" />
 				                            <f:selectItem itemLabel="1/4" itemValue="1/4" />
-				                </p:selectOneMenu>
+				                </p:selectOneMenu>				       
+				            </h:panelGrid>
+				            <h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+				            	<h:outputLabel for="forablister" value="Fora de blíster " />
+				            	<p:inputSwitch id="forablister" value="#{agregarTractament.foraBlister}"/>
 							</h:panelGrid>
 							<h:panelGrid columns="8" layout="grid" styleClass="ui-panelgrid-blank form-group">
 								<p:commandButton type="button" icon="fa fa-coffee" styleClass="blue-btn" style="width:35px"/>
-								<p:selectBooleanCheckbox value="#{#}"/>
+								<p:selectBooleanCheckbox value="#{agregarTractament.esmorcar}"/>
 								<p:commandButton type="button" icon="fa fa-sun-o" styleClass="blue-btn" style="width:35px"/>
-								<p:selectBooleanCheckbox value="#{#}"/>
+								<p:selectBooleanCheckbox value="#{agregarTractament.dinar}"/>
 								<p:commandButton type="button" icon="fa fa-cutlery" styleClass="blue-btn" style="width:35px"/>
-								<p:selectBooleanCheckbox value="#{#}"/>
+								<p:selectBooleanCheckbox value="#{agregarTractament.sopar}"/>
 								<p:commandButton type="button" icon="fa fa-bed" styleClass="blue-btn" style="width:35px"/>
-								<p:selectBooleanCheckbox value="#{#}"/>
+								<p:selectBooleanCheckbox value="#{agregarTractament.dormir}"/>
 							</h:panelGrid>
-							<h:panelGrid columns="14" layout="grid" styleClass="ui-panelgrid-blank form-group">
+							<h:panelGrid columns="15" layout="grid" styleClass="ui-panelgrid-blank form-group">
 								<p:commandButton type="button" value="Dill" styleClass="yellow-btn" style="width:35px"/>
-								<p:selectBooleanCheckbox value="#{#}"/>
+								<p:selectBooleanCheckbox value="#{agregarTractament.dill}"/>
 								<p:commandButton type="button" value="Dim" styleClass="yellow-btn" style="width:35px"/>
-								<p:selectBooleanCheckbox value="#{#}"/>
+								<p:selectBooleanCheckbox value="#{agregarTractament.dima}"/>
 								<p:commandButton type="button" value="Dim" styleClass="yellow-btn" style="width:35px"/>
-								<p:selectBooleanCheckbox value="#{#}"/>
+								<p:selectBooleanCheckbox value="#{agregarTractament.dime}"/>
 								<p:commandButton type="button" value="Dij" styleClass="yellow-btn" style="width:35px"/>
-								<p:selectBooleanCheckbox value="#{#}"/>
+								<p:selectBooleanCheckbox value="#{agregarTractament.dijo}"/>
 								<p:commandButton type="button" value="Div" styleClass="yellow-btn" style="width:35px"/>
-								<p:selectBooleanCheckbox value="#{#}"/>
+								<p:selectBooleanCheckbox value="#{agregarTractament.dive}"/>
 								<p:commandButton type="button" value="Dis" styleClass="yellow-btn" style="width:35px"/>
-								<p:selectBooleanCheckbox value="#{#}"/>
+								<p:selectBooleanCheckbox value="#{agregarTractament.diss}"/>
 								<p:commandButton type="button" value="Diu" styleClass="yellow-btn" style="width:35px"/>
-								<p:selectBooleanCheckbox value="#{#}"/>
+								<p:selectBooleanCheckbox value="#{agregarTractament.dium}" default="true" />
+								<p:commandButton id="botoMarcarDies" value="Tots" actionListener="#{agregarTractament.marcaTotsDies}" icon="fa fa-check-square-o" update="formulariNouTractament" styleClass="orange-btn raised-btn"/>
 								<p>
-								
-								
+																
 								</p>
 							</h:panelGrid>
 							<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
-	            				<p:button outcome="/test" value="Agregar" icon="fa fa-plus-circle" style="margin-bottom:10px" styleClass="raised-btn"></p:button>
-								<p:button outcome="/test" value="Eliminar" icon="fa fa-minus-circle" style="margin-bottom:10px" styleClass="raised-btn"></p:button>  				
+	            				<p:commandButton id="boto" actionListener="#{agregarTractament.agregarTractament}" action="#{consultarExpedient.consultarTractaments}" value="Agregar" icon="fa fa-minus-circle" update="formulariModificarExpedient" styleClass="raised-btn"/>
         					</h:panelGrid>
 						</h:form>
             		</div>
@@ -227,7 +232,7 @@
                 	<h1>Buscar Medicament</h1>
                   		<h:form id="formulariBuscarMedicament">
                   			<h:panelGrid columns="4" layout="grid" styleClass="ui-panelgrid-blank form-group">						
-								<h:outputLabel for="ppcip" value="Paraula: " />
+								<h:outputLabel value="Paraula clau: " />
 				            	<p:inputText value="#{#}" />
                   				<p:button outcome="/test" value="Buscar" icon="fa fa-search" styleClass="raised-btn"/>
                   				<p:button outcome="/test" value="Copiar" icon="fa fa-files-o" styleClass="raised-btn"></p:button>
