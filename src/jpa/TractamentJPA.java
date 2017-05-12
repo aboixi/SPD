@@ -51,6 +51,8 @@ public class TractamentJPA implements Serializable{
 	private boolean diumenge;
 	@Column(name = "fora_blister")
 	private boolean foraBlister;
+	@Column(name = "numero_lot")
+	private String numLot;
 	
 	@ManyToOne(targetEntity=ExpedientJPA.class, fetch=FetchType.EAGER)
 	@JoinColumn(name = "expedient", referencedColumnName = "id_expedient")
@@ -342,5 +344,19 @@ public class TractamentJPA implements Serializable{
 	 */
 	public void setMedicament(MedicamentJPA medicament) {
 		this.medicament = medicament;
+	}
+
+	/**
+	 * @return the numLot
+	 */
+	public String getNumLot() {
+		return numLot;
+	}
+
+	/**
+	 * @param numLot the numLot to set
+	 */
+	public void setNumLot(String numLot) {
+		this.numLot = numLot;
 	}
 }

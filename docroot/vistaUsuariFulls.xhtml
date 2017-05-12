@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+                
+    <ui:define name="title">SimpleSPD-Pacients</ui:define>
+
+    <ui:define name="content">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-lg-6">
+            	<!-- Left Side -->
+                <div class="card card-w-title">
+					<h1>Fulls de Treball</h1>
+                    <h:form id="formulariLlistaFulls">
+						<p:dataTable id="llistaFulls" var="item" value="#{llistarFulls.pacients}" selectionMode="single" rowKey="#{item.cognom1}">
+							<f:facet name="header">
+			                	Llista de Pacients
+			                </f:facet>
+					    
+						    <p:column headerText="Nom">
+						        <h:outputText value="#{item.nom}" />
+						    </p:column>
+						 
+						    <p:column headerText="Cognom1">
+						        <h:outputText value="#{item.cognom1}" />
+						    </p:column>
+						    
+						    <p:column headerText="Cognom2">
+						        <h:outputText value="#{item.cognom2}" />
+						    </p:column>
+						    
+						    <p:column headerText="Residencia">
+						        <h:outputText value="#{item.nomResidencia}" />
+						    </p:column>
+
+							</p:dataTable>
+            		</h:form>
+                </div>   
+            </div>
+        </div>
+        
+    </ui:define>
+
+</ui:composition>
+

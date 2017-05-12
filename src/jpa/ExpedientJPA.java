@@ -3,13 +3,10 @@
  * @author Albert Boix Isern
  */
 package jpa;
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
-
 import javax.persistence.*;
-
 @Entity
 @Table(name="spd.expedients")
 public class ExpedientJPA implements Serializable{
@@ -32,27 +29,21 @@ public class ExpedientJPA implements Serializable{
 		super();
 		this.tractaments= new HashSet<TractamentJPA>();
 	}
-
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
 	public Collection<TractamentJPA> getTractaments() {
 		return tractaments;
 	}
-
 	public void setTractaments(Collection<TractamentJPA> tractaments) {
 		this.tractaments = tractaments;
 	}
-
 	public PacientJPA getPacient() {
 		return pacient;
 	}
-
 	public void setPacient(PacientJPA pacient) {
 		this.pacient = pacient;
 	}
