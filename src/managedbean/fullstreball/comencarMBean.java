@@ -1,7 +1,10 @@
 package managedbean.fullstreball;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 
 import javax.ejb.EJB;
@@ -19,9 +22,9 @@ import jpa.UsuariEmpresaJPA;
 /**
  * 
  */
-@ManagedBean (name="llistarFulls")
+@ManagedBean (name="comencar")
 @SessionScoped
-public class LlistarFullsMBean implements Serializable{
+public class comencarMBean implements Serializable{
 	
 	@EJB (name="FullTreballNegociEJB")
 	FullTreballNegociRemote fullsRemotEJB;
@@ -30,7 +33,7 @@ public class LlistarFullsMBean implements Serializable{
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
-	public String llistarFulls()throws Exception{
+	public String comencar()throws Exception{
 		if (checkSession()){
 			String cif=getSessionCif();
 			Properties props = System.getProperties();
@@ -38,10 +41,24 @@ public class LlistarFullsMBean implements Serializable{
 			fullsRemotEJB = (FullTreballNegociRemote) ctx.lookup("java:app/SPD.jar/FullTreballNegociEJB!ejb.FullTreballNegociRemote");
 			this.pacients=fullsRemotEJB.llistarFulls(cif);
 			this.setPacients(pacients);
-			return "vistaUsuariFulls";
+			setExpedientsSessio(pacients);
+			return "vistaUsuariModificarFull";
 		}else{
 			return "accessError";
 		}
+	}
+	
+	public void setExpedientsSessio(Collection<PacientJPA> pacients){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
+		List<Integer> indexExpedients = new ArrayList<Integer>();
+		PacientJPA pacient = null;
+		Iterator<PacientJPA> iter = pacients.iterator();
+		while (iter.hasNext()){
+			pacient = iter.next();
+			indexExpedients.add(pacient.getExpedient().getId());
+		}
+		activeSession.setAttribute("indexExpedients", indexExpedients);
 	}
 
 	public boolean checkSession(){

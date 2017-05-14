@@ -14,7 +14,7 @@
                 <div class="card card-w-title">
 					<h1>Fulls de Treball</h1>
                     <h:form id="formulariLlistaFulls">
-						<p:dataTable id="llistaFulls" var="item" value="#{llistarFulls.pacients}" selectionMode="single" rowKey="#{item.cognom1}">
+						<p:dataTable id="llistaFulls" var="item" value="#{llistarFulls.pacients}">
 							<f:facet name="header">
 			                	Llista de Pacients
 			                </f:facet>
@@ -31,11 +31,13 @@
 						        <h:outputText value="#{item.cognom2}" />
 						    </p:column>
 						    
-						    <p:column headerText="Residencia">
+						    <p:column headerText="Residencia" sortBy="#{item.nomResidencia}">
 						        <h:outputText value="#{item.nomResidencia}" />
 						    </p:column>
-
-							</p:dataTable>
+						</p:dataTable>
+						<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+	            			<p:commandButton id="boto" actionListener="#{comencar.comencar}" action="#{crearFull.crearFull}" value="Començar a treballar" icon="fa fa-flag-checkered" styleClass="red-btn raised-btn"/>
+        				</h:panelGrid>
             		</h:form>
                 </div>   
             </div>

@@ -22,6 +22,10 @@ public class FullDeTreballJPA implements Serializable{
 	public FullDeTreballJPA(){
 		super();
 	}
+	
+	public FullDeTreballJPA(ExpedientJPA expedient){
+		this.setExpedient(expedient);
+	}
 
 	/**
 	 * @return the expedient
