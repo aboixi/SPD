@@ -6,6 +6,7 @@
 package ejb;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
@@ -14,7 +15,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import jpa.ExpedientJPA;
+import jpa.FullDeTreballJPA;
 import jpa.PacientJPA;
+import jpa.TractamentJPA;
 
 
 @Stateless
@@ -32,6 +35,21 @@ public class FullTreballNegociEJB implements FullTreballNegociRemote{
 	public ExpedientJPA consultarExpedient(int idExpedient){
 		ExpedientJPA expedient = entman.find(ExpedientJPA.class, idExpedient);
 		return expedient;
+	}
+	
+	public void modificarFull (FullDeTreballJPA full){
+		//Full de treball
+		entman.persist(full);
+		//Expedient
+		ExpedientJPA expedient = full.getExpedient();
+		TractamentJPA tractament = null;
+		//Tractaments
+		Collection<TractamentJPA> tractaments=expedient.getTractaments();
+		Iterator<TractamentJPA> iter = tractaments.iterator();
+		while (iter.hasNext()){
+			tractament=iter.next();
+			entman.merge(tractament);
+		}
 	}
 }
 	

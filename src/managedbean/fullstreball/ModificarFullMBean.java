@@ -2,8 +2,6 @@ package managedbean.fullstreball;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -18,7 +16,6 @@ import javax.servlet.http.HttpSession;
 
 import ejb.FullTreballNegociRemote;
 import jpa.FullDeTreballJPA;
-import jpa.PacientJPA;
 import jpa.MedicamentJPA;
 import jpa.TractamentJPA;
 import managedbean.expedient.buscarMedicamentMBean;
@@ -35,6 +32,7 @@ public class ModificarFullMBean implements Serializable{
 	private FullDeTreballJPA full;
 	private TractamentJPA tractament;
 	private MedicamentJPA medicament;
+	private List<Integer> idExpedients = new ArrayList<Integer>();
 	@ManagedProperty("#{crearFull}")
 	private CrearFullDeTreballMBean crearFullMBean;
 	@ManagedProperty("#{buscarMedicament}")
@@ -48,8 +46,10 @@ public class ModificarFullMBean implements Serializable{
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
 			fullsRemotEJB = (FullTreballNegociRemote) ctx.lookup("java:app/SPD.jar/FullTreballNegociEJB!ejb.FullTreballNegociRemote");
-			
-			
+			fullsRemotEJB.modificarFull(getFullSessio());
+			idExpedients = getExpedientsSessio();
+			idExpedients.remove(0);
+			setExpedientsSessio(idExpedients);
 		}else{
 			return "accessError";
 		}
@@ -63,7 +63,6 @@ public class ModificarFullMBean implements Serializable{
 	
 	public void modificarMedicament(){
 		this.tractament=crearFullMBean.getTractament();
-//		this.tractament.setMedicament(buscarMedMBean.getMedicament());
 		this.tractament.setNumLot(crearFullMBean.getTractament().getNumLot());
 		this.full=getFullSessio();
 		crearFullMBean.setTractament(this.tractament);
@@ -84,26 +83,22 @@ public class ModificarFullMBean implements Serializable{
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
 		activeSession.setAttribute("full", fullTreball);
 	}
-//	public void guardarNumeroLot(){
-//		this.tractament=crearFullMBean.getTractament();
-//	}
-//	
-//	public void clearFields(){
-//		crearFullMBean.getTractament().setNumLot(null);
-//	}
 	
-	public void setExpedientsSessio(Collection<PacientJPA> pacients){
+	@SuppressWarnings("unchecked")
+	public List<Integer> getExpedientsSessio(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
 		List<Integer> indexExpedients = new ArrayList<Integer>();
-		PacientJPA pacient = null;
-		Iterator<PacientJPA> iter = pacients.iterator();
-		while (iter.hasNext()){
-			pacient = iter.next();
-			indexExpedients.add(pacient.getExpedient().getId());
-		}
-		activeSession.setAttribute("indexExpedients", indexExpedients);
+		indexExpedients = (List<Integer>) activeSession.getAttribute("indexExpedients");
+		return indexExpedients;
 	}
+	
+	public void setExpedientsSessio(List<Integer> llistaId){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
+		activeSession.setAttribute("indexExpedients", llistaId);
+	}
+	
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -183,6 +178,20 @@ public class ModificarFullMBean implements Serializable{
 	 */
 	public void setBuscarMedMBean(buscarMedicamentMBean buscarMedMBean) {
 		this.buscarMedMBean = buscarMedMBean;
+	}
+
+	/**
+	 * @return the idExpedients
+	 */
+	public List<Integer> getIdExpedients() {
+		return idExpedients;
+	}
+
+	/**
+	 * @param idExpedients the idExpedients to set
+	 */
+	public void setIdExpedients(List<Integer> idExpedients) {
+		this.idExpedients = idExpedients;
 	}
 
 }

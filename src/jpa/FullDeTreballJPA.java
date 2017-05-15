@@ -15,7 +15,7 @@ public class FullDeTreballJPA implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@OneToOne(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.EAGER, orphanRemoval=true)
 	@JoinColumn(name = "expedient", referencedColumnName = "id_expedient")
 	private ExpedientJPA expedient;
 	

@@ -53,7 +53,7 @@ public class CrearFullDeTreballMBean implements Serializable{
 				this.expedient = fullsRemotEJB.consultarExpedient(idExpedient);	
 				this.full = new FullDeTreballJPA(expedient);
 				setFullSessio(full);
-				return "vistaUsuariModificarFull";	
+				return "vistaUsuariModificarFull?faces-redirect=true";
 			}
 		}else{
 			return "accessError";

@@ -21,7 +21,7 @@
 						<h:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
 		        			<h:outputLabel value="Número de lot: " />
 		            		<p:inputText value="#{crearFull.tractament.numLot}" required="true" requiredMessage="Falta número de lot"/>
-							<p:commandButton actionListener="#{modificarFull.modificarMedicament}" value="Guardar" icon="fa fa-disk" update="formulariLlistaTractamentsFull" styleClass="raised-btn"/>
+							<p:commandButton actionListener="#{modificarFull.modificarMedicament}" value="Guardar" icon="fa fa-save" update="formulariLlistaTractamentsFull" styleClass="raised-btn"/>
 		            	</h:panelGrid>
 						<p:panelGrid styleClass="ui-grid">
                         <f:facet name="header">
@@ -137,6 +137,9 @@
 					        <h:outputLabel value="Ubicació: " />
 					        <h:outputText value="#{sessionScope.full.expedient.pacient.nomResidencia}" />
        					</h:panelGrid>
+       						<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+       							<p:commandButton actionListener="#{modificarFull.modificarFull}" action="#{crearFull.crearFull}" value="Següent Pacient" icon="fa fa-forward" styleClass="raised-btn"/>
+       					</h:panelGrid>
        				</h:form>
             	</div>
 			</div>
@@ -164,6 +167,4 @@
 		</div>
     </ui:define>
 </ui:composition>
- 
- 
  
