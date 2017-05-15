@@ -9,71 +9,31 @@
 
     <ui:define name="content">
 		<div class="ui-g ui-fluid">  
-       		<div class="ui-g-12 ui-lg-6">
-       			<div class="card card-w-title">	
-       			<h1>Pacient</h1>
-       			<p:messages showDetail="true" showSummary="false" autoUpdate="true" closable="false" />
-       				<h:form id="formulariModificaFullPacient">
-						<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
-					    	<h:outputLabel value="CIP: " />
-					        <h:outputText value="#{sessionScope.full.expedient.pacient.cip}" />
-					    </h:panelGrid>
-					    <h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
-					    	<h:outputLabel value="Nom: " />
-					        <h:outputText value="#{sessionScope.full.expedient.pacient.nom}" />
-					    </h:panelGrid>
-					    <h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
-					        <h:outputLabel value="Primer cognom " />
-					        <h:outputText value="#{sessionScope.full.expedient.pacient.cognom1}" />
-					        <h:outputLabel value="Segon cognom: " />
-					        <h:outputText value="#{sessionScope.full.expedient.pacient.cognom2}" />
-       					</h:panelGrid>
-       				</h:form>
-            	</div>
-			</div>
-			<div class="ui-g-12 ui-lg-6">
-       			<div class="card card-w-title">
-       			<h1>Tractaments</h1>
-       				<p:dataTable id="llistaTractamentsFull" var="item" value="#{sessionScope.full.expedient.tractaments}" selectionMode="single" selection="#{crearFull.tractament}" rowKey="#{item.medicament.cn}">
-							<f:facet name="header">
-			                	Tractaments
-			                </f:facet>
-			                <p:ajax event="rowSelect" listener="#{crearFull.ompleBlister}" update=":formulariDistribucioBlisterFull"/> 
-						    <p:column headerText="C.N." style="width:10%;text-align: center">
-						        <h:outputText value="#{item.medicament.cn}" />
-						    </p:column>
-						    <p:column headerText="Nom" style="width:78%;text-align: left">
-						        <h:outputText value="#{item.medicament.nomComercial}" />
-						    </p:column>
-						    <p:column headerText="Quantitat Setmanal" style="width:12%;text-align: center">
-						        <h:outputText value="#{item.quantitatSetmanal}" />
-						    </p:column>
-					</p:dataTable>
-            	</div>
-			</div>
+
 			<div class="ui-g-12 ui-lg-6">
                 <div class="card card-w-title">
                 <h1>Distribució en blíster</h1>
                 	<h:form id="formulariDistribucioBlisterFull">
                     	<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
-							<h:outputLabel for="medname2" value="Nom del medicament: " />
-		            		<p:inputText value=""/>
-
-		        			<h:outputLabel for="numlot2" value="Número de lot: " />
-		            		<p:inputText value=""/>
-		            		
-		        		</h:panelGrid>
+							<h:outputLabel value="Medicament: " />
+		            		<h:outputLabel value="#{crearFull.tractament.medicament.nomComercial}"/>
+		            	</h:panelGrid>
+						<h:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
+		        			<h:outputLabel value="Número de lot: " />
+		            		<p:inputText value="#{crearFull.tractament.numLot}" required="true" requiredMessage="Falta número de lot"/>
+							<p:commandButton actionListener="#{modificarFull.modificarMedicament}" value="Guardar" icon="fa fa-disk" update="formulariLlistaTractamentsFull" styleClass="raised-btn"/>
+		            	</h:panelGrid>
 						<p:panelGrid styleClass="ui-grid">
                         <f:facet name="header">
                             <p:row>
                                 <p:column colspan="7">Configuració Blíster</p:column>
                             </p:row>
                             <p:row>
-                            <p:column style="width:60%;text-align: left">Dia setmana</p:column>
-                            <p:column style="width:10%;text-align: center"><p:commandButton type="button" icon="fa fa-bed" styleClass="black-btn"/></p:column>
-                            <p:column style="width:10%;text-align: center"><p:commandButton type="button" icon="fa fa-cutlery" styleClass="black-btn"/></p:column>
-                            <p:column style="width:10%;text-align: center"><p:commandButton type="button" icon="fa fa-sun-o" styleClass="black-btn"/></p:column>
-                            <p:column style="width:10%;text-align: center"><p:commandButton type="button" icon="fa fa-coffee" styleClass="black-btn"/></p:column>
+                            <p:column style="width:40%;text-align: left">Dia setmana</p:column>
+                            <p:column style="width:15%;text-align: center"><p:commandButton type="button" icon="fa fa-bed" styleClass="black-btn"/></p:column>
+                            <p:column style="width:15%;text-align: center"><p:commandButton type="button" icon="fa fa-cutlery" styleClass="black-btn"/></p:column>
+                            <p:column style="width:15%;text-align: center"><p:commandButton type="button" icon="fa fa-sun-o" styleClass="black-btn"/></p:column>
+                            <p:column style="width:15%;text-align: center"><p:commandButton type="button" icon="fa fa-coffee" styleClass="black-btn"/></p:column>
                             </p:row>
                             </f:facet>
 							<p:row>
@@ -126,19 +86,69 @@
                             <p:column style="text-align: center;"><p:outputLabel value="#{crearFull.blister[27]}" style="width:10%;text-align: center"/></p:column>
 							</p:row>
  					</p:panelGrid>	
-
             		</h:form>
 				</div>
 			</div>
 			<div class="ui-g-12 ui-lg-6">
-                <div class="card card-w-title">
+       		<div class="card card-w-title">
+       			<h1>Tractaments</h1>
+       				<h:form id="formulariLlistaTractamentsFull">
+       					<p:dataTable id="llistaTractamentsFull" var="item" value="#{sessionScope.full.expedient.tractaments}" selectionMode="single" selection="#{crearFull.tractament}" rowKey="#{item.idTractament}">
+							<f:facet name="header">
+			                	Tractaments
+			                </f:facet>
+			                <p:ajax event="rowSelect" listener="#{crearFull.actualitzaFormulariBlister}" update=":formulariDistribucioBlisterFull"/>
+						    <p:column headerText="Num. Lot" style="width:12%;text-align: center">
+						        <h:outputText value="#{item.numLot}" />
+						    </p:column>
+						    <p:column headerText="C.N." style="width:10%;text-align: center">
+						        <h:outputText value="#{item.medicament.cn}" />
+						    </p:column>
+						    <p:column headerText="Nom" style="width:78%;text-align: left">
+						        <h:outputText value="#{item.medicament.nomComercial}" />
+						    </p:column>
+						    <p:column headerText="Quantitat Setmanal" style="width:12%;text-align: center">
+						        <h:outputText value="#{item.quantitatSetmanal}" />
+						    </p:column>
+						</p:dataTable>
+					</h:form>
+            	</div>
+			</div>
+			<div class="ui-g-12 ui-lg-6">
+       			<div class="card card-w-title">	
+       			<h1>Pacient</h1>
+       			<p:messages showDetail="true" showSummary="false" autoUpdate="true" closable="false" />
+       				<h:form id="formulariModificaFullPacient">
+						<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+					    	<h:outputLabel value="CIP: " />
+					        <h:outputText value="#{sessionScope.full.expedient.pacient.cip}" />
+					    </h:panelGrid>
+					    <h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+					    	<h:outputLabel value="Nom: " />
+					        <h:outputText value="#{sessionScope.full.expedient.pacient.nom}" />
+					    </h:panelGrid>
+					    <h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+					        <h:outputLabel value="Primer cognom " />
+					        <h:outputText value="#{sessionScope.full.expedient.pacient.cognom1}" />
+					        <h:outputLabel value="Segon cognom: " />
+					        <h:outputText value="#{sessionScope.full.expedient.pacient.cognom2}" />
+       					</h:panelGrid>
+       					<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+					        <h:outputLabel value="Ubicació: " />
+					        <h:outputText value="#{sessionScope.full.expedient.pacient.nomResidencia}" />
+       					</h:panelGrid>
+       				</h:form>
+            	</div>
+			</div>
+			<div class="ui-g-12 ui-lg-6">
+            <div class="card card-w-title">
                 <h1>Buscador de medicaments</h1>
                 	<h:form id="formulariBuscarMedicament">
              			<h:panelGrid columns="4" layout="grid" styleClass="ui-panelgrid-blank form-group">						
 							<h:outputLabel value="Paraula clau: " />
 					      	<p:inputText value="#{buscarMedicament.paraula}" />
 					  			<p:commandButton actionListener="#{buscarMedicament.buscarMedicament}" value="Buscar" icon="fa fa-search" update="formulariBuscarMedicament" styleClass="raised-btn"/>
-					  			<p:commandButton actionListener="#{buscarMedicament.copiarMedicament}" value="Copiar" icon="fa fa-files-o" update="formulariBuscarMedicament" styleClass="raised-btn"/>
+					  			<p:commandButton actionListener="#{modificarFull.preModificarMedicament}" value="Copiar" icon="fa fa-files-o" update="formulariDistribucioBlisterFull" styleClass="raised-btn"/>
 					  	</h:panelGrid>  
 					  	<p:dataTable id="llistaMedicaments" var="item" value="#{buscarMedicament.medicaments}" selectionMode="single" selection="#{buscarMedicament.medicament}" rowKey="#{item.cn}" rows="5"  paginator="true">
 							<p:column headerText="CN" style="width:8%">
@@ -154,3 +164,6 @@
 		</div>
     </ui:define>
 </ui:composition>
+ 
+ 
+ 

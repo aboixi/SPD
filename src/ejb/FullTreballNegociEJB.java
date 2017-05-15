@@ -14,7 +14,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import jpa.ExpedientJPA;
-import jpa.MedicamentJPA;
 import jpa.PacientJPA;
 
 

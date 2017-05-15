@@ -31,11 +31,11 @@ public class CrearFullDeTreballMBean implements Serializable{
 	
 	@EJB (name="FullTreballNegociEJB")
 	FullTreballNegociRemote fullsRemotEJB;
-	private Collection<PacientJPA> pacients;
 	private List<Integer> idExpedients = new ArrayList<Integer>();
 	private String [] blister = new String[28];
 	private ExpedientJPA expedient;
 	private TractamentJPA tractament;
+	private FullDeTreballJPA full;
 	@SuppressWarnings("unused")
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
@@ -51,10 +51,8 @@ public class CrearFullDeTreballMBean implements Serializable{
 				return "vistaUsuariModificarExpedient";
 			}else{
 				this.expedient = fullsRemotEJB.consultarExpedient(idExpedient);	
-				FullDeTreballJPA full = new FullDeTreballJPA(expedient);
+				this.full = new FullDeTreballJPA(expedient);
 				setFullSessio(full);
-				eliminarIdExpedientSessio();
-				ompleBlister();
 				return "vistaUsuariModificarFull";	
 			}
 		}else{
@@ -84,6 +82,12 @@ public class CrearFullDeTreballMBean implements Serializable{
 		activeSession.setAttribute("indexExpedients", indexExpedients);
 	}
 	
+	public void setFullSessio(FullDeTreballJPA full){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
+		activeSession.setAttribute("full", full);
+	}
+	
 	public int consultaPrimerIdExpedient(){
 		int idExpedient=-1;
 		if (this.idExpedients.isEmpty()){
@@ -91,12 +95,6 @@ public class CrearFullDeTreballMBean implements Serializable{
 		}else{
 			return this.idExpedients.get(0);
 		}
-	}
-	
-	public void setFullSessio(FullDeTreballJPA full){
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
-		activeSession.setAttribute("full", full);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -109,8 +107,12 @@ public class CrearFullDeTreballMBean implements Serializable{
 		}
 	}
 	
+	public String actualitzaFormulariBlister(){
+		ompleBlister();
+		return "vistaUsuariModificarFull";
+	}
+
 	public void ompleBlister(){
-		this.tractament= this.expedient.getTractaments().iterator().next();
 		
 		int i=0;
 		String [] preses=new String[4];
@@ -222,48 +224,6 @@ public class CrearFullDeTreballMBean implements Serializable{
 	}
 
 	/**
-	 * @return the pacients
-	 */
-	public Collection<PacientJPA> getPacients() {
-		return pacients;
-	}
-
-	/**
-	 * @param pacients the pacients to set
-	 */
-	public void setPacients(Collection<PacientJPA> pacients) {
-		this.pacients = pacients;
-	}
-
-	/**
-	 * @return the tractament
-	 */
-	public TractamentJPA getTractament() {
-		return tractament;
-	}
-
-	/**
-	 * @param tractament the tractament to set
-	 */
-	public void setTractament(TractamentJPA tractament) {
-		this.tractament = tractament;
-	}
-
-	/**
-	 * @return the expedient
-	 */
-	public ExpedientJPA getExpedient() {
-		return expedient;
-	}
-
-	/**
-	 * @param expedient the expedient to set
-	 */
-	public void setExpedient(ExpedientJPA expedient) {
-		this.expedient = expedient;
-	}
-
-	/**
 	 * @return the fullsRemotEJB
 	 */
 	public FullTreballNegociRemote getFullsRemotEJB() {
@@ -305,4 +265,46 @@ public class CrearFullDeTreballMBean implements Serializable{
 		this.blister = blister;
 	}
 
+	/**
+	 * @return the expedient
+	 */
+	public ExpedientJPA getExpedient() {
+		return expedient;
+	}
+
+	/**
+	 * @param expedient the expedient to set
+	 */
+	public void setExpedient(ExpedientJPA expedient) {
+		this.expedient = expedient;
+	}
+
+	/**
+	 * @return the tractament
+	 */
+	public TractamentJPA getTractament() {
+		return tractament;
+	}
+
+	/**
+	 * @param tractament the tractament to set
+	 */
+	public void setTractament(TractamentJPA tractament) {
+		this.tractament = tractament;
+	}
+
+	/**
+	 * @return the full
+	 */
+	public FullDeTreballJPA getFull() {
+		return full;
+	}
+
+	/**
+	 * @param full the full to set
+	 */
+	public void setFull(FullDeTreballJPA full) {
+		this.full = full;
+	}
+	
 }
