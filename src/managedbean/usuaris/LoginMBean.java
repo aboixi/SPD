@@ -74,7 +74,7 @@ public class LoginMBean implements Serializable{
 		activeSession.removeAttribute("sessioUsuari");
 		activeSession.invalidate();
 		
-		return "vistaLogin";
+		return "vistaLogin?faces-redirect=true";
 	}
 	
  	public void clearFields(){

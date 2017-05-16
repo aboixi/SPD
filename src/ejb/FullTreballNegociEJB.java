@@ -39,7 +39,12 @@ public class FullTreballNegociEJB implements FullTreballNegociRemote{
 	
 	public void modificarFull (FullDeTreballJPA full){
 		//Full de treball
-		entman.persist(full);
+		FullDeTreballJPA fullTreball = entman.find(FullDeTreballJPA.class, full.getExpedient().getId());
+		if (fullTreball==null){
+			entman.persist(full);
+		}else{
+			entman.merge(full);
+		}
 		//Expedient
 		ExpedientJPA expedient = full.getExpedient();
 		TractamentJPA tractament = null;

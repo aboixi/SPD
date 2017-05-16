@@ -29,26 +29,26 @@
  							<f:facet name="header">
  								Tractaments
  							</f:facet>	
-							<p:ajax event="rowEdit" listener="#{#}" update="" />
-       						<p:ajax event="rowEditCancel" listener="#{#}" update="" />
+<!-- 						<p:ajax event="rowEdit" listener="#{#}" update="" />
+       						<p:ajax event="rowEditCancel" listener="#{#}" update="" />  -->
        					
-								<p:column style="width:50px;" headerText="Inici">
+								<p:column style="width:8%;text-align: center" headerText="Inici">
        								<p:cellEditor>
 			                   			<f:facet name="output"><h:outputText value="#{item.dataInici}" style="width:100%;text-align: center"/></f:facet>
 			                    		<f:facet name="input"><p:inputText value="#{item.dataInici}"/></f:facet>
 			                    	</p:cellEditor>
 			                    </p:column>
 	                            
-	                            <p:column style="width:50px;" headerText="CN">
+	                            <p:column style="width:6%;text-align: center" headerText="CN">
 	                            	<p:cellEditor>
 	                            		<f:facet name="output"><h:outputText value="#{item.medicament.cn}" style="width:100%;text-align: center"/></f:facet>	 
 	                            		<f:facet name="input"><p:inputText value="#{item.medicament.cn}"/></f:facet>	                            
 	                            	</p:cellEditor>
 	                            </p:column>
 	                            
-	                            <p:column style="width:75px;" headerText="Nom Comercial"><h:outputText value="#{item.medicament.nomComercial}" style="width:100px;margin-left: 10px; margin-right: 8px"/></p:column>
+	                            <p:column style="width:42%;text-align: left" headerText="Nom Comercial"><h:outputText value="#{item.medicament.nomComercial}" style="width:100px;margin-left: 10px; margin-right: 8px"/></p:column>
 	                            
-	                            <p:column style="width:25px;" headerText="Unitats">
+	                            <p:column style="width:5%;text-align: center" headerText="Unitats">
 	                           		<p:cellEditor>
 	                           			<f:facet name="output"><h:outputText value="#{item.quantEntera}" style="width:100%"/></f:facet>
 	                            		<f:facet name="input">                            		
@@ -65,7 +65,7 @@
 									</p:cellEditor>                  		
 	                       		</p:column>
 	                       		
-	                            <p:column style="width:25px;" headerText="Fracció">
+	                            <p:column style="width:5%;text-align: center" headerText="Fracció">
 	                            	<p:cellEditor>
 	                            		<f:facet name="output"><h:outputText value="#{item.quantFraccio}" style="width:100%"/></f:facet>
 	                            		<f:facet name="input">  
@@ -79,67 +79,67 @@
 									</p:cellEditor>
 	                       		</p:column>
 	                       		                            
-	                           <p:column style="text-align: center;width:10px" headerText="Matí">
+	                           <p:column style="text-align: center;width:5%" headerText="Matí">
 	                            	<p:cellEditor>
 	                            		<f:facet name="output"><p:selectBooleanCheckbox value="#{item.esmorcar}" disabled="true"/></f:facet>	 
 	                            		<f:facet name="input"><p:selectBooleanCheckbox value="#{item.esmorcar}"/></f:facet>	                            
 	                            	</p:cellEditor>
 	                            </p:column>
-	                            <p:column style="text-align: center;width:10px" headerText="Dinar">
+	                            <p:column style="text-align: center;width:5%" headerText="Dinar">
 	                            	<p:cellEditor>
 	                            		<f:facet name="output"><p:selectBooleanCheckbox value="#{item.dinar}" disabled="true"/></f:facet>	 
 	                            		<f:facet name="input"><p:selectBooleanCheckbox value="#{item.dinar}"/></f:facet>	                            
 	                            	</p:cellEditor>
 	                            </p:column>
-	                            <p:column style="text-align: center;width:10px" headerText="Sopar">
+	                            <p:column style="text-align: center;width:5%" headerText="Sopar">
 	                            	<p:cellEditor>
 	                            		<f:facet name="output"><p:selectBooleanCheckbox value="#{item.sopar}" disabled="true"/></f:facet>	 
 	                            		<f:facet name="input"><p:selectBooleanCheckbox value="#{item.sopar}"/></f:facet>	                            
 	                            	</p:cellEditor>
 	                            </p:column>
-	                            <p:column style="text-align: center;width:10px" headerText="Nit">
+	                            <p:column style="text-align: center;width:5%" headerText="Nit">
 	                            	<p:cellEditor>
 	                            		<f:facet name="output"><p:selectBooleanCheckbox value="#{item.dormir}" disabled="true"/></f:facet>	 
 	                            		<f:facet name="input"><p:selectBooleanCheckbox value="#{item.dormir}"/></f:facet>	                            
 	                            	</p:cellEditor>
 	                            </p:column>
-	                            <p:column style="text-align: center;width:10px" headerText="I">
+	                            <p:column style="text-align: center;width:2%" headerText="I">
 	                            	<p:cellEditor>
 	                            		<f:facet name="output"><p:selectBooleanCheckbox value="#{item.dilluns}" disabled="true"/></f:facet>	 
 	                            		<f:facet name="input"><p:selectBooleanCheckbox value="#{item.dilluns}"/></f:facet>	                            
 	                            	</p:cellEditor>
 	                            </p:column>
-	                            <p:column style="text-align: center;width:10px" headerText="II">
+	                            <p:column style="text-align: center;width:2%" headerText="II">
 	                            	<p:cellEditor>
 	                            		<f:facet name="output"><p:selectBooleanCheckbox value="#{item.dimarts}" disabled="true"/></f:facet>	 
 	                            		<f:facet name="input"><p:selectBooleanCheckbox value="#{item.dimarts}"/></f:facet>	                            
 	                            	</p:cellEditor>
 	                            </p:column>
-	                            <p:column style="text-align: center;width:10px" headerText="III">
+	                            <p:column style="text-align: center;width:2%" headerText="III">
 	                            	<p:cellEditor>
 	                            		<f:facet name="output"><p:selectBooleanCheckbox value="#{item.dimecres}" disabled="true"/></f:facet>	 
 	                            		<f:facet name="input"><p:selectBooleanCheckbox value="#{item.dimecres}"/></f:facet>	                            
 	                            	</p:cellEditor>
 	                            </p:column>
-	                            <p:column style="text-align: center;width:10px" headerText="IV">
+	                            <p:column style="text-align: center;width:2%" headerText="IV">
 	                            	<p:cellEditor>
 	                            		<f:facet name="output"><p:selectBooleanCheckbox value="#{item.dijous}" disabled="true"/></f:facet>	 
 	                            		<f:facet name="input"><p:selectBooleanCheckbox value="#{item.dijous}"/></f:facet>	                            
 	                            	</p:cellEditor>
 	                            </p:column>
-	                            <p:column style="text-align: center;width:10px" headerText="V">
+	                            <p:column style="text-align: center;width:2%" headerText="V">
 	                            	<p:cellEditor>
 	                            		<f:facet name="output"><p:selectBooleanCheckbox value="#{item.divendres}" disabled="true"/></f:facet>	 
 	                            		<f:facet name="input"><p:selectBooleanCheckbox value="#{item.divendres}"/></f:facet>	                            
 	                            	</p:cellEditor>
 	                            </p:column>
-	                            <p:column style="text-align: center;width:10px" headerText="VI">
+	                            <p:column style="text-align: center;width:2%" headerText="VI">
 	                            	<p:cellEditor>
 	                            		<f:facet name="output"><p:selectBooleanCheckbox value="#{item.dissabte}" disabled="true"/></f:facet>	 
 	                            		<f:facet name="input"><p:selectBooleanCheckbox value="#{item.dissabte}"/></f:facet>	                            
 	                            	</p:cellEditor>
 	                            </p:column>
-	                            <p:column style="text-align: center;width:10px" headerText="VII">
+	                            <p:column style="text-align: center;width:2%" headerText="VII">
 	                            	<p:cellEditor>
 	                            		<f:facet name="output"><p:selectBooleanCheckbox value="#{item.diumenge}" disabled="true"/></f:facet>	 
 	                            		<f:facet name="input"><p:selectBooleanCheckbox value="#{item.diumenge}"/></f:facet>	                            
