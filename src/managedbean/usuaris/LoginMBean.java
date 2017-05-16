@@ -48,21 +48,21 @@ public class LoginMBean implements Serializable{
 			EmpresaJPA empresa = (EmpresaJPA) usuari;
 			if (empresa.getCif().equals("invalid")){
 				clearFields();
-				return "accessError";
+				return "accessError?faces-redirect=true";
 			}else{
 				activeSession.setAttribute("sessioEmpresa", empresa);
 				clearFields();
-				return "vistaEmpresaPerfil";
+				return "vistaEmpresaPerfil?faces-redirect=true";
 			}
 		}else{
 			UsuariEmpresaJPA usuariEmpresa = (UsuariEmpresaJPA) usuari;
 			if (usuariEmpresa.getDni().equals("invalid")){
 				clearFields();
-				return "accessError";
+				return "accessError?faces-redirect=true";
 			}else{
 				activeSession.setAttribute("sessioUsuari", usuariEmpresa);
 				clearFields();
-				return "test";
+				return "test?faces-redirect=true";
 			}			
 		}
 	}

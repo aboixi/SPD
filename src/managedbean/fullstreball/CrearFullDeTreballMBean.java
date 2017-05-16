@@ -48,7 +48,7 @@ public class CrearFullDeTreballMBean implements Serializable{
 			this.idExpedients = getExpedientsSessio();
 			int idExpedient = consultaPrimerIdExpedient();
 			if(idExpedient==-1){
-				return "vistaUsuariModificarExpedient";
+				return "vistaUsuariExpedients";
 			}else{
 				this.expedient = fullsRemotEJB.consultarExpedient(idExpedient);	
 				this.full = new FullDeTreballJPA(expedient);
