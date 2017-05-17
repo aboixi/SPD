@@ -15,17 +15,13 @@ public class FullDeControlJPA implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "id_full_control")
-	private String idFullControl;
-	
+	private String idFullControl;	
 	@Column(name = "id_blister")
-	private String idBlister;
-	
+	private String idBlister;	
 	@Column(name = "id_fullDeTreball")
-	private String idFullTreball;
-	
+	private String idFullTreball;	
 	@Column(name = "id_tractament")
-	private String idTractament;
-	
+	private String idTractament;	
 	@Column(name = "id_preparat")
 	private String idPreparat;
 	@Column(name = "id_validat")

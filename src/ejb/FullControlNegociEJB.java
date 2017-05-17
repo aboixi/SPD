@@ -20,6 +20,7 @@ import javax.persistence.PersistenceContext;
 import jpa.ExpedientJPA;
 import jpa.FullDeControlJPA;
 import jpa.FullDeTreballJPA;
+import jpa.PacientJPA;
 import jpa.TractamentJPA;
 
 
@@ -49,5 +50,20 @@ public class FullControlNegociEJB implements FullControlNegociRemote{
 			FullDeControlJPA fullControl = new FullDeControlJPA(dniP,idBlister,tractament, numSetmana);
 			entman.persist(fullControl);
 		}	
+	}
+	
+	public Collection<PacientJPA> llistarFulls (String cif){
+		@SuppressWarnings("unchecked")
+		Collection<PacientJPA> pacients = entman.createQuery("FROM PacientJPA p WHERE p.residencia = '" + cif +"' "+" OR p.farmacia = '" + cif +"'").getResultList();
+	    return pacients;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Collection<FullDeControlJPA> consultarFulls(String cip){
+		PacientJPA pacient = entman.find(PacientJPA.class, cip);
+		int expedient = -1;
+		expedient=pacient.getExpedient().getId();
+		Collection<FullDeControlJPA> fulls = entman.createQuery("FROM FullDeControlJPA f WHERE f.idFullTreball = '" + expedient +"' ").getResultList();
+	    return fulls;
 	}
 }
