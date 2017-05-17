@@ -5,7 +5,6 @@
 
 package ejb;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -47,7 +46,7 @@ public class FullControlNegociEJB implements FullControlNegociRemote{
 		Iterator <TractamentJPA> iter = tractaments.iterator();
 		while (iter.hasNext()){
 			tractament=iter.next();
-			FullDeControlJPA fullControl = new FullDeControlJPA(dniP,idBlister,tractament, Calendar.WEEK_OF_YEAR);
+			FullDeControlJPA fullControl = new FullDeControlJPA(dniP,idBlister,tractament, numSetmana);
 			entman.persist(fullControl);
 		}	
 	}

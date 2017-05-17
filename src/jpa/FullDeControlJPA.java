@@ -73,7 +73,7 @@ public class FullDeControlJPA implements Serializable{
 
 	public FullDeControlJPA(String dnip,String idBlister, TractamentJPA tract, int setmana) {
 		super();
-		this.idFullControl=idBlister.concat(String.valueOf(tract.getIdTractament()));
+		this.idFullControl=idBlister.concat("-").concat(String.valueOf(tract.getIdTractament()));
 		this.idBlister = idBlister;
 		this.idFullTreball = String.valueOf(tract.getExpedient().getId());
 		this.idTractament = String.valueOf(tract.getIdTractament());
