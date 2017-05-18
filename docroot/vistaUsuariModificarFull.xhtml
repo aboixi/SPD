@@ -137,8 +137,9 @@
 					        <h:outputLabel value="Ubicació: " />
 					        <h:outputText value="#{sessionScope.full.expedient.pacient.nomResidencia}" />
        					</h:panelGrid>
-       						<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
-       							<p:commandButton actionListener="#{modificarFull.modificarFull}" action="#{crearFullControl.crearFullControl}" value="CONFIRMAR FULLA DE TREBALL" icon="fa fa-check-circle" styleClass="raised-btn"/>
+       						<h:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
+       							<p:commandButton actionListener="#{modificarFull.modificarFull}" action="#{crearFullControl.crearFullControl}" value="1-CONFIRMAR" icon="fa fa-check-circle" styleClass="raised-btn"/>
+       							<p:commandButton action="#{validar.validar}" value="2-VALIDAR" icon="fa fa-check-circle" styleClass="blue-btn"/>
        							<p:commandButton action="#{crearFull.crearFull}" value="Següent Pacient" icon="fa fa-forward" styleClass="raised-btn"/>
        					</h:panelGrid>
        				</h:form>

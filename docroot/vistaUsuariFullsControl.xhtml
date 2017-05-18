@@ -5,74 +5,74 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template.xhtml">
                 
-    <ui:define name="title">SimpleSPD-Pacients</ui:define>
-
+    <ui:define name="title">SimpleSPD-Registre</ui:define>
     <ui:define name="content">
         <div class="ui-g ui-fluid">
             <div class="ui-g-12 ui-lg-6">
             	<!-- Left Side -->
                 <div class="card card-w-title">
 					<h1>Pacients</h1>
-                    <h:form id="formulariLlistaPacientsFullsControl">
+                   	<h:form id="formulariLlistaPacientsFullsControl">
 						<p:dataTable id="llistaPacientsFullsControl" var="item" value="#{llistarFullsControl.pacients}" selectionMode="single" selection="#{consultarFullControl.pacient}" rowKey="#{item.cip}">
 							<f:facet name="header">
 			                	Llistat de Pacients
 			                </f:facet>
-			                <p:ajax event="rowSelect" listener="#{consultarFullControl.consultarFullControl}" update="formulariLlistaFullsControl"/>
-						    
+		                	<p:ajax event="rowSelect" listener="#{consultarFullControl.consultarBlisters}" update="formulariLlistaFullsControl"/>
+					    
 						    <p:column headerText="Nom">
 						        <h:outputText value="#{item.nom}" />
 						    </p:column>
-						 
+					 
 						    <p:column headerText="Cognom1">
 						        <h:outputText value="#{item.cognom1}" />
 						    </p:column>
-						    
+					    
 						    <p:column headerText="Cognom2">
 						        <h:outputText value="#{item.cognom2}" />
 						    </p:column>
-						    
+					    
 						    <p:column headerText="Residencia">
 						        <h:outputText value="#{item.nomResidencia}" />
 						    </p:column>
-						    
+					    
 						    <p:column headerText="Farmacia">
 						        <h:outputText value="#{item.nomFarmacia}" />
 						    </p:column>
 						</p:dataTable>
-            		</h:form>
+					</h:form>
                 </div>   
             </div>
-               <div class="ui-g-12 ui-lg-6">
+            <div class="ui-g-12 ui-lg-6">
             	<!-- Right Side -->
                 <div class="card card-w-title">
-                <h1>Registre</h1>
+                <h1>Registre Blísters</h1>
                   	<h:form id="formulariLlistaFullsControl">
-						<p:dataTable id="llistaFullsControl" var="item" value="#{consultarFullControl.fullsControl}">
+						<p:dataTable id="llistaFullsControl" var="item" value="#{consultarFullControl.blisters}"  selectionMode="single" selection="#{consultarFullControl.blister}" rowKey="#{item.idBlister}">
 							<f:facet name="header">
 			                	Registre de blísters
 			                </f:facet>
-						    <p:column headerText="Setmana">
+						    <p:column headerText="Setmana" style="width:10%;text-align: center">
 						        <h:outputText value="#{item.setmana}" />
 						    </p:column>
 						    
-						    <p:column headerText="Id Blister">
+						    <p:column headerText="Id Blister" style="width:30%;text-align: center">
 						        <h:outputText value="#{item.idBlister}" />
 						    </p:column>
 						 
-						    <p:column headerText="Preparat per">
-						        <h:outputText value="#{item.idPreparat}" />
+						    <p:column headerText="Preparat per" style="width:20%;text-align: center">
+						        <h:outputText value="#{item.preparatPer}" />
 						    </p:column>
 						    
-						    <p:column headerText="Validat per">
-						        <h:outputText value="#{item.idValidat}" />
+						    <p:column headerText="Validat per" style="width:20%;text-align: center">
+						        <h:outputText value="#{item.validatPer}" />
 						    </p:column>
 						</p:dataTable>
+       					<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
+       						<p:commandButton action="#{consultarFullControl.consultarFullsControl}" value="Consultar Tractaments" icon="fa fa-search" styleClass="raised-btn"/>
+       					</h:panelGrid>
             		</h:form>
 				</div>
 			</div>   
-        </div>
-        
+        </div>    
     </ui:define>
-
 </ui:composition>

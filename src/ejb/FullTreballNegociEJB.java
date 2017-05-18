@@ -89,4 +89,38 @@ public class FullTreballNegociEJB implements FullTreballNegociRemote{
 		}
 	}
 }
+
+/* ORIGINAL SENSE BLISTERJPA
+ 	@SuppressWarnings("unchecked")
+	public Collection<PacientJPA> llistarFulls(String cif){
+		//Obtenim el número de setmana actual
+		Calendar calendar = new GregorianCalendar();
+		Date time = new Date();
+		calendar.setTime(time);
+		int numSetmana = calendar.get(Calendar.WEEK_OF_YEAR);
+		int numAny = calendar.get(Calendar.YEAR);	
+		
+		ArrayList<PacientJPA> pacients = new ArrayList<PacientJPA>();
+		Collection<PacientJPA> llistaPacients = entman.createQuery("FROM PacientJPA p WHERE p.residencia = '" + cif +"' "+" OR p.farmacia = '" + cif +"'").getResultList();
+		PacientJPA pacient = null;
+		Iterator <PacientJPA> iter = llistaPacients.iterator();
+		while (iter.hasNext()){
+			ArrayList<FullDeControlJPA> fullsControl = new ArrayList<FullDeControlJPA>();
+			pacient = iter.next();
+			if((pacient.getExpedient().getTractaments().size()>0)&&(pacient.isAutoritzacio())&&(!(pacient.isExitus()))&&(!(pacient.isHospitalitzat()))&&(pacient.isSpd())){
+				String blister = pacient.getCip().concat(String.valueOf(numAny)).concat("-").concat(String.valueOf(numSetmana));
+				try{
+					fullsControl = (ArrayList<FullDeControlJPA>) entman.createQuery("FROM FullDeControlJPA f WHERE f.idBlister = '" + blister +"' ").getResultList();
+				}catch (PersistenceException e) {
+					System.out.println(e);
+				}
+				if (fullsControl.isEmpty()){
+				pacients.add(pacient);
+				}
+			}
+		}
+		return pacients;		
+	}
+ 
+ */
 	

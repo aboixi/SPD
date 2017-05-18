@@ -13,6 +13,7 @@ import javax.naming.InitialContext;
 import javax.servlet.http.HttpSession;
 
 import ejb.FullControlNegociRemote;
+import jpa.BlisterJPA;
 import jpa.FullDeControlJPA;
 import jpa.PacientJPA;
 
@@ -27,18 +28,29 @@ public class ConsultarFullControlMBean implements Serializable{
 	FullControlNegociRemote controlRemotEJB;
 	private PacientJPA pacient;
 	private Collection<FullDeControlJPA>fullsControl;
+	private Collection<BlisterJPA>blisters;
 	private FullDeControlJPA fullControl;
+	private BlisterJPA blister;
 	@SuppressWarnings("unused")
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
-	public String consultarFullControl()throws Exception{
+	public String consultarFullsControl()throws Exception{
+		if (checkSession()){
+			this.fullsControl = blister.getFullsControl();
+			return "vistaUsuariFullsControlBlister";
+		}else{
+			return "accessError";
+		}
+	}
+	
+	public String consultarBlisters()throws Exception{
 		if (checkSession()){
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
 			controlRemotEJB = (FullControlNegociRemote) ctx.lookup("java:app/SPD.jar/FullControlNegociEJB!ejb.FullControlNegociRemote");
-			this.fullsControl = controlRemotEJB.consultarFulls(pacient.getCip());
-			return "vistaUsuariFullsControl";
+			this.blisters = controlRemotEJB.consultarBlisters(pacient.getCip());
+			return "vistaUsuariFullsControlControl";
 		}else{
 			return "accessError";
 		}
@@ -96,6 +108,36 @@ public class ConsultarFullControlMBean implements Serializable{
 	 */
 	public void setFullControl(FullDeControlJPA fullControl) {
 		this.fullControl = fullControl;
+	}
+
+
+	/**
+	 * @return the blister
+	 */
+	public BlisterJPA getBlister() {
+		return blister;
+	}
+
+
+	/**
+	 * @param blister the blister to set
+	 */
+	public void setBlister(BlisterJPA blister) {
+		this.blister = blister;
+	}
+
+	/**
+	 * @return the blisters
+	 */
+	public Collection<BlisterJPA> getBlisters() {
+		return blisters;
+	}
+
+	/**
+	 * @param blisters the blisters to set
+	 */
+	public void setBlisters(Collection<BlisterJPA> blisters) {
+		this.blisters = blisters;
 	}
 	
 }

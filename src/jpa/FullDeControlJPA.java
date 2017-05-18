@@ -22,10 +22,8 @@ public class FullDeControlJPA implements Serializable{
 	private String idFullTreball;	
 	@Column(name = "id_tractament")
 	private String idTractament;	
-	@Column(name = "id_preparat")
-	private String idPreparat;
-	@Column(name = "id_validat")
-	private String idValidat;
+	@Column(name = "nom_medicament")
+	private String nomMedicament;	
 	@Column(name = "setmana")
 	private int setmana;
 	@Column(name = "quantitat_entera")
@@ -60,8 +58,6 @@ public class FullDeControlJPA implements Serializable{
 	private boolean diumenge;
 	@Column(name = "numero_lot")
 	private String numLot;
-	@Column(name = "validat")
-	private boolean validat;
 	
 	public FullDeControlJPA(){
 		super();
@@ -73,8 +69,7 @@ public class FullDeControlJPA implements Serializable{
 		this.idBlister = idBlister;
 		this.idFullTreball = String.valueOf(tract.getExpedient().getId());
 		this.idTractament = String.valueOf(tract.getIdTractament());
-		this.idPreparat = dnip;
-		this.idValidat = "pendent";
+		this.nomMedicament = tract.getMedicament().getNomComercial();
 		this.setmana = setmana;
 		this.quantEntera = tract.getQuantEntera();
 		this.quantFraccio = tract.getQuantFraccio();
@@ -92,7 +87,6 @@ public class FullDeControlJPA implements Serializable{
 		this.dissabte = tract.isDissabte();
 		this.diumenge = tract.isDiumenge();
 		this.numLot = tract.getNumLot();
-		this.validat = false;
 	}
 	/**
 	 * @return the idFullControl
@@ -142,30 +136,7 @@ public class FullDeControlJPA implements Serializable{
 	public void setIdTractament(String idTractament) {
 		this.idTractament = idTractament;
 	}
-	/**
-	 * @return the idPreparat
-	 */
-	public String getIdPreparat() {
-		return idPreparat;
-	}
-	/**
-	 * @param idPreparat the idPreparat to set
-	 */
-	public void setIdPreparat(String idPreparat) {
-		this.idPreparat = idPreparat;
-	}
-	/**
-	 * @return the idValidat
-	 */
-	public String getIdValidat() {
-		return idValidat;
-	}
-	/**
-	 * @param idValidat the idValidat to set
-	 */
-	public void setIdValidat(String idValidat) {
-		this.idValidat = idValidat;
-	}
+
 	/**
 	 * @return the dataInici
 	 */
@@ -370,16 +341,18 @@ public class FullDeControlJPA implements Serializable{
 	public void setNumLot(String numLot) {
 		this.numLot = numLot;
 	}
+
 	/**
-	 * @return the validat
+	 * @return the nomMedicament
 	 */
-	public boolean isValidat() {
-		return validat;
+	public String getNomMedicament() {
+		return nomMedicament;
 	}
+
 	/**
-	 * @param validat the validat to set
+	 * @param nomMedicament the nomMedicament to set
 	 */
-	public void setValidat(boolean validat) {
-		this.validat = validat;
+	public void setNomMedicament(String nomMedicament) {
+		this.nomMedicament = nomMedicament;
 	}
 }
