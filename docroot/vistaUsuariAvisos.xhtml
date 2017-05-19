@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template.xhtml">
                 
-    <ui:define name="title">SimpleSPD-Alertes</ui:define>
+    <ui:define name="title">SimpleSPD-Avisos</ui:define>
 
     <ui:define name="content">
         <div class="ui-g ui-fluid">
@@ -13,30 +13,27 @@
             	<!-- Left Side -->
                 <div class="card card-w-title">
                     <h1>Nou avís:</h1>
-                  		<h:form>
-							<h:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
-							
+                  		<h:form id="formulariNouAvis">
+							<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">	
 								<h:outputText value="Tipus Avís: " />
-								<p:selectOneMenu id="naalert" value="#{#}" title="Selecciona" style="margin-bottom:10px;">
-								<f:selectItem itemLabel="Selecciona" itemValue="a0" />
-	                            <f:selectItem itemLabel="Recepta adicional" itemValue="a1" />
-	                            <f:selectItem itemLabel="Posologia incorrecte" itemValue="a2" />
-	                            <f:selectItem itemLabel="Codi Erroni" itemValue="a3" />
-	                            <f:selectItem itemLabel="Recepta caducada" itemValue="a4" />
-	                            <f:selectItem itemLabel="Medicament caducat" itemValue="a4" />
-	                            <f:selectItem itemLabel="Altres" itemValue="a4" />
+								<p:selectOneMenu id="naalert" value="#{crearAvis.tipus}" title="Selecciona">
+	                            <f:selectItem itemLabel="Recepta adicional" itemValue="Recepta adicional" />
+	                            <f:selectItem itemLabel="Posologia incorrecte" itemValue="Posologia incorrecte" />
+	                            <f:selectItem itemLabel="Codi Erroni" itemValue="Codi Erroni" />
+	                            <f:selectItem itemLabel="Recepta caducada" itemValue="Recepta caducada" />
+	                            <f:selectItem itemLabel="Medicament caducat" itemValue="Medicament caducat" />
+	                            <f:selectItem itemLabel="Altres" itemValue="Altres" />
 	                       		</p:selectOneMenu>
-								<h:message for="naalert"></h:message>
 								
 								<h:outputText value="Destinatari: " />
-								<h:inputText value=""/>
-								<h:message for="naname"/>
+								<p:selectOneMenu id="naEmpresa" value="#{crearAvis.cifReceptor}">
+			           			<f:selectItem itemValue="#{crearAvis.cifReceptor}" />
+	            				<f:selectItems value="#{crearAvis.llistaEmpreses}" />
+	                       		</p:selectOneMenu>
 								
 								<h:outputText value="Descripció: " />
-								<p:inputTextarea id="nadesc" rows="3" placeholder="Text" value="#{#}"/>
-								<h:message for="nadesc"></h:message>									
-	<!-- 							<p:commandButton action="#{#}" value="Registrar" icon="ui-icon-disk"></p:commandButton>  -->	
-								<p:button outcome="/vistaUsuariAvisos" value="Enviar Avís" icon="fa fa-send">	</p:button>
+								<p:inputTextarea id="nadesc" rows="3" placeholder="Text" value="#{crearAvis.descripcio}"/>
+								<p:commandButton action="#{crearAvis.nouAvis}" value="Enviar Avís"  styleClass="raised-btn" icon="fa fa-send"/>
 							</h:panelGrid>
 						</h:form>
     	            </div>   
