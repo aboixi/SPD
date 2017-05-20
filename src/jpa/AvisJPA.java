@@ -19,8 +19,14 @@ public class AvisJPA implements Serializable{
 	@Column(name = "cif_emisor")
 	private String cifEmisor;
 	
-	@Column(name = "cif_Receptor")
+	@Column(name = "nom_emisor")
+	private String nomEmisor;
+	
+	@Column(name = "cif_receptor")
 	private String cifReceptor;
+	
+	@Column(name = "nom_receptor")
+	private String nomReceptor;
 	
 	@Column(name = "tipus")
 	private String tipus;
@@ -28,16 +34,21 @@ public class AvisJPA implements Serializable{
 	@Column(name = "descripcio")
 	private String descripcio;
 	
+	@Column(name = "estat")
+	private String estat;
+	
 	public AvisJPA(){
 		super();
 	}
 	
-	public AvisJPA(String cife, String cifr, String tipus, String descripcio){
+	public AvisJPA(String cife, String cifr, String nomR, String tipus, String descripcio){
 		super();
 		this.cifEmisor = cife;
 		this.cifReceptor = cifr;
+		this.nomReceptor = nomR;
 		this.tipus = tipus;
 		this.descripcio = descripcio;
+		this.estat="PENDENT";
 	}
 
 	/**
@@ -109,4 +120,47 @@ public class AvisJPA implements Serializable{
 	public void setDescripcio(String descripcio) {
 		this.descripcio = descripcio;
 	}
+
+	/**
+	 * @return the estat
+	 */
+	public String getEstat() {
+		return estat;
+	}
+
+	/**
+	 * @param estat the estat to set
+	 */
+	public void setEstat(String estat) {
+		this.estat = estat;
+	}
+
+	/**
+	 * @return the nomReceptor
+	 */
+	public String getNomReceptor() {
+		return nomReceptor;
+	}
+
+	/**
+	 * @param nomReceptor the nomReceptor to set
+	 */
+	public void setNomReceptor(String nomReceptor) {
+		this.nomReceptor = nomReceptor;
+	}
+
+	/**
+	 * @return the nomEmisor
+	 */
+	public String getNomEmisor() {
+		return nomEmisor;
+	}
+
+	/**
+	 * @param nomEmisor the nomEmisor to set
+	 */
+	public void setNomEmisor(String nomEmisor) {
+		this.nomEmisor = nomEmisor;
+	}
+	
 }

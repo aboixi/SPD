@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Properties;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.Context;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import ejb.UsuarisNegociRemote;
 import jpa.EmpresaJPA;
 import jpa.UsuariEmpresaJPA;
+import managedbean.avisos.LlistarAvisosMBean;
 
 /**
  * Bean to login into system
@@ -27,6 +29,8 @@ public class LoginMBean implements Serializable{
 	
 	@EJB(name="UsuarisNegociEJB")
 	UsuarisNegociRemote usuarisRemotEJB;
+	@ManagedProperty("#{llistarAvisos}")
+	private LlistarAvisosMBean llistarAvisosMBean;
 	private String nom;
 	private String clau;
 	
@@ -62,6 +66,7 @@ public class LoginMBean implements Serializable{
 			}else{
 				activeSession.setAttribute("sessioUsuari", usuariEmpresa);
 				clearFields();
+				llistarAvisosMBean.llistarAvisos();
 				return "vistaUsuariAvisos?faces-redirect=true";
 			}			
 		}
@@ -108,5 +113,19 @@ public class LoginMBean implements Serializable{
 	 */
 	public void setClau(String clau) {
 		this.clau = clau;
+	}
+
+	/**
+	 * @return the llistarAvisosMBean
+	 */
+	public LlistarAvisosMBean getLlistarAvisosMBean() {
+		return llistarAvisosMBean;
+	}
+
+	/**
+	 * @param llistarAvisosMBean the llistarAvisosMBean to set
+	 */
+	public void setLlistarAvisosMBean(LlistarAvisosMBean llistarAvisosMBean) {
+		this.llistarAvisosMBean = llistarAvisosMBean;
 	}
 }

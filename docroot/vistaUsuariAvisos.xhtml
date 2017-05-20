@@ -16,7 +16,8 @@
                   		<h:form id="formulariNouAvis">
 							<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">	
 								<h:outputText value="Tipus Avís: " />
-								<p:selectOneMenu id="naalert" value="#{crearAvis.tipus}" title="Selecciona">
+								<p:selectOneMenu id="naalert" value="#{crearAvis.tipus}">
+								<f:selectItem itemLabel="Selecciona" itemValue=""/>
 	                            <f:selectItem itemLabel="Recepta adicional" itemValue="Recepta adicional" />
 	                            <f:selectItem itemLabel="Posologia incorrecte" itemValue="Posologia incorrecte" />
 	                            <f:selectItem itemLabel="Codi Erroni" itemValue="Codi Erroni" />
@@ -26,9 +27,9 @@
 	                       		</p:selectOneMenu>
 								
 								<h:outputText value="Destinatari: " />
-								<p:selectOneMenu id="naEmpresa" value="#{crearAvis.cifReceptor}">
-			           			<f:selectItem itemValue="#{crearAvis.cifReceptor}" />
-	            				<f:selectItems value="#{crearAvis.llistaEmpreses}" />
+								<p:selectOneMenu id="naEmpresa" value="#{crearAvis.nomReceptor}">
+			           			<f:selectItem itemLabel="Selecciona" itemValue=""/>
+	            				<f:selectItems value="#{llistarAvisos.llistaEmpreses}" />
 	                       		</p:selectOneMenu>
 								
 								<h:outputText value="Descripció: " />
@@ -41,26 +42,26 @@
             <div class="ui-g-12 ui-lg-6">
             	<!-- Right Side -->
                 <div class="card card-w-title">
-                    <h:form>
-						<p:dataTable id="workersform" var="item" value="#{#}" selectionMode="single" selection="#{#}" rowKey="#{#}">
+                    <h:form id="formulariAvisosRebuts">
+						<p:dataTable id="avisosRebuts" var="item" value="#{llistarAvisos.rebuts}" >
 							<f:facet name="header">
 			                	Rebuts
 			                </f:facet>
 			                
 						    <p:column headerText="Origen">
-						        <h:outputText value="#{#}" />
+						        <h:outputText value="#{item.nomEmisor}" />
 						    </p:column>
    
 						    <p:column headerText="Tipus Avís">
-						        <h:outputText value="#{#}" />
+						        <h:outputText value="#{item.tipus}" />
 						    </p:column>
 						    						    
 						    <p:column headerText="Descripció">
-						        <h:outputText value="#{#}" />
+						        <h:outputText value="#{item.descripcio}" />
 						    </p:column>
 						    
 						    <p:column headerText="Estat">
-						        <h:outputText value="#{#}" />
+						        <h:outputText value="#{item.estat}" />
 						    </p:column>
 
 			<!--			    <f:facet name="footer">
@@ -78,26 +79,26 @@
             				<p:button outcome="/vistaUsuariAvisos" value="Canviar estat" icon="fa fa-check" style="margin-bottom:10px" styleClass="raised-btn"></p:button>
             			</h:panelGrid>
             		</h:form>
-            		                  <h:form>
-						<p:dataTable id="workersform" var="item" value="#{#}" selectionMode="single" selection="#{#}" rowKey="#{#}">
+            		<h:form id="formulariAvisosEnviats">
+						<p:dataTable var="item" value="#{llistarAvisos.enviats}" >
 							<f:facet name="header">
 			                	Enviats
 			                </f:facet>
 			                
 						    <p:column headerText="Destinatari">
-						        <h:outputText value="#{#}" />
+						        <h:outputText value="#{item.nomReceptor}" />
 						    </p:column>
    
 						    <p:column headerText="Tipus Avís">
-						        <h:outputText value="#{#}" />
+						        <h:outputText value="#{item.tipus}" />
 						    </p:column>
 						    						    
 						    <p:column headerText="Descripció">
-						        <h:outputText value="#{#}" />
+						        <h:outputText value="#{item.descripcio}" />
 						    </p:column>
 						    
 						    <p:column headerText="Estat">
-						        <h:outputText value="#{#}" />
+						        <h:outputText value="#{item.estat}" />
 						    </p:column>
 
 			<!--			    <f:facet name="footer">

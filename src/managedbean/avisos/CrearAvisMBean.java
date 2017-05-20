@@ -1,8 +1,6 @@
 package managedbean.avisos;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.Properties;
 
 import javax.ejb.EJB;
@@ -16,7 +14,6 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpSession;
 
 import ejb.AvisNegociRemote;
-import jpa.EmpresaJPA;
 import jpa.UsuariEmpresaJPA;
 
 @ManagedBean(name="crearAvis")
@@ -25,11 +22,9 @@ public class CrearAvisMBean implements Serializable{
 
 	@EJB(name="AvisNegociEJB")
 	private AvisNegociRemote avisNegoci;
-	private String cifReceptor="Selecciona";
+	private String nomReceptor="Selecciona";
 	private String tipus;
 	private String descripcio;
-	private Collection<EmpresaJPA>empreses;
-	private String[] llistaEmpreses;
 	@SuppressWarnings("unused")
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
@@ -41,7 +36,7 @@ public class CrearAvisMBean implements Serializable{
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
 			avisNegoci = (AvisNegociRemote) ctx.lookup("java:app/SPD.jar/AvisNegociEJB!ejb.AvisNegociRemote");
-			avisNegoci.crearAvis(cifEmisor, cifReceptor, tipus,descripcio);
+			avisNegoci.crearAvis(cifEmisor, nomReceptor, tipus,descripcio);
 			clearFields();
 			msgCorrecte();
 			return "vistaUsuariAvisos";
@@ -53,8 +48,9 @@ public class CrearAvisMBean implements Serializable{
 	}
 	
 	private void clearFields() {
-		setDescripcio(null);
-		setTipus(null);
+		setDescripcio("");
+		setTipus("");
+		setNomReceptor("");
 	}
 
 	public boolean checkSession(){
@@ -75,36 +71,6 @@ public class CrearAvisMBean implements Serializable{
 		return usuari;
 	}
 
-	public String iniciaPagina() throws NamingException{
-		if (checkSession()){
-			mostraEmpreses();
-			return "vistaUsuariAvisos";
-		}else{
-			return "accessError?faces-redirect=true";
-		}
-	}
-	
-	public void mostraEmpreses() throws NamingException{
-		this.empreses=null;
-		UsuariEmpresaJPA usuari = getSessionObject();
-		String cif = usuari.getEmpresa();
-		Properties props = System.getProperties();
-		Context ctx = new InitialContext(props);
-		avisNegoci = (AvisNegociRemote) ctx.lookup("java:app/SPD.jar/AvisNegociEJB!ejb.AvisNegociRemote");
-		this.empreses = avisNegoci.consultaEmpreses(cif);
-		this.llistaEmpreses=new String [empreses.size()-1];
-		EmpresaJPA empresa = null;
-		Iterator <EmpresaJPA> iter = empreses.iterator();
-		iter.next(); //Saltem la primera farmàcia de la BBDD. "ninguna farmacia"
-		int i = 0;
-		while (iter.hasNext()){
-			empresa = iter.next();
-			this.llistaEmpreses[i]=empresa.getNom();
-			i++;
-		}
-		setLlistaEmpreses(llistaEmpreses);
-	}
- 	
  	public void msgCorrecte(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Missatge enviat"));
  	}
@@ -116,15 +82,15 @@ public class CrearAvisMBean implements Serializable{
 	/**
 	 * @return the cifReceptor
 	 */
-	public String getCifReceptor() {
-		return cifReceptor;
+	public String getNomReceptor() {
+		return nomReceptor;
 	}
 
 	/**
 	 * @param cifReceptor the cifReceptor to set
 	 */
-	public void setCifReceptor(String cifReceptor) {
-		this.cifReceptor = cifReceptor;
+	public void setNomReceptor(String nomReceptor) {
+		this.nomReceptor = nomReceptor;
 	}
 
 	/**
@@ -154,33 +120,4 @@ public class CrearAvisMBean implements Serializable{
 	public void setDescripcio(String descripcio) {
 		this.descripcio = descripcio;
 	}
-
-	/**
-	 * @return the empreses
-	 */
-	public Collection<EmpresaJPA> getEmpreses() {
-		return empreses;
-	}
-
-	/**
-	 * @param empreses the empreses to set
-	 */
-	public void setEmpreses(Collection<EmpresaJPA> empreses) {
-		this.empreses = empreses;
-	}
-	
-	/**
-	 * @return the llistaEmpreses
-	 */
-	public String[] getLlistaEmpreses() {
-		return llistaEmpreses;
-	}
-
-	/**
-	 * @param llistaEmpreses the llistaEmpreses to set
-	 */
-	public void setLlistaEmpreses(String[] llistaEmpreses) {
-		this.llistaEmpreses = llistaEmpreses;
-	}
-	
 }
