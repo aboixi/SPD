@@ -52,17 +52,18 @@ public class AvisNegociEJB implements AvisNegociRemote{
 		return null;		
 	}
 	
-	@SuppressWarnings("unchecked")
-	public Collection<AvisJPA> llistarAvisosRebuts(String cif){
-		Collection<AvisJPA> avisos = null;
-		avisos=(Collection<AvisJPA>) entman.find(AvisJPA.class, cif);
-		return avisos;
-	}
-	
-	public String eliminarAvis (String idAvis){
-		entman.remove(idAvis);
+	public String eliminarAvis (int idAvis){
+		AvisJPA avis = entman.find(AvisJPA.class, idAvis);
+		entman.remove(avis);
 		return "procesCorrecte";
 	}
+	
+	public String canviarEstatAvis(int idAvis){
+		AvisJPA avis = entman.find(AvisJPA.class, idAvis);
+		avis.setEstat("LLEGIT");
+		return "procesCorrecte";
+	}
+	
 	@SuppressWarnings("unchecked")
 	public Collection<EmpresaJPA> consultaEmpreses(String cif){
 		Collection<EmpresaJPA> empreses = null;

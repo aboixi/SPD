@@ -45,10 +45,8 @@ public class LlistarAvisosMBean implements Serializable{
 			avisos = avisNegoci.llistarAvisos(getSessionCif());
 			iniciaLlistaEnviats(avisos);
 			iniciaLlistaRebuts(avisos);
-			msgCorrecte();
 			return "vistaUsuariAvisos";
 		}else{
-			msgError();
 			return "accessError";
 		}
 	}

@@ -14,6 +14,7 @@
                 <div class="card card-w-title">
                     <h1>Nou avís:</h1>
                   		<h:form id="formulariNouAvis">
+                  		<p:messages showDetail="true" showSummary="false" autoUpdate="true" closable="false" />
 							<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">	
 								<h:outputText value="Tipus Avís: " />
 								<p:selectOneMenu id="naalert" value="#{crearAvis.tipus}">
@@ -34,7 +35,7 @@
 								
 								<h:outputText value="Descripció: " />
 								<p:inputTextarea id="nadesc" rows="3" placeholder="Text" value="#{crearAvis.descripcio}"/>
-								<p:commandButton action="#{crearAvis.nouAvis}" value="Enviar Avís"  styleClass="raised-btn" icon="fa fa-send"/>
+								<p:commandButton actionListener="#{crearAvis.nouAvis}" action="#{llistarAvisos.llistarAvisos}" value="Enviar Avís" update="formulariAvisosEnviats" styleClass="raised-btn" icon="fa fa-send"/>
 							</h:panelGrid>
 						</h:form>
     	            </div>   
@@ -43,82 +44,60 @@
             	<!-- Right Side -->
                 <div class="card card-w-title">
                     <h:form id="formulariAvisosRebuts">
-						<p:dataTable id="avisosRebuts" var="item" value="#{llistarAvisos.rebuts}" >
+						<p:dataTable id="avisosRebuts" var="item" value="#{llistarAvisos.rebuts}" selectionMode="single" selection="#{canviarEstatAvis.avis}" rowKey="#{item.idAvis}">
 							<f:facet name="header">
 			                	Rebuts
 			                </f:facet>
 			                
-						    <p:column headerText="Origen">
+						    <p:column headerText="Origen" style="text-align: center;width:20%">
 						        <h:outputText value="#{item.nomEmisor}" />
 						    </p:column>
    
-						    <p:column headerText="Tipus Avís">
+						    <p:column headerText="Tipus Avís" style="text-align: center;width:20%">
 						        <h:outputText value="#{item.tipus}" />
 						    </p:column>
 						    						    
-						    <p:column headerText="Descripció">
+						    <p:column headerText="Descripció" style="width:40%">
 						        <h:outputText value="#{item.descripcio}" />
 						    </p:column>
 						    
-						    <p:column headerText="Estat">
+						    <p:column headerText="Estat" style="text-align: center;width:20%">
 						        <h:outputText value="#{item.estat}" />
 						    </p:column>
-
-			<!--			    <f:facet name="footer">
-						    	<h:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
-				            		<p:commandButton actionListener="#{#}" value="Agregar" update="workersform"></p:commandButton>
-				            		<p:commandButton actionListener="#{#}" value="Modificar" update="workersform"></p:commandButton>
-				            		<p:commandButton actionListener="#{#}" value="Eliminar" update="workersform"></p:commandButton>
-			            		</h:panelGrid>
-			        		</f:facet>
-			  -->
-							</p:dataTable>
-            		</h:form>
-            		<h:form>
+						</p:dataTable>
             			<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
-            				<p:button outcome="/vistaUsuariAvisos" value="Canviar estat" icon="fa fa-check" style="margin-bottom:10px" styleClass="raised-btn"></p:button>
+            				<p:commandButton actionListener="#{canviarEstatAvis.canviarEstat}" action="#{llistarAvisos.llistarAvisos}" value="Canviar estat" update="formulariAvisosRebuts" styleClass="raised-btn" icon="fa fa-check"/>          				
             			</h:panelGrid>
             		</h:form>
             		<h:form id="formulariAvisosEnviats">
-						<p:dataTable var="item" value="#{llistarAvisos.enviats}" >
+						<p:dataTable id="avisosEnviats" var="item" value="#{llistarAvisos.enviats}" selectionMode="single" selection="#{eliminarAvis.avis}" rowKey="#{item.idAvis}">
 							<f:facet name="header">
 			                	Enviats
 			                </f:facet>
 			                
-						    <p:column headerText="Destinatari">
+						    <p:column headerText="Destinatari" style="text-align: center;width:20%">
 						        <h:outputText value="#{item.nomReceptor}" />
 						    </p:column>
    
-						    <p:column headerText="Tipus Avís">
+						    <p:column headerText="Tipus Avís" style="text-align: center;width:20%">
 						        <h:outputText value="#{item.tipus}" />
 						    </p:column>
 						    						    
-						    <p:column headerText="Descripció">
+						    <p:column headerText="Descripció" style="width:40%">
 						        <h:outputText value="#{item.descripcio}" />
 						    </p:column>
 						    
-						    <p:column headerText="Estat">
+						    <p:column headerText="Estat" style="text-align: center;width:20%">
 						        <h:outputText value="#{item.estat}" />
 						    </p:column>
 
-			<!--			    <f:facet name="footer">
-						    	<h:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
-				            		<p:commandButton actionListener="#{#}" value="Agregar" update="workersform"></p:commandButton>
-				            		<p:commandButton actionListener="#{#}" value="Modificar" update="workersform"></p:commandButton>
-				            		<p:commandButton actionListener="#{#}" value="Eliminar" update="workersform"></p:commandButton>
-			            		</h:panelGrid>
-			        		</f:facet>
-			  -->
 							</p:dataTable>
-            		</h:form>
-            		<h:form>
             			<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
-            				<p:button outcome="/vistaUsuariAvisos" value="Eliminar" icon="fa fa-minus-circle" style="margin-bottom:10px" styleClass="raised-btn"></p:button>
+            				<p:commandButton actionListener="#{eliminarAvis.eliminarAvis}" action="#{llistarAvisos.llistarAvisos}" value="Eliminar" update="formulariAvisosEnviats" styleClass="raised-btn" icon="fa fa-minus-circle"/>          								
             			</h:panelGrid>
             		</h:form>
 				</div>
 			</div>         
         </div>
     </ui:define>
-
 </ui:composition>
