@@ -13,6 +13,7 @@
                 <div class="card card-w-title">
 					<h1>Tractaments</h1>
                     <h:form id="formulariLlistaPacientsFullsControlBlister">
+                    <p:messages showDetail="true" showSummary="false" autoUpdate="true" closable="false" />
 						<p:dataTable id="llistaPacientsFullsControlBlister" var="item" value="#{consultarFullControl.fullsControl}" rowKey="#{item.idFullControl}">
 							<f:facet name="header">
 			                	Llistat de tractaments en blister

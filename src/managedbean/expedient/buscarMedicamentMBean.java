@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 
 import ejb.ExpedientNegociRemote;
 import jpa.MedicamentJPA;
-import managedbean.fullstreball.ModificarFullMBean;
 
 @ManagedBean (name="buscarMedicament")
 @SessionScoped
@@ -28,8 +27,6 @@ public class buscarMedicamentMBean implements Serializable{
 	private Collection<MedicamentJPA>medicaments;
 	@ManagedProperty("#{agregarTractament}")
 	private AgregarTractamentMBean agregarTractamentMBean;
-//	@ManagedProperty("#{modificarFull}")
-//	private ModificarFullMBean modificarFullMBean;
 	@SuppressWarnings("unused")
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
@@ -48,13 +45,12 @@ public class buscarMedicamentMBean implements Serializable{
 	public void copiarMedicament(){
 		agregarTractamentMBean.setCn(getMedicament().getCn());
 		agregarTractamentMBean.setNomComercial(getMedicament().getNomComercial());
+		this.setParaula(null);
+		this.medicaments.clear();
+		this.setMedicaments(medicaments);
 	}
-/*	
-	public void copiarMedicamentEnFull(){
-		modificarFullMBean.getTractament().getMedicament().setCn(getMedicament().getCn());
-		modificarFullMBean.getTractament().getMedicament().setNomComercial(getMedicament().getNomComercial());
-	}
-*/
+	
+
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -133,14 +129,4 @@ public class buscarMedicamentMBean implements Serializable{
 	public void setAgregarTractamentMBean(AgregarTractamentMBean agregarTractamentMBean) {
 		this.agregarTractamentMBean = agregarTractamentMBean;
 	}
-	/**
-	 * @return the modificaFullMBean
-	 */
-/*	public ModificarFullMBean getModificarFullMBean() {
-		return modificarFullMBean;
-	}
-
-	public void setModificarFullMBean(ModificarFullMBean modificarFullMBean) {
-		this.modificarFullMBean = modificarFullMBean;
-	}*/
 }

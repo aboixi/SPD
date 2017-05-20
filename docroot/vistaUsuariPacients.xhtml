@@ -14,7 +14,7 @@
                 <div class="card card-w-title">
 					<h1>Pacients</h1>
                     <h:form id="formulariLlistaPacients">
-						<p:dataTable id="llistaPacients" var="item" value="#{llistarPacients.pacients}" selectionMode="single" selection="#{eliminarPacient.pacient}" rowKey="#{item.cip}">
+						<p:dataTable id="llistaPacients" var="item" value="#{llistarPacients.pacients}" selectionMode="single" selection="#{eliminarPacient.pacient}" rowKey="#{item.cip}" rows="10"  paginator="true">
 							<f:facet name="header">
 			                	Llista d'usuaris
 			                </f:facet>
@@ -23,23 +23,23 @@
 						        <h:outputText value="#{item.cip}" />
 						    </p:column>
 						    
-						    <p:column headerText="Nom">
+						    <p:column headerText="Nom" sortBy="#{item.nom}">
 						        <h:outputText value="#{item.nom}" />
 						    </p:column>
 						 
-						    <p:column headerText="Cognom1">
+						    <p:column headerText="Cognom1" sortBy="#{item.cognom1}">
 						        <h:outputText value="#{item.cognom1}" />
 						    </p:column>
 						    
-						    <p:column headerText="Cognom2">
+						    <p:column headerText="Cognom2" sortBy="#{item.cognom2}">
 						        <h:outputText value="#{item.cognom2}" />
 						    </p:column>
 						    
-						    <p:column headerText="Residencia">
+						    <p:column headerText="Residencia" sortBy="#{item.nomResidencia}">
 						        <h:outputText value="#{item.nomResidencia}" />
 						    </p:column>
 						    
-						    <p:column headerText="Farmacia">
+						    <p:column headerText="Farmacia" sortBy="#{item.nomFarmacia}">
 						        <h:outputText value="#{item.nomFarmacia}" />
 						    </p:column>
 

@@ -38,7 +38,7 @@ public class LlistarFullsMBean implements Serializable{
 			fullsRemotEJB = (FullTreballNegociRemote) ctx.lookup("java:app/SPD.jar/FullTreballNegociEJB!ejb.FullTreballNegociRemote");
 			this.pacients=fullsRemotEJB.llistarFulls(cif);
 			this.setPacients(pacients);
-			return "vistaUsuariFulls";
+			return "vistaUsuariFullsTreball";
 		}else{
 			return "accessError";
 		}

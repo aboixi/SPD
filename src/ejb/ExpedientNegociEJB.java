@@ -143,8 +143,13 @@ public class ExpedientNegociEJB implements ExpedientNegociRemote{
 	
 	@SuppressWarnings("unchecked")
 	public Collection<MedicamentJPA> buscarMedicaments (String paraula){
+		String paraulaMajuscula = paraula.toUpperCase();
+		char primeraLletra = paraulaMajuscula.charAt(0);
+		String segonaPart = paraula.substring(1,paraula.length());
+		String primeraPart = String.valueOf(primeraLletra);
+		String paraulaBuscar = primeraPart.concat(segonaPart);
 		Collection<MedicamentJPA> medicaments = null;
-		medicaments = entman.createQuery("FROM MedicamentJPA m WHERE m.nomComercial LIKE '%" + paraula +"%'").getResultList();
+		medicaments = entman.createQuery("FROM MedicamentJPA m WHERE m.nomComercial LIKE '%" + paraula +"%' OR m.nomComercial LIKE'%" + paraulaBuscar +"%' ").getResultList();
 		return medicaments;
 	}
 }

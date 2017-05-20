@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Properties;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -37,11 +38,19 @@ public class ConsultarFullControlMBean implements Serializable{
 	
 	public String consultarFullsControl()throws Exception{
 		if (checkSession()){
-			this.fullsControl = blister.getFullsControl();
-			return "vistaUsuariFullsControlBlister";
+			try{
+				this.fullsControl = blister.getFullsControl();
+				return "vistaUsuariFullsControlBlister";
+			}catch (Exception e){
+				System.out.println(e);
+			}			
 		}else{
 			return "accessError";
 		}
+		Collection<FullDeControlJPA> fulls= null;
+		this.setFullsControl(fulls);
+		msgAvis();
+		return "vistaUsuariFullsControlBlister";
 	}
 	
 	public String consultarBlisters()throws Exception{
@@ -55,7 +64,10 @@ public class ConsultarFullControlMBean implements Serializable{
 			return "accessError";
 		}
 	}
-
+	
+ 	public void msgAvis(){
+ 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Avís", "Cap blíster seleccionat"));
+ 	}
 
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
