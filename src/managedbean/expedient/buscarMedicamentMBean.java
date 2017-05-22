@@ -37,19 +37,25 @@ public class buscarMedicamentMBean implements Serializable{
 			Context ctx = new InitialContext(props);
 			expedientRemotEJB = (ExpedientNegociRemote) ctx.lookup("java:app/SPD.jar/ExpedientNegociEJB!ejb.ExpedientNegociRemote");
 			setMedicaments(expedientRemotEJB.buscarMedicaments(paraula));
+			setParaula(null);
 			return "vistaUsuariModificarExpedient";
 		}else{
 			return "accessError";
 		}
-	}	
+	}
+	
 	public void copiarMedicament(){
 		agregarTractamentMBean.setCn(getMedicament().getCn());
 		agregarTractamentMBean.setNomComercial(getMedicament().getNomComercial());
+	}
+	
+	public void clearFields(){
 		this.setParaula(null);
 		this.medicaments.clear();
 		this.setMedicaments(medicaments);
 	}
 	
+	public void actualitzaFormulari(){}
 
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();

@@ -16,6 +16,7 @@ import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 
 import jpa.BlisterJPA;
 import jpa.ExpedientJPA;
@@ -74,31 +75,40 @@ public class FullControlNegociEJB implements FullControlNegociRemote{
 		Collection<PacientJPA> pacients = entman.createQuery("FROM PacientJPA p WHERE p.residencia = '" + cif +"' "+" OR p.farmacia = '" + cif +"'").getResultList();
 	    return pacients;
 	}
-	
+/*	
 	//Pendent d'esborrar
 	@SuppressWarnings("unchecked")
-	public Collection<FullDeControlJPA> consultarFulls(String cip){
+	public Collection<FullDeControlJPA> consultarFulls(String cip)throws PersistenceException{
 		PacientJPA pacient = entman.find(PacientJPA.class, cip);
 		int expedient = -1;
 		expedient=pacient.getExpedient().getId();
 		Collection<FullDeControlJPA> fulls = entman.createQuery("FROM FullDeControlJPA f WHERE f.idFullTreball = '" + expedient +"' ").getResultList();
-	//	HashSet<FullDeControlJPA> fullsReturn=new HashSet<FullDeControlJPA>();
 		return fulls;
-	}
-	public void validar(int idFull, String dniV){
-		FullDeTreballJPA full = entman.find(FullDeTreballJPA.class,idFull);
-		ExpedientJPA expedient = full.getExpedient();
-
-		Calendar calendar = new GregorianCalendar();
-		Date time = new Date(); 
-		calendar.setTime(time);  
-		int numSetmana = calendar.get(Calendar.WEEK_OF_YEAR);
-		int numAny = calendar.get(Calendar.YEAR);
-		
-		String idBlister = expedient.getPacient().getCip().concat(String.valueOf(numAny)).concat("-").concat(String.valueOf(numSetmana));
-		
-		BlisterJPA blister = entman.find(BlisterJPA.class, idBlister);
-		blister.setValidatPer(dniV);
-		entman.merge(blister);
-	}
+	}*/
+	  public String validar(int idFull, String dniV){
+		FullDeTreballJPA full = null;
+		try{
+			full = entman.find(FullDeTreballJPA.class,idFull);
+		}catch (PersistenceException e){
+			System.out.println(e);
+		}
+		if (full==null){
+			return "fullControlNoTrobat";
+		}else{
+			ExpedientJPA expedient = full.getExpedient();
+			
+			Calendar calendar = new GregorianCalendar();
+			Date time = new Date(); 
+			calendar.setTime(time);  
+			int numSetmana = calendar.get(Calendar.WEEK_OF_YEAR);
+			int numAny = calendar.get(Calendar.YEAR);
+			
+			String idBlister = expedient.getPacient().getCip().concat(String.valueOf(numAny)).concat("-").concat(String.valueOf(numSetmana));
+			
+			BlisterJPA blister = entman.find(BlisterJPA.class, idBlister);
+			blister.setValidatPer(dniV);
+			entman.merge(blister);
+			return "procesCorrecte";
+		}
+	  }
 }

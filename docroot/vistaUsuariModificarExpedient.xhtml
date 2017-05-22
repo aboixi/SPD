@@ -163,11 +163,11 @@
 						<h:form id="formulariNouTractament">
 							 <h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
 								<h:outputText value="Data d'inici: " />
-								<p:calendar id="inici" value="#{agregarTractament.dataInici}" required="false"/>
+								<p:calendar id="inici" value="#{agregarTractament.dataInici}" required="true"/>
 								<h:outputText value="CN: " />
-								<p:inputText id="cn" value="#{agregarTractament.cn}" required="true" editable="false"/>
+								<h:outputText id="cn" value="#{agregarTractament.cn}" required="true" editable="false"/>
 								<h:outputText value="Nom: " />
-								<p:inputText id="nom" value="#{agregarTractament.nomComercial}" required="true" editable="false"/>
+								<h:outputText id="nom" value="#{agregarTractament.nomComercial}" required="true" editable="false"/>
 							</h:panelGrid>
 							<h:panelGrid columns="6" layout="grid" styleClass="ui-panelgrid-blank form-group">
 							<h:outputText value="Unitats: " />
@@ -237,9 +237,9 @@
 								<h:outputLabel value="Paraula clau: " />
 				            	<p:inputText value="#{buscarMedicament.paraula}" />
                   				<p:commandButton actionListener="#{buscarMedicament.buscarMedicament}" value="Buscar" icon="fa fa-search" update="formulariBuscarMedicament" styleClass="raised-btn"/>
-                  				<p:commandButton actionListener="#{buscarMedicament.copiarMedicament}" value="Copiar" icon="fa fa-files-o" update="formulariNouTractament" styleClass="raised-btn"/>
                   			</h:panelGrid>  
                   			<p:dataTable id="llistaMedicaments" var="item" value="#{buscarMedicament.medicaments}" selectionMode="single" selection="#{buscarMedicament.medicament}" rowKey="#{item.cn}" rows="5"  paginator="true">
+                  			<p:ajax event="rowSelect" listener="#{buscarMedicament.copiarMedicament}" update="formulariNouTractament"/>
                					<p:column headerText="CN" style="width:10%">
 						        <h:outputText value="#{item.cn}" />
 						    	</p:column>

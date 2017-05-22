@@ -2,10 +2,12 @@ package managedbean.fullstreball;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -58,7 +60,14 @@ public class ModificarFullMBean implements Serializable{
 	
 	public void preModificarMedicament(){		
 		this.tractament=crearFullMBean.getTractament();
-		this.tractament.setMedicament(buscarMedMBean.getMedicament());
+		if (tractament==null){
+			 msgAvis();
+		}
+		try{
+			this.tractament.setMedicament(buscarMedMBean.getMedicament());
+		}catch (Exception e){
+			System.out.println(e);
+		}	
 	}
 	
 	public void modificarMedicament(){
@@ -68,6 +77,11 @@ public class ModificarFullMBean implements Serializable{
 		crearFullMBean.setTractament(this.tractament);
 		setFullSessio(this.full);
 		crearFullMBean.setTractament(tractament);
+		Collection<MedicamentJPA> medicaments = null;
+		MedicamentJPA medicament = null;
+		buscarMedMBean.setMedicaments(medicaments);
+		buscarMedMBean.setMedicament(medicament);
+		buscarMedMBean.setParaula(null);
 	}
 	
 	public FullDeTreballJPA getFullSessio(){
@@ -109,6 +123,10 @@ public class ModificarFullMBean implements Serializable{
 			return (this.sessionOK=false);
 		}
 	}
+	
+ 	public void msgAvis(){
+ 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Avís", "Selecciona primer un tractament"));
+ 	}
 
 	/**
 	 * @return the full

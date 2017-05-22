@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Properties;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -34,11 +35,18 @@ public class ValidarBlisterMBean implements Serializable{
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
 			controlRemotEJB = (FullControlNegociRemote) ctx.lookup("java:app/SPD.jar/FullControlNegociEJB!ejb.FullControlNegociRemote");
-			controlRemotEJB.validar(full.getExpedient().getId(), getDniUsuariSessio());
-			return "vistaUsuariModificarFull";
+			String msg = controlRemotEJB.validar(full.getExpedient().getId(), getDniUsuariSessio());
+			if (msg.equals("procesCorrecte")){
+				msgCorrecte();
+				return "vistaUsuariModificarFull";
+			}else if (msg.equals("fullControlNoTrobat")){
+				msgError();
+				return "vistaUsuariModificarFull";
+			}			
 		}else{
 			return "accessError";
 		}
+		return null;
 	}
 	
 	public FullDeTreballJPA getFullSessio(){
@@ -66,4 +74,10 @@ public class ValidarBlisterMBean implements Serializable{
 			return (this.sessionOK=false);
 		}
 	}
+	public void msgCorrecte(){
+ 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Full de control validat."));
+ 	}
+	public void msgError(){
+ 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Encara no has confirmat el full de treball."));
+ 	}
 }

@@ -16,7 +16,7 @@
                     <h:form id="formulariLlistaPacients">
 						<p:dataTable id="llistaPacients" var="item" value="#{llistarPacients.pacients}" selectionMode="single" selection="#{eliminarPacient.pacient}" rowKey="#{item.cip}" rows="10"  paginator="true">
 							<f:facet name="header">
-			                	Llista d'usuaris
+			                	Llista de pacients
 			                </f:facet>
 			                <p:ajax event="rowSelect" listener="#{modificarPacient.consultaFarmacies}" update="formulariDadesPacient"/>
 						    <p:column headerText="CIP">

@@ -16,18 +16,18 @@
                     <h:form id="formulariLlistaFulls">
 						<p:dataTable id="llistaFulls" var="item" value="#{llistarFulls.pacients}">
 							<f:facet name="header">
-			                	Llista de Pacients
+			                	Llista de pacients
 			                </f:facet>
 					    
-						    <p:column headerText="Nom">
+						    <p:column headerText="Nom" sortBy="#{item.nom}">
 						        <h:outputText value="#{item.nom}" />
 						    </p:column>
 						 
-						    <p:column headerText="Cognom1">
+						    <p:column headerText="Cognom1" sortBy="#{item.cognom1}">
 						        <h:outputText value="#{item.cognom1}" />
 						    </p:column>
 						    
-						    <p:column headerText="Cognom2">
+						    <p:column headerText="Cognom2" sortBy="#{item.cognom2}">
 						        <h:outputText value="#{item.cognom2}" />
 						    </p:column>
 						    
@@ -36,7 +36,7 @@
 						    </p:column>
 						</p:dataTable>
 						<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
-	            			<p:commandButton id="boto" actionListener="#{comencar.comencar}" action="#{crearFull.crearFull}" value="Començar a treballar" icon="fa fa-flag-checkered" styleClass="red-btn raised-btn"/>
+	            			<p:commandButton id="boto" actionListener="#{comencar.comencar}" action="#{crearFull.crearFull}" value="Començar a treballar" icon="fa fa-flag-checkered" style="background-color:red" styleClass="raised-btn"/>
         				</h:panelGrid>
             		</h:form>
                 </div>   

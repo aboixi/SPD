@@ -8,8 +8,33 @@
     <ui:define name="title">SimpleSPD-Expedient Assistencial</ui:define>
 
     <ui:define name="content">
-		<div class="ui-g ui-fluid">  
-
+		<div class="ui-g ui-fluid">
+		<div class="ui-g-12 ui-lg-6">
+       		<div class="card card-w-title">
+       			<h1>Tractaments</h1>
+       			<p:messages showDetail="true" showSummary="false" autoUpdate="true" closable="false" />
+       				<h:form id="formulariLlistaTractamentsFull">
+       					<p:dataTable id="llistaTractamentsFull" var="item" value="#{sessionScope.full.expedient.tractaments}" selectionMode="single" selection="#{crearFull.tractament}" rowKey="#{item.idTractament}">
+							<f:facet name="header">
+			                	Tractaments
+			                </f:facet>
+			                <p:ajax event="rowSelect" listener="#{crearFull.actualitzaFormulariBlister}" update=":formulariDistribucioBlisterFull"/>
+						    <p:column headerText="Num. Lot" style="width:12%;text-align: center">
+						        <h:outputText value="#{item.numLot}" />
+						    </p:column>
+						    <p:column headerText="C.N." style="width:10%;text-align: center">
+						        <h:outputText value="#{item.medicament.cn}" />
+						    </p:column>
+						    <p:column headerText="Nom" style="width:78%;text-align: left">
+						        <h:outputText value="#{item.medicament.nomComercial}" />
+						    </p:column>
+						    <p:column headerText="Quantitat Setmanal" style="width:12%;text-align: center">
+						        <h:outputText value="#{item.quantitatSetmanal}" />
+						    </p:column>
+						</p:dataTable>
+					</h:form>
+            	</div>
+			</div>  
 			<div class="ui-g-12 ui-lg-6">
                 <div class="card card-w-title">
                 <h1>Distribució en blíster</h1>
@@ -23,7 +48,7 @@
 		            		<p:inputText value="#{crearFull.tractament.numLot}" required="true" requiredMessage="Falta número de lot"/>
 							<p:commandButton actionListener="#{modificarFull.modificarMedicament}" value="Guardar" icon="fa fa-save" update="formulariLlistaTractamentsFull" styleClass="raised-btn"/>
 		            	</h:panelGrid>
-						<p:panelGrid styleClass="ui-grid">
+						<p:panelGrid styleClass="ui-panelgrid form-group">
                         <f:facet name="header">
                             <p:row>
                                 <p:column colspan="7">Configuració Blíster</p:column>
@@ -89,35 +114,10 @@
             		</h:form>
 				</div>
 			</div>
-			<div class="ui-g-12 ui-lg-6">
-       		<div class="card card-w-title">
-       			<h1>Tractaments</h1>
-       				<h:form id="formulariLlistaTractamentsFull">
-       					<p:dataTable id="llistaTractamentsFull" var="item" value="#{sessionScope.full.expedient.tractaments}" selectionMode="single" selection="#{crearFull.tractament}" rowKey="#{item.idTractament}">
-							<f:facet name="header">
-			                	Tractaments
-			                </f:facet>
-			                <p:ajax event="rowSelect" listener="#{crearFull.actualitzaFormulariBlister}" update=":formulariDistribucioBlisterFull"/>
-						    <p:column headerText="Num. Lot" style="width:12%;text-align: center">
-						        <h:outputText value="#{item.numLot}" />
-						    </p:column>
-						    <p:column headerText="C.N." style="width:10%;text-align: center">
-						        <h:outputText value="#{item.medicament.cn}" />
-						    </p:column>
-						    <p:column headerText="Nom" style="width:78%;text-align: left">
-						        <h:outputText value="#{item.medicament.nomComercial}" />
-						    </p:column>
-						    <p:column headerText="Quantitat Setmanal" style="width:12%;text-align: center">
-						        <h:outputText value="#{item.quantitatSetmanal}" />
-						    </p:column>
-						</p:dataTable>
-					</h:form>
-            	</div>
-			</div>
+			
 			<div class="ui-g-12 ui-lg-6">
        			<div class="card card-w-title">	
        			<h1>Pacient</h1>
-       			<p:messages showDetail="true" showSummary="false" autoUpdate="true" closable="false" />
        				<h:form id="formulariModificaFullPacient">
 						<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
 					    	<h:outputLabel value="CIP: " />
@@ -138,9 +138,9 @@
 					        <h:outputText value="#{sessionScope.full.expedient.pacient.nomResidencia}" />
        					</h:panelGrid>
        						<h:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
-       							<p:commandButton actionListener="#{modificarFull.modificarFull}" action="#{crearFullControl.crearFullControl}" value="1-CONFIRMAR" icon="fa fa-check-circle" styleClass="raised-btn"/>
-       							<p:commandButton action="#{validar.validar}" value="2-VALIDAR" icon="fa fa-check-circle" styleClass="blue-btn"/>
-       							<p:commandButton action="#{crearFull.crearFull}" value="Següent Pacient" icon="fa fa-forward" styleClass="raised-btn"/>
+       							<p:commandButton actionListener="#{modificarFull.modificarFull}" action="#{crearFullControl.crearFullControl}" value="1 CONFIRMAR FULL" icon="fa fa-check-circle" styleClass="blue-btn raised-btn"/>
+       							<p:commandButton action="#{validar.validar}" value="2 VALIDAR FULL" icon="fa fa-check-circle" styleClass="blue-btn raised-btn"/>
+       							<p:commandButton action="#{crearFull.crearFull}" value="Següent Pacient" icon="fa fa-forward" styleClass="green-btn"/>
        					</h:panelGrid>
        				</h:form>
             	</div>

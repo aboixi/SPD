@@ -13,29 +13,29 @@
                 <div class="card card-w-title">
 					<h1>Pacients</h1>
                    	<h:form id="formulariLlistaPacientsFullsControl">
-						<p:dataTable id="llistaPacientsFullsControl" var="item" value="#{llistarFullsControl.pacients}" selectionMode="single" selection="#{consultarFullControl.pacient}" rowKey="#{item.cip}">
+						<p:dataTable id="llistaPacientsFullsControl" var="item" value="#{llistarFullsControl.pacients}" selectionMode="single" selection="#{consultarFullControl.pacient}" rowKey="#{item.cip}" rows="10"  paginator="true">
 							<f:facet name="header">
-			                	Llistat de Pacients
+			                	Llista de pacients
 			                </f:facet>
 		                	<p:ajax event="rowSelect" listener="#{consultarFullControl.consultarBlisters}" update="formulariLlistaFullsControl"/>
 					    
-						    <p:column headerText="Nom">
+						    <p:column headerText="Nom" sortBy="#{item.nom}">
 						        <h:outputText value="#{item.nom}" />
 						    </p:column>
 					 
-						    <p:column headerText="Cognom1">
+						    <p:column headerText="Cognom1" sortBy="#{item.cognom1}">
 						        <h:outputText value="#{item.cognom1}" />
 						    </p:column>
 					    
-						    <p:column headerText="Cognom2">
+						    <p:column headerText="Cognom2" sortBy="#{item.cognom2}">
 						        <h:outputText value="#{item.cognom2}" />
 						    </p:column>
 					    
-						    <p:column headerText="Residencia">
-						        <h:outputText value="#{item.nomResidencia}" />
+						    <p:column headerText="Residencia" sortBy="#{item.nomResidencia}">
+						        <h:outputText value="#{item.nomResidencia}" style="text-align: center" />
 						    </p:column>
 					    
-						    <p:column headerText="Farmacia">
+						    <p:column headerText="Farmacia" style="text-align: center" sortBy="#{item.nomFarmacia}">
 						        <h:outputText value="#{item.nomFarmacia}" />
 						    </p:column>
 						</p:dataTable>

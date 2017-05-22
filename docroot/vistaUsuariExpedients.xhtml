@@ -16,11 +16,11 @@
                     <h:form id="formulariLlistaExpedients">
 						<p:dataTable id="llistaExpedients" var="item" value="#{llistarExpedients.pacients}" selectionMode="single" selection="#{consultarExpedient.pacient}" rowKey="#{item.nom}" rows="10"  paginator="true">
 							<f:facet name="header">
-			                	Llista de Pacients
+			                	Llista de pacients
 			                </f:facet>
  			                <p:ajax event="rowSelect" listener="#{consultarExpedient.llistarTractaments}" update=":formulariDadesExpedient"/> 
 					    
-						    <p:column headerText="Nom">
+						    <p:column headerText="Nom" sortBy="#{item.nom}">
 						        <h:outputText value="#{item.nom}" />
 						    </p:column>
 						 
@@ -40,11 +40,11 @@
 						        <h:outputText value="#{item.nomFarmacia}" />
 						    </p:column>
 						    
-						    <p:column headerText="SPD">
+						    <p:column headerText="SPD" style="text-align: center">
 						        <h:outputText value="#{item.spd}" />
 						    </p:column>
 						    
-						    <p:column headerText="Hospitalitzat">
+						    <p:column headerText="Hospitalitzat" style="text-align: center">
 						        <h:outputText value="#{item.hospitalitzat}" />
 						    </p:column>
 

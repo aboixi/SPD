@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Properties;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -35,6 +36,7 @@ public class CrearFullDeControlMBean implements Serializable{
 			Context ctx = new InitialContext(props);
 			controlRemotEJB = (FullControlNegociRemote) ctx.lookup("java:app/SPD.jar/FullControlNegociEJB!ejb.FullControlNegociRemote");
 			controlRemotEJB.creaFullControl(full.getExpedient().getId(), getDniUsuariSessio());
+			msgCorrecte();
 			return "vistaUsuariModificarFull";
 		}else{
 			return "accessError";
@@ -66,4 +68,8 @@ public class CrearFullDeControlMBean implements Serializable{
 			return (this.sessionOK=false);
 		}
 	}
+	
+ 	public void msgCorrecte(){
+ 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Full de treball confirmat."));
+ 	}
 }
