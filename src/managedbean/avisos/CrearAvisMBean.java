@@ -36,6 +36,10 @@ public class CrearAvisMBean implements Serializable{
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
 			avisNegoci = (AvisNegociRemote) ctx.lookup("java:app/SPD.jar/AvisNegociEJB!ejb.AvisNegociRemote");
+			if (cifEmisor==null||nomReceptor==null){
+				msgError();
+				return "vistaUsuariAvisos";
+			}
 			avisNegoci.crearAvis(cifEmisor, nomReceptor, tipus,descripcio);
 			clearFields();
 			msgCorrecte();
@@ -72,11 +76,11 @@ public class CrearAvisMBean implements Serializable{
 	}
 
  	public void msgCorrecte(){
- 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Missatge enviat"));
+ 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Missatge enviat."));
  	}
  	
  	public void msgError(){
- 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Error al crear el missatge."));
+ 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Falta seleccionar el destinatari."));
  	}
 
 	/**

@@ -13,7 +13,7 @@
        			<div class="card card-w-title">	
        				<h1>Pacient</h1>
                 	<h:form>
-<!-- 				<p:messages showDetail="true" showSummary="false" autoUpdate="true" closable="true" />  -->                
+ 					<p:messages showDetail="true" showSummary="false" autoUpdate="true" closable="false" />              
 						<h:panelGrid columns="6" layout="grid" styleClass="ui-panelgrid-blank form-group">
 							<h:outputLabel value="Nom: " />
 				            <h:outputText value="#{consultarExpedient.pacient.cognom1}"/>		
@@ -28,10 +28,7 @@
 							<p:dataTable id="llistaExpedients" var="item" value="#{consultarExpedient.tractaments}" editable="true" selectionMode="single" selection="#{eliminarTractament.tractament}" rowKey="#{item.idTractament}">
  							<f:facet name="header">
  								Tractaments
- 							</f:facet>	
-<!-- 						<p:ajax event="rowEdit" listener="#{#}" update="" />
-       						<p:ajax event="rowEditCancel" listener="#{#}" update="" />  -->
-       					
+ 							</f:facet>			
 								<p:column style="width:8%;text-align: center" headerText="Inici">
        								<p:cellEditor>
 			                   			<f:facet name="output"><h:outputText value="#{item.dataInici}" style="width:100%;text-align: center"/></f:facet>
@@ -145,11 +142,6 @@
 	                            		<f:facet name="input"><p:selectBooleanCheckbox value="#{item.diumenge}"/></f:facet>	                            
 	                            	</p:cellEditor>
 	                            </p:column>
-<!--	                            
-	                            <p:column style="width:32px" headerText="Editar">
-						           <p:rowEditor />
-						       </p:column>
--->						       
 							</p:dataTable>
 							<h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
 	            				<p:commandButton id="boto" actionListener="#{eliminarTractament.eliminarTractament}" action="#{consultarExpedient.consultarTractaments}" value="Eliminar" icon="fa fa-minus-circle" update="formulariModificarExpedient" styleClass="raised-btn"/>
@@ -163,7 +155,8 @@
 						<h:form id="formulariNouTractament">
 							 <h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
 								<h:outputText value="Data d'inici: " />
-								<p:calendar id="inici" value="#{agregarTractament.dataInici}" required="true"/>
+								<p:calendar id="inici" value="#{agregarTractament.dataInici}" required="true"
+								requiredMessage="Falta la data d'inici del tractament"/>
 								<h:outputText value="CN: " />
 								<h:outputText id="cn" value="#{agregarTractament.cn}" required="true" editable="false"/>
 								<h:outputText value="Nom: " />

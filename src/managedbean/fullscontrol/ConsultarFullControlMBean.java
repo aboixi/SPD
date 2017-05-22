@@ -43,14 +43,14 @@ public class ConsultarFullControlMBean implements Serializable{
 				return "vistaUsuariFullsControlBlister";
 			}catch (Exception e){
 				System.out.println(e);
-			}			
+			}
+			Collection<FullDeControlJPA> fulls= null;
+			this.setFullsControl(fulls);
+			msgAvis();
+			return null;
 		}else{
 			return "accessError";
 		}
-		Collection<FullDeControlJPA> fulls= null;
-		this.setFullsControl(fulls);
-		msgAvis();
-		return "vistaUsuariFullsControlBlister";
 	}
 	
 	public String consultarBlisters()throws Exception{

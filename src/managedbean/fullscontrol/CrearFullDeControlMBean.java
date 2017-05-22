@@ -6,6 +6,7 @@ import java.util.Properties;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.Context;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import ejb.FullControlNegociRemote;
 import jpa.FullDeTreballJPA;
 import jpa.UsuariEmpresaJPA;
+import managedbean.fullstreball.CrearFullDeTreballMBean;
 
 /**
  * 
@@ -25,6 +27,8 @@ public class CrearFullDeControlMBean implements Serializable{
 	
 	@EJB (name="FullControlNegociEJB")
 	FullControlNegociRemote controlRemotEJB;
+	@ManagedProperty("#{crearFull}")
+	private CrearFullDeTreballMBean fullTreMBean;
 	@SuppressWarnings("unused")
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
@@ -36,6 +40,8 @@ public class CrearFullDeControlMBean implements Serializable{
 			Context ctx = new InitialContext(props);
 			controlRemotEJB = (FullControlNegociRemote) ctx.lookup("java:app/SPD.jar/FullControlNegociEJB!ejb.FullControlNegociRemote");
 			controlRemotEJB.creaFullControl(full.getExpedient().getId(), getDniUsuariSessio());
+			String [] blister = new String[28];
+			fullTreMBean.setBlister(blister);
 			msgCorrecte();
 			return "vistaUsuariModificarFull";
 		}else{
@@ -72,4 +78,18 @@ public class CrearFullDeControlMBean implements Serializable{
  	public void msgCorrecte(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Full de treball confirmat."));
  	}
+
+	/**
+	 * @return the fullTreMBean
+	 */
+	public CrearFullDeTreballMBean getFullTreMBean() {
+		return fullTreMBean;
+	}
+
+	/**
+	 * @param fullTreMBean the fullTreMBean to set
+	 */
+	public void setFullTreMBean(CrearFullDeTreballMBean fullTreMBean) {
+		this.fullTreMBean = fullTreMBean;
+	}
 }

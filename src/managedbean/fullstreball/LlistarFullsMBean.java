@@ -32,11 +32,14 @@ public class LlistarFullsMBean implements Serializable{
 	
 	public String llistarFulls()throws Exception{
 		if (checkSession()){
-			String cif=getSessionCif();
+			UsuariEmpresaJPA usuari = getSessioUsuari();
+			if (!(usuari.getTipusEmpresa().equals("Farmacia"))){
+				return null;
+			}
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
 			fullsRemotEJB = (FullTreballNegociRemote) ctx.lookup("java:app/SPD.jar/FullTreballNegociEJB!ejb.FullTreballNegociRemote");
-			this.pacients=fullsRemotEJB.llistarFulls(cif);
+			this.pacients=fullsRemotEJB.llistarFulls(usuari.getEmpresa());
 			this.setPacients(pacients);
 			return "vistaUsuariFullsTreball";
 		}else{
@@ -55,11 +58,11 @@ public class LlistarFullsMBean implements Serializable{
 		}
 	}
 	
-	public String getSessionCif(){
+	public UsuariEmpresaJPA getSessioUsuari(){
  		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
 		UsuariEmpresaJPA usuari = (UsuariEmpresaJPA) activeSession.getAttribute("sessioUsuari");
-		return usuari.getEmpresa();
+		return usuari;
 	}
 
 	/**

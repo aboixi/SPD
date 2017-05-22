@@ -42,6 +42,10 @@ public class ModificarPacientMBean implements Serializable{
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
 			pacientsRemotEJB = (PacientsNegociRemote) ctx.lookup("java:app/SPD.jar/PacientsNegociEJB!ejb.PacientsNegociRemote");
+			if (eliminarPacientMBean==null){
+				msgAvis();
+				return null;
+			}
 			String missatge=null;
 			missatge=pacientsRemotEJB.modificarPacient(cif, eliminarPacientMBean.getPacient().getCip(),eliminarPacientMBean.getPacient().getNom(),eliminarPacientMBean.getPacient().getCognom1(),eliminarPacientMBean.getPacient().getCognom2(),
 					eliminarPacientMBean.getPacient().getNomFarmacia(),eliminarPacientMBean.getPacient().getFarmacia(),eliminarPacientMBean.getPacient().getMalalties(),eliminarPacientMBean.getPacient().getAlergies(),eliminarPacientMBean.getPacient().getMetge(),eliminarPacientMBean.getPacient().isAutoritzacio(),
@@ -99,6 +103,10 @@ public class ModificarPacientMBean implements Serializable{
  	}
  	public void msgError(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No estas autoritzat a modificar l'usuari."));
+ 	}
+ 	
+ 	public void msgAvis(){
+ 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Avis", "Cap pacient seleccionat."));
  	}
  	
 	public boolean checkSession(){

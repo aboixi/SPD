@@ -52,6 +52,10 @@ public class AgregarTractamentMBean implements Serializable{
 	
 	public String agregarTractament()throws Exception{
 		if (checkSession()){
+			if(qEntera.equals("0")&&qFraccio.equals("0")){
+				msgError2();
+				return "vistaUsuariModificarExpedient";
+			}
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
 			expedientRemotEJB = (ExpedientNegociRemote) ctx.lookup("java:app/SPD.jar/ExpedientNegociEJB!ejb.ExpedientNegociRemote");
@@ -119,6 +123,10 @@ public class AgregarTractamentMBean implements Serializable{
  	public void msgError(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Error al crear el tractament."));
  	}
+ 	
+ 	public void msgError2(){
+ 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Cap quantitat seleccionada."));
+ 	} 	
 
 	/**
 	 * @return the expedientRemotEJB

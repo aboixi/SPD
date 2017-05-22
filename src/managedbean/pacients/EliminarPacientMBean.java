@@ -33,17 +33,23 @@ public class EliminarPacientMBean implements Serializable{
 	
 	public String eliminar() throws NamingException{
 		if (checkSession()){
-			String cif=getSessionCif();
-			String cip=pacient.getCip();
+			String cif = null;
+			String cip = null;
+			try{
+				cif=getSessionCif();
+				cip=pacient.getCip();
+			}catch (Exception e){
+				System.out.println(e);
+			}
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			try{
-				PacientsRemotEJB = (PacientsNegociRemote) ctx.lookup("java:app/SPD.jar/PacientsNegociEJB!ejb.PacientsNegociRemote");
-				PacientsRemotEJB.eliminarPacient(cip, cif);
-			}catch (PersistenceException e){
-				clearFields();
-				msgError();
+			if (cip==null||cif==null){
+				msgAvis();
+				return "vistaUsuariPacients";
 			}
+			PacientsRemotEJB = (PacientsNegociRemote) ctx.lookup("java:app/SPD.jar/PacientsNegociEJB!ejb.PacientsNegociRemote");
+			PacientsRemotEJB.eliminarPacient(cip, cif);
+			clearFields();
 			return null;
 		}else{
 			return "accessError";
@@ -76,6 +82,10 @@ public class EliminarPacientMBean implements Serializable{
 	
  	public void msgError(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No estas autoritzat a eliminar l'usuari."));
+ 	}
+ 	
+ 	public void msgAvis(){
+ 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Avis", "Cap pacient seleccionat."));
  	}
 
 	public PacientJPA getPacient() {

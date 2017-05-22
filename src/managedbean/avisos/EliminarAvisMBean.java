@@ -31,7 +31,11 @@ public class EliminarAvisMBean implements Serializable{
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
 			avisNegoci = (AvisNegociRemote) ctx.lookup("java:app/SPD.jar/AvisNegociEJB!ejb.AvisNegociRemote");
-			avisNegoci.eliminarAvis(avis.getIdAvis());
+			try{
+				avisNegoci.eliminarAvis(avis.getIdAvis());
+			}catch (Exception e){
+				System.out.println(e);
+			}
 			return "vistaUsuariAvisos";
 		}else{
 			return "accessError";
