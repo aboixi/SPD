@@ -36,7 +36,7 @@ public class RegistrarEmpresaMBean implements Serializable{
 	private String clau;
 	private String tipus;
 	private static final long serialVersionUID = 1L;	
-
+	
 	/**
 	 * Registra una nova empresa al sistema
 	 */
@@ -78,7 +78,23 @@ public class RegistrarEmpresaMBean implements Serializable{
 	public String getCif() {
 		return cif;
 	}
-
+	
+	/**
+	 * Deixa en blanc el formulari de donar d'alta una nova empresa
+	 */
+	public void clearFields(){
+		setCif(null);
+		setNom(null);
+		setPoblacio(null);
+		setCarrer(null);
+		setCp(null);
+		setTelefon(null);
+		setFax(null);
+		setCorreu(null);
+		setContacte(null);
+		setClau(null);
+		setTipus(null);
+	}
 	public void setCif(String cif) {
 		this.cif = cif;
 	}

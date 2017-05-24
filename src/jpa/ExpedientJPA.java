@@ -18,15 +18,16 @@ public class ExpedientJPA implements Serializable{
 	
 	@Id
 	@Column(name = "id_expedient")
-	@GeneratedValue(strategy=GenerationType.AUTO) 
+	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private int id;
+
+	/**
+	 * Relacions de persistència
+	 */
 	
 	@OneToMany(targetEntity=TractamentJPA.class,mappedBy="expedient", fetch=FetchType.EAGER, orphanRemoval=true)
 	private Collection<TractamentJPA> tractaments;
 	
-	/**
-	 * Relacions de persistència
-	 */
 	@OneToOne(mappedBy = "expedient")
 	@JoinColumn(name = "pacient", referencedColumnName = "cip")
 	private PacientJPA pacient;

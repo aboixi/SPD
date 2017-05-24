@@ -110,10 +110,9 @@ public class LlistarAvisosMBean implements Serializable{
 		Context ctx = new InitialContext(props);
 		avisNegoci = (AvisNegociRemote) ctx.lookup("java:app/SPD.jar/AvisNegociEJB!ejb.AvisNegociRemote");
 		this.empreses = avisNegoci.consultaEmpreses(cif);
-		this.llistaEmpreses=new String [empreses.size()-1];
+		this.llistaEmpreses=new String [empreses.size()];
 		EmpresaJPA empresa = null;
 		Iterator <EmpresaJPA> iter = empreses.iterator();
-		iter.next(); //Saltem la primera farmàcia de la BBDD. "ninguna farmacia"
 		int i = 0;
 		while (iter.hasNext()){
 			empresa = iter.next();

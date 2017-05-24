@@ -16,7 +16,7 @@ public class AvisJPA implements Serializable{
 	
 	@Id
 	@Column(name = "id_avis")
-	@GeneratedValue(strategy=GenerationType.AUTO) 
+	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private int idAvis;
 	
 	@Column(name = "cif_emisor")
