@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: Expedient
+ * @author Albert Boix Isern
+ */
 package managedbean.expedient;
 
 import java.io.Serializable;
@@ -17,7 +21,7 @@ import jpa.PacientJPA;
 import jpa.UsuariEmpresaJPA;
 
 /**
- * Bean per llistar els usuaris vinculats a la empresa.
+ * Bean per llistar els expedients
  */
 @ManagedBean (name="llistarExpedients")
 @SessionScoped
@@ -30,6 +34,9 @@ public class LlistarExpedientsMBean implements Serializable{
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Llista els expedients
+	 */
 	public String llistar()throws Exception{
 		if (checkSession()){
 			String cif=getSessionCif();
@@ -43,7 +50,10 @@ public class LlistarExpedientsMBean implements Serializable{
 			return "accessError";
 		}
 	}
-
+	/**
+	 * Mètode que comprova si l'usuari ha fet login i té la sessió activa.
+	 * @return un booleà amb el resultat
+	 */
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -54,7 +64,9 @@ public class LlistarExpedientsMBean implements Serializable{
 			return (this.sessionOK=false);
 		}
 	}
-	
+	/**
+	 * Consulta el cif de l'empresa del treballador actiu.
+	 */
 	public String getSessionCif(){
  		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -63,15 +75,12 @@ public class LlistarExpedientsMBean implements Serializable{
 	}
 
 	/**
-	 * @return the pacients
+	 * Getters i setters
 	 */
 	public Collection<PacientJPA> getPacients() {
 		return pacients;
 	}
 
-	/**
-	 * @param pacients the pacients to set
-	 */
 	public void setPacients(Collection<PacientJPA> pacients) {
 		this.pacients = pacients;
 	}

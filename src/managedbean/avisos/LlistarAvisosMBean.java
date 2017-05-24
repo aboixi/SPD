@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: Avís
+ * @author Albert Boix Isern
+ */
 package managedbean.avisos;
 
 import java.io.Serializable;
@@ -21,6 +25,9 @@ import jpa.AvisJPA;
 import jpa.EmpresaJPA;
 import jpa.UsuariEmpresaJPA;
 
+/**
+ * Bean per llistar els avisos
+ */
 @ManagedBean(name="llistarAvisos")
 @SessionScoped
 public class LlistarAvisosMBean implements Serializable{
@@ -36,6 +43,9 @@ public class LlistarAvisosMBean implements Serializable{
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 *Mètode que mostra una llista amb els avisos, rebuts i enviats.
+	 */
 	public String llistarAvisos() throws NamingException{
 		if (checkSession()){
 			Properties props = System.getProperties();
@@ -50,7 +60,9 @@ public class LlistarAvisosMBean implements Serializable{
 			return "accessError";
 		}
 	}
-	
+	/**
+	 * Inicialitza la llista d'avisos enviats
+	 */
 	public void iniciaLlistaEnviats(Collection<AvisJPA> tots){
 		Collection<AvisJPA> enviats = new ArrayList<AvisJPA>();
 		String nif = getSessionCif();
@@ -68,7 +80,9 @@ public class LlistarAvisosMBean implements Serializable{
 		}
 		setEnviats(enviats);
 	}
-	
+	/**
+	 * Inicialitza la llista d'avisos rebuts
+	 */
 	public void iniciaLlistaRebuts(Collection<AvisJPA> tots){
 		Collection<AvisJPA> rebuts = new ArrayList<AvisJPA>();
 		String nif = getSessionCif();
@@ -86,7 +100,9 @@ public class LlistarAvisosMBean implements Serializable{
 		}
 		setRebuts(rebuts);
 	}
-	
+	/**
+	 * Mostra una llista amb les empreses
+	 */
 	public String[] mostraEmpreses() throws NamingException{
 		this.empreses=null;
 		String cif = getSessionCif();
@@ -106,7 +122,10 @@ public class LlistarAvisosMBean implements Serializable{
 		}
 		return llistaEmpreses;
 	}
-
+	/**
+	 * Mètode que comprova si l'usuari ha fet login i té la sessió activa.
+	 * @return un booleà amb el resultat
+	 */
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -117,89 +136,67 @@ public class LlistarAvisosMBean implements Serializable{
 			return (this.sessionOK=false);
 		}
 	}
-	
+	/**
+	 * Consulta el cif de la sessió
+	 */
 	public String getSessionCif(){
  		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
 		UsuariEmpresaJPA usuari = (UsuariEmpresaJPA) activeSession.getAttribute("sessioUsuari");
 		return usuari.getEmpresa();
 	}
- 	
+ 	/**
+ 	 * Genera un missatge d'informació
+ 	 */
  	public void msgCorrecte(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Missatge enviat"));
  	}
- 	
+ 	/**
+ 	 * Genera un missatge d'error
+ 	 */
  	public void msgError(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Error al crear el missatge."));
  	}
-	/**
-	 * @return the avisos
+ 	/**
+	 * Getters i Setters
 	 */
 	public Collection<AvisJPA> getAvisos() {
 		return avisos;
 	}
 
-	/**
-	 * @param avisos the avisos to set
-	 */
 	public void setAvisos(Collection<AvisJPA> avisos) {
 		this.avisos = avisos;
 	}
 
-	/**
-	 * @return the enviats
-	 */
 	public Collection<AvisJPA> getEnviats() {
 		return enviats;
 	}
 
-	/**
-	 * @param enviats the enviats to set
-	 */
 	public void setEnviats(Collection<AvisJPA> enviats) {
 		this.enviats = enviats;
 	}
 
-	/**
-	 * @return the rebuts
-	 */
 	public Collection<AvisJPA> getRebuts() {
 		return rebuts;
 	}
 
-	/**
-	 * @param rebuts the rebuts to set
-	 */
 	public void setRebuts(Collection<AvisJPA> rebuts) {
 		this.rebuts = rebuts;
 	}
 
-	/**
-	 * @return the empreses
-	 */
 	public Collection<EmpresaJPA> getEmpreses() {
 		return empreses;
 	}
 
-	/**
-	 * @param empreses the empreses to set
-	 */
 	public void setEmpreses(Collection<EmpresaJPA> empreses) {
 		this.empreses = empreses;
 	}
 
-	/**
-	 * @return the llistaEmpreses
-	 */
 	public String[] getLlistaEmpreses() {
 		return llistaEmpreses;
 	}
 
-	/**
-	 * @param llistaEmpreses the llistaEmpreses to set
-	 */
 	public void setLlistaEmpreses(String[] llistaEmpreses) {
 		this.llistaEmpreses = llistaEmpreses;
-	}
-	
+	}	
 }

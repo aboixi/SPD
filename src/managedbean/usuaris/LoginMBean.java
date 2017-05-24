@@ -2,7 +2,6 @@
  * TFG JEE-SimpleSPD - Component: Usuaris
  * @author Albert Boix Isern
  */
-
 package managedbean.usuaris;
 
 import java.io.Serializable;
@@ -21,7 +20,7 @@ import jpa.UsuariEmpresaJPA;
 import managedbean.avisos.LlistarAvisosMBean;
 
 /**
- * Bean to login into system
+ * Bean per identificar-se al sistema
  */
 @ManagedBean(name = "loginUsuari")
 @SessionScoped
@@ -37,7 +36,7 @@ public class LoginMBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Method to login
+	 * Mètode per identificar-se al sistema i pujar l'usuari o empresa a sessió si és correcte.
 	 */
 	public String login() throws Exception{	
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -71,7 +70,9 @@ public class LoginMBean implements Serializable{
 			}			
 		}
 	}
-	
+	/**
+	 * Mètode que invalida la sessió de l'usuari/empresa i el redirigeix cap a la vista de login
+	 */
 	public String logout() throws Exception{
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -79,52 +80,40 @@ public class LoginMBean implements Serializable{
 		activeSession.removeAttribute("sessioUsuari");
 		activeSession.invalidate();
 		
-		return "vistaLogin?faces-redirect=true";
+		return "inici?faces-redirect=true";
 	}
 	
+	/**
+	 * Neteja els camps del formulari de login
+	 */
  	public void clearFields(){
  		setNom(null);
  		setClau(null);
  	}
 	
 	/**
-	 * @return the nom
+	 * Getters i setters
 	 */
 	public String getNom() {
 		return nom;
 	}
 
-	/**
-	 * @param nom the nom to set
-	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 
-	/**
-	 * @return the clau
-	 */
 	public String getClau() {
 		return clau;
 	}
 
-	/**
-	 * @param clau the clau to set
-	 */
 	public void setClau(String clau) {
 		this.clau = clau;
 	}
 
-	/**
-	 * @return the llistarAvisosMBean
-	 */
 	public LlistarAvisosMBean getLlistarAvisosMBean() {
 		return llistarAvisosMBean;
 	}
 
-	/**
-	 * @param llistarAvisosMBean the llistarAvisosMBean to set
-	 */
 	public void setLlistarAvisosMBean(LlistarAvisosMBean llistarAvisosMBean) {
 		this.llistarAvisosMBean = llistarAvisosMBean;
 	}

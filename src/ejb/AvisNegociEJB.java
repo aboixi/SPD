@@ -1,5 +1,5 @@
 /**
- * TFG JEE-SimpleSPD - Component: Usuaris
+ * TFG JEE-SimpleSPD - Component: Avis
  * @author Albert Boix Isern
  */
 
@@ -17,6 +17,9 @@ import javax.persistence.PersistenceException;
 import jpa.AvisJPA;
 import jpa.EmpresaJPA;
 
+/**
+ * EJB Session Bean Class 
+ */
 @Stateless
 public class AvisNegociEJB implements AvisNegociRemote{
 	@PersistenceContext(unitName="SPD")
@@ -24,6 +27,10 @@ public class AvisNegociEJB implements AvisNegociRemote{
 	@Resource
 	private SessionContext sessionContext;
 	
+	/**
+	 * Mètode per crear un nou avís.
+	 * @return un missatge en forma de String.
+	 */
 	public String crearAvis(String cifE, String nomR, String tipus, String descripcio){
 		String query = "SELECT e.cif "+"FROM EmpresaJPA e WHERE e.nom = '" + nomR +"'";
 		String cifR = entman.createQuery(query, String.class).getSingleResult();	
@@ -41,6 +48,10 @@ public class AvisNegociEJB implements AvisNegociRemote{
 		return "procesCorrecte";
 	}
 	
+	/**
+	 * Mètode per consultar tots els avisos on la empresa apareix com a emissor o receptor.
+	 * @return una colecció amb els missatges.
+	 */
 	@SuppressWarnings("unchecked")
 	public Collection<AvisJPA> llistarAvisos(String cif)throws PersistenceException{
 		try{
@@ -52,18 +63,30 @@ public class AvisNegociEJB implements AvisNegociRemote{
 		return null;		
 	}
 	
+	/**
+	 * Mètode per eliminar un avís.
+	 * * @return Un missatge en forma de String.
+	 */
 	public String eliminarAvis (int idAvis){
 		AvisJPA avis = entman.find(AvisJPA.class, idAvis);
 		entman.remove(avis);
 		return "procesCorrecte";
 	}
 	
+	/**
+	 * Mètode per canviar l'estat d'un avís.
+	 * @return Un missatge en forma de String.
+	 */
 	public String canviarEstatAvis(int idAvis){
 		AvisJPA avis = entman.find(AvisJPA.class, idAvis);
 		avis.setEstat("LLEGIT");
 		return "procesCorrecte";
 	}
 	
+	/**
+	 * Mètode que consulta totes les empreses i excepte la que realitza la consulta.
+	 * @return Una col·lecció amb les empresses.
+	 */
 	@SuppressWarnings("unchecked")
 	public Collection<EmpresaJPA> consultaEmpreses(String cif){
 		Collection<EmpresaJPA> empreses = null;

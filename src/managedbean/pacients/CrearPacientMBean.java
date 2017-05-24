@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: Pacients
+ * @author Albert Boix Isern
+ */
 package managedbean.pacients;
 
 import java.io.Serializable;
@@ -14,7 +18,9 @@ import javax.servlet.http.HttpSession;
 import ejb.PacientsNegociRemote;
 import jpa.EmpresaJPA;
 import jpa.UsuariEmpresaJPA;
-
+/**
+ * Bean per crear un pacient
+ */
 @ManagedBean(name = "crearPacient")
 @SessionScoped
 public class CrearPacientMBean implements Serializable{
@@ -41,6 +47,9 @@ public class CrearPacientMBean implements Serializable{
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;	
 	
+	/**
+	 * Crea un nou pacient al sistema vinculat amb l'empresa de l'usuari que el crea
+	 */
  	public String nouPacient() throws Exception{
  		if (checkSession()){
 			UsuariEmpresaJPA usuari = getSessionObject();
@@ -83,7 +92,9 @@ public class CrearPacientMBean implements Serializable{
 			return "accesError";
 		}
 	}
-
+ 	/**
+ 	 * Neteja els camps del formulari de crear pacient
+ 	 */
  	public void clearFields(){
  		setCip(null);
  		setNom(null);
@@ -93,15 +104,22 @@ public class CrearPacientMBean implements Serializable{
  		setAlergies(null);
  		setMalalties(null);
  	}
-	
+	/**
+	 * Mostra un missatge d'informació
+	 */
  	public void msgCorrecte(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Nou pacient creat."));
  	}
- 	
+ 	/**
+ 	 * Mostra un missatge d'error
+ 	 */
  	public void msgError(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "El pacient ja existeix al sistema."));
  	}
- 	
+	/**
+	 * Mètode que comprova si l'usuari ha fet login i té la sessió activa.
+	 * @return un booleà amb el resultat
+	 */
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -112,7 +130,9 @@ public class CrearPacientMBean implements Serializable{
 			return (this.sessionOK=false);
 		}
 	}
-	
+	/**
+	 * Consulta l'usuari pujat a sessió
+	 */
 	public UsuariEmpresaJPA getSessionObject(){
  		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -120,213 +140,125 @@ public class CrearPacientMBean implements Serializable{
 		return usuari;
 	}
 	
-
 	/**
-	 * @return the cip
+	 * Getters i setters
 	 */
 	public String getCip() {
 		return cip;
 	}
 
-	/**
-	 * @param cip the cip to set
-	 */
 	public void setCip(String cip) {
 		this.cip = cip;
 	}
 
-	/**
-	 * @return the nom
-	 */
 	public String getNom() {
 		return nom;
 	}
 
-	/**
-	 * @param nom the nom to set
-	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 
-	/**
-	 * @return the cognom1
-	 */
 	public String getCognom1() {
 		return cognom1;
 	}
 
-	/**
-	 * @param cognom1 the cognom1 to set
-	 */
 	public void setCognom1(String cognom1) {
 		this.cognom1 = cognom1;
 	}
 
-	/**
-	 * @return the cognom2
-	 */
 	public String getCognom2() {
 		return cognom2;
 	}
 
-	/**
-	 * @param cognom2 the cognom2 to set
-	 */
 	public void setCognom2(String cognom2) {
 		this.cognom2 = cognom2;
 	}
 
-	/**
-	 * @return the malalties
-	 */
 	public String getMalalties() {
 		return malalties;
 	}
 
-	/**
-	 * @param malalties the malalties to set
-	 */
 	public void setMalalties(String malalties) {
 		this.malalties = malalties;
 	}
 
-	/**
-	 * @return the alergies
-	 */
 	public String getAlergies() {
 		return alergies;
 	}
 
-	/**
-	 * @param alergies the alergies to set
-	 */
 	public void setAlergies(String alergies) {
 		this.alergies = alergies;
 	}
 
-	/**
-	 * @return the metge
-	 */
 	public String getMetge() {
 		return metge;
 	}
 
-	/**
-	 * @param metge the metge to set
-	 */
 	public void setMetge(String metge) {
 		this.metge = metge;
 	}
 
-	/**
-	 * @return the autoritzacio
-	 */
 	public boolean isAutoritzacio() {
 		return autoritzacio;
 	}
 
-	/**
-	 * @param autoritzacio the autoritzacio to set
-	 */
 	public void setAutoritzacio(boolean autoritzacio) {
 		this.autoritzacio = autoritzacio;
 	}
 
-	/**
-	 * @return the spd
-	 */
 	public boolean isSpd() {
 		return spd;
 	}
 
-	/**
-	 * @param spd the spd to set
-	 */
 	public void setSpd(boolean spd) {
 		this.spd = spd;
 	}
 
-	/**
-	 * @return the hospitalitzat
-	 */
 	public boolean isHospitalitzat() {
 		return hospitalitzat;
 	}
 
-	/**
-	 * @param hospitalitzat the hospitalitzat to set
-	 */
 	public void setHospitalitzat(boolean hospitalitzat) {
 		this.hospitalitzat = hospitalitzat;
 	}
 
-	/**
-	 * @return the exitus
-	 */
 	public boolean isExitus() {
 		return exitus;
 	}
 
-	/**
-	 * @param exitus the exitus to set
-	 */
 	public void setExitus(boolean exitus) {
 		this.exitus = exitus;
 	}
 
-	/**
-	 * @return the cifResidencia
-	 */
 	public String getCifResidencia() {
 		return cifResidencia;
 	}
 
-	/**
-	 * @param cifResidencia the cifResidencia to set
-	 */
 	public void setCifResidencia(String cifResidencia) {
 		this.cifResidencia = cifResidencia;
 	}
 
-	/**
-	 * @return the nomResidencia
-	 */
 	public String getNomResidencia() {
 		return nomResidencia;
 	}
 
-	/**
-	 * @param nomResidencia the nomResidencia to set
-	 */
 	public void setNomResidencia(String nomResidencia) {
 		this.nomResidencia = nomResidencia;
 	}
 
-	/**
-	 * @return the cifFarmacia
-	 */
 	public String getCifFarmacia() {
 		return cifFarmacia;
 	}
 
-	/**
-	 * @param cifFarmacia the cifFarmacia to set
-	 */
 	public void setCifFarmacia(String cifFarmacia) {
 		this.cifFarmacia = cifFarmacia;
 	}
 
-	/**
-	 * @return the nomFarmacia
-	 */
 	public String getNomFarmacia() {
 		return nomFarmacia;
 	}
 
-	/**
-	 * @param nomFarmacia the nomFarmacia to set
-	 */
 	public void setNomFarmacia(String nomFarmacia) {
 		this.nomFarmacia = nomFarmacia;
 	}

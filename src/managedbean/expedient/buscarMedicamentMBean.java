@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: Expedient
+ * @author Albert Boix Isern
+ */
 package managedbean.expedient;
 
 import java.io.Serializable;
@@ -16,6 +20,9 @@ import javax.servlet.http.HttpSession;
 import ejb.ExpedientNegociRemote;
 import jpa.MedicamentJPA;
 
+/**
+ * Bean per buscar un medicament
+ */
 @ManagedBean (name="buscarMedicament")
 @SessionScoped
 public class buscarMedicamentMBean implements Serializable{
@@ -31,6 +38,9 @@ public class buscarMedicamentMBean implements Serializable{
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Busca un medicament a la base de dades
+	 */
 	public String buscarMedicament()throws Exception{
 		if (checkSession()){
 			Properties props = System.getProperties();
@@ -43,20 +53,30 @@ public class buscarMedicamentMBean implements Serializable{
 			return "accessError";
 		}
 	}
-	
+	/**
+	 * Còpia un medicament del buscador al formulari de creació del tractament.
+	 */
 	public void copiarMedicament(){
 		agregarTractamentMBean.setCn(getMedicament().getCn());
 		agregarTractamentMBean.setNomComercial(getMedicament().getNomComercial());
 	}
-	
+	/**
+	 * Neteja els camps del formulari del buscador de medicaments
+	 */
 	public void clearFields(){
 		this.setParaula(null);
 		this.medicaments.clear();
 		this.setMedicaments(medicaments);
 	}
-	
+	/**
+	 * Mètode per refrescar el formulari
+	 */
 	public void actualitzaFormulari(){}
-
+	
+	/**
+	 * Mètode que comprova si l'usuari ha fet login i té la sessió activa.
+	 * @return un booleà amb el resultat
+	 */
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -69,69 +89,44 @@ public class buscarMedicamentMBean implements Serializable{
 	}
 
 	/**
-	 * @return the expedientRemotEJB
+	 * Getters i Setters
 	 */
 	public ExpedientNegociRemote getExpedientRemotEJB() {
 		return expedientRemotEJB;
 	}
 
-	/**
-	 * @param expedientRemotEJB the expedientRemotEJB to set
-	 */
 	public void setExpedientRemotEJB(ExpedientNegociRemote expedientRemotEJB) {
 		this.expedientRemotEJB = expedientRemotEJB;
 	}
 
-	/**
-	 * @return the medicaments
-	 */
 	public Collection<MedicamentJPA> getMedicaments() {
 		return medicaments;
 	}
 
-	/**
-	 * @param medicaments the medicaments to set
-	 */
 	public void setMedicaments(Collection<MedicamentJPA> medicaments) {
 		this.medicaments = medicaments;
 	}
 
-	/**
-	 * @return the paraula
-	 */
 	public String getParaula() {
 		return paraula;
 	}
 
-	/**
-	 * @param paraula the paraula to set
-	 */
 	public void setParaula(String paraula) {
 		this.paraula = paraula;
 	}
 
-	/**
-	 * @return the medicament
-	 */
 	public MedicamentJPA getMedicament() {
 		return medicament;
 	}
 
-	/**
-	 * @param medicament the medicament to set
-	 */
 	public void setMedicament(MedicamentJPA medicament) {
 		this.medicament = medicament;
 	}
-	/**
-	 * @return the agregarTractamentMBean
-	 */
+
 	public AgregarTractamentMBean getAgregarTractamentMBean() {
 		return agregarTractamentMBean;
 	}
-	/**
-	 * @param agregarTractamentMBean the agregarTractamentMBean to set
-	 */
+
 	public void setAgregarTractamentMBean(AgregarTractamentMBean agregarTractamentMBean) {
 		this.agregarTractamentMBean = agregarTractamentMBean;
 	}

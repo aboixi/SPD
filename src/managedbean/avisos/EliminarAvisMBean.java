@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: Avís
+ * @author Albert Boix Isern
+ */
 package managedbean.avisos;
 
 import java.io.Serializable;
@@ -15,6 +19,9 @@ import javax.servlet.http.HttpSession;
 import ejb.AvisNegociRemote;
 import jpa.AvisJPA;
 
+/**
+ * Bean per eliminar un avís
+ */
 @ManagedBean(name="eliminarAvis")
 @SessionScoped
 public class EliminarAvisMBean implements Serializable{
@@ -26,6 +33,9 @@ public class EliminarAvisMBean implements Serializable{
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Elimina un avís 
+	 */
 	public String eliminarAvis() throws NamingException{
 		if (checkSession()){
 			Properties props = System.getProperties();
@@ -41,6 +51,11 @@ public class EliminarAvisMBean implements Serializable{
 			return "accessError";
 		}
 	}
+	
+	/**
+	 * Mètode que comprova si l'usuari ha fet login i té la sessió activa.
+	 * @return un booleà amb el resultat
+	 */
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -52,14 +67,12 @@ public class EliminarAvisMBean implements Serializable{
 		}
 	}
 	/**
-	 * @return the avis
+	 * Getters i Setters
 	 */
 	public AvisJPA getAvis() {
 		return avis;
 	}
-	/**
-	 * @param avis the avis to set
-	 */
+
 	public void setAvis(AvisJPA avis) {
 		this.avis = avis;
 	}

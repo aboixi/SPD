@@ -1,5 +1,5 @@
 /**
- * TFG JEE-SimpleSPD - Component: Usuaris
+ * TFG JEE-SimpleSPD
  * @author Albert Boix Isern
  */
 package jpa;
@@ -9,9 +9,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- * JPA Class PacientJPA
+ * JPA Classe PacientJPA
  */
-
 @Entity
 @Table(name="spd.pacients")
 public class PacientJPA implements Serializable {
@@ -50,7 +49,7 @@ public class PacientJPA implements Serializable {
 	private boolean exitus;
 	
 	/**
-	 * Relacions de persistencia
+	 * Relacions de persistència
 	 */
 	@OneToOne(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
 	@JoinColumn(name = "expedient", referencedColumnName = "id_expedient")
@@ -62,7 +61,9 @@ public class PacientJPA implements Serializable {
 	public PacientJPA() {
 		super();
 	}
-
+	/**
+	 * Constructor amb paràmetres
+	 */
 	public PacientJPA(String cip, String nom, String cognom1, String cognom2, String metge, String alergies,
 			String malalties, boolean spd, boolean autoritzacio, boolean hospitalitzat, String cifResidencia, String nomResidencia) {
 		super();
@@ -84,225 +85,132 @@ public class PacientJPA implements Serializable {
 	}
 
 	/**
-	 * @return the cip
+	 * Getters i setters
 	 */
 	public String getCip() {
 		return cip;
 	}
 
-	/**
-	 * @param cip the cip to set
-	 */
 	public void setCip(String cip) {
 		this.cip = cip;
 	}
 
-	/**
-	 * @return the nom
-	 */
 	public String getNom() {
 		return nom;
 	}
 
-	/**
-	 * @param nom the nom to set
-	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 
-	/**
-	 * @return the cognom1
-	 */
 	public String getCognom1() {
 		return cognom1;
 	}
 
-	/**
-	 * @param cognom1 the cognom1 to set
-	 */
 	public void setCognom1(String cognom1) {
 		this.cognom1 = cognom1;
 	}
 
-	/**
-	 * @return the cognom2
-	 */
 	public String getCognom2() {
 		return cognom2;
 	}
 
-	/**
-	 * @param cognom2 the cognom2 to set
-	 */
 	public void setCognom2(String cognom2) {
 		this.cognom2 = cognom2;
 	}
 
-	/**
-	 * @return the metge
-	 */
 	public String getMetge() {
 		return metge;
 	}
 
-	/**
-	 * @param metge the metge to set
-	 */
 	public void setMetge(String metge) {
 		this.metge = metge;
 	}
 
-	/**
-	 * @return the alergies
-	 */
 	public String getAlergies() {
 		return alergies;
 	}
 
-	/**
-	 * @param alergies the alergies to set
-	 */
 	public void setAlergies(String alergies) {
 		this.alergies = alergies;
 	}
 
-	/**
-	 * @return the malalties
-	 */
 	public String getMalalties() {
 		return malalties;
 	}
 
-	/**
-	 * @param malalties the malalties to set
-	 */
 	public void setMalalties(String malalties) {
 		this.malalties = malalties;
 	}
 
-	/**
-	 * @return the spd
-	 */
 	public boolean isSpd() {
 		return spd;
 	}
 
-	/**
-	 * @param spd the spd to set
-	 */
 	public void setSpd(boolean spd) {
 		this.spd = spd;
 	}
 
-	/**
-	 * @return the residencia
-	 */
 	public String getResidencia() {
 		return residencia;
 	}
 
-	/**
-	 * @param residencia the residencia to set
-	 */
 	public void setResidencia(String residencia) {
 		this.residencia = residencia;
 	}
 
-	/**
-	 * @return the nomResidencia
-	 */
 	public String getNomResidencia() {
 		return nomResidencia;
 	}
 
-	/**
-	 * @param nomResidencia the nomResidencia to set
-	 */
 	public void setNomResidencia(String nomResidencia) {
 		this.nomResidencia = nomResidencia;
 	}
 
-	/**
-	 * @return the farmacia
-	 */
 	public String getFarmacia() {
 		return farmacia;
 	}
 
-	/**
-	 * @param farmacia the farmacia to set
-	 */
 	public void setFarmacia(String farmacia) {
 		this.farmacia = farmacia;
 	}
 
-	/**
-	 * @return the nomFarmacia
-	 */
 	public String getNomFarmacia() {
 		return nomFarmacia;
 	}
 
-	/**
-	 * @param nomFarmacia the nomFarmacia to set
-	 */
 	public void setNomFarmacia(String nomFarmacia) {
 		this.nomFarmacia = nomFarmacia;
 	}
 
-	/**
-	 * @return the autoritzacio
-	 */
 	public boolean isAutoritzacio() {
 		return autoritzacio;
 	}
 
-	/**
-	 * @param autoritzacio the autoritzacio to set
-	 */
 	public void setAutoritzacio(boolean autoritzacio) {
 		this.autoritzacio = autoritzacio;
 	}
 
-	/**
-	 * @return the hospitalitzat
-	 */
 	public boolean isHospitalitzat() {
 		return hospitalitzat;
 	}
 
-	/**
-	 * @param hospitalitzat the hospitalitzat to set
-	 */
 	public void setHospitalitzat(boolean hospitalitzat) {
 		this.hospitalitzat = hospitalitzat;
 	}
 
-	/**
-	 * @return the exitus
-	 */
 	public boolean isExitus() {
 		return exitus;
 	}
 
-	/**
-	 * @param exitus the exitus to set
-	 */
 	public void setExitus(boolean exitus) {
 		this.exitus = exitus;
 	}
 
-	/**
-	 * @return the expedient
-	 */
 	public ExpedientJPA getExpedient() {
 		return expedient;
 	}
 
-	/**
-	 * @param expedient the expedient to set
-	 */
 	public void setExpedient(ExpedientJPA expedient) {
 		this.expedient = expedient;
 	}

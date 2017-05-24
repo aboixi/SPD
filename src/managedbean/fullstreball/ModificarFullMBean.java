@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: Fulls de Treball
+ * @author Albert Boix Isern
+ */
 package managedbean.fullstreball;
 
 import java.io.Serializable;
@@ -23,7 +27,7 @@ import jpa.TractamentJPA;
 import managedbean.expedient.buscarMedicamentMBean;
 
 /**
- * 
+ * Bean per modificar el full de treball
  */
 @ManagedBean (name="modificarFull")
 @SessionScoped
@@ -43,6 +47,9 @@ public class ModificarFullMBean implements Serializable{
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Modifica el full de treball
+	 */
 	public String modificarFull()throws Exception{
 		if (checkSession()){
 			Properties props = System.getProperties();
@@ -58,6 +65,10 @@ public class ModificarFullMBean implements Serializable{
 		return null;
 	}
 	
+	/**
+	 * Consulta el tractament del full de treball i substitueix el tractament amb el medicament
+	 * obtingut de la recerca amb el buscador de medicaments.
+	 */
 	public void preModificarMedicament(){		
 		this.tractament=crearFullMBean.getTractament();
 		if (tractament==null){
@@ -69,7 +80,9 @@ public class ModificarFullMBean implements Serializable{
 			System.out.println(e);
 		}	
 	}
-	
+	/**
+	 * Modifica el medicament del tractament amb el medicament trobat al buscador
+	 */
 	public void modificarMedicament(){
 		this.tractament=crearFullMBean.getTractament();
 		this.tractament.setNumLot(crearFullMBean.getTractament().getNumLot());
@@ -83,7 +96,9 @@ public class ModificarFullMBean implements Serializable{
 		buscarMedMBean.setMedicament(medicament);
 		buscarMedMBean.setParaula(null);
 	}
-	
+	/**
+	 * Consulta el full de treball pujat a la sessió
+	 */
 	public FullDeTreballJPA getFullSessio(){
 		FullDeTreballJPA fullTreball = null;
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -91,13 +106,17 @@ public class ModificarFullMBean implements Serializable{
 		fullTreball =(FullDeTreballJPA) activeSession.getAttribute("full");
 		return fullTreball;
 	}
-	
+	/**
+	 * Puja a sessió el full de treball
+	 */
 	public void setFullSessio(FullDeTreballJPA fullTreball){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
 		activeSession.setAttribute("full", fullTreball);
 	}
-	
+	/**
+	 * Consulta la llista pujada a sessió que conté les id dels expedients assistencials
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Integer> getExpedientsSessio(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -106,13 +125,18 @@ public class ModificarFullMBean implements Serializable{
 		indexExpedients = (List<Integer>) activeSession.getAttribute("indexExpedients");
 		return indexExpedients;
 	}
-	
+	/**
+	 * Puja a sessió la llista amb les id dels expedients 
+	 */
 	public void setExpedientsSessio(List<Integer> llistaId){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
 		activeSession.setAttribute("indexExpedients", llistaId);
 	}
-	
+	/**
+	 * Mètode que comprova si l'usuari ha fet login i té la sessió activa.
+	 * @return un booleà amb el resultat
+	 */
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -123,93 +147,61 @@ public class ModificarFullMBean implements Serializable{
 			return (this.sessionOK=false);
 		}
 	}
-	
+	/**
+	 * Mostra un missatge d'informació
+	 */
  	public void msgAvis(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Avís", "Selecciona primer un tractament"));
  	}
 
 	/**
-	 * @return the full
+	 * Getters i setters
 	 */
 	public FullDeTreballJPA getFull() {
 		return full;
 	}
 
-	/**
-	 * @param full the full to set
-	 */
 	public void setFull(FullDeTreballJPA full) {
 		this.full = full;
 	}
 
-	/**
-	 * @return the tractament
-	 */
 	public TractamentJPA getTractament() {
 		return tractament;
 	}
 
-	/**
-	 * @param tractament the tractament to set
-	 */
 	public void setTractament(TractamentJPA tractament) {
 		this.tractament = tractament;
 	}
 
-	/**
-	 * @return the medicament
-	 */
 	public MedicamentJPA getMedicament() {
 		return medicament;
 	}
 
-	/**
-	 * @param medicament the medicament to set
-	 */
 	public void setMedicament(MedicamentJPA medicament) {
 		this.medicament = medicament;
 	}
 
-	/**
-	 * @return the crearFullMBean
-	 */
 	public CrearFullDeTreballMBean getCrearFullMBean() {
 		return crearFullMBean;
 	}
 
-	/**
-	 * @param crearFullMBean the crearFullMBean to set
-	 */
 	public void setCrearFullMBean(CrearFullDeTreballMBean crearFullMBean) {
 		this.crearFullMBean = crearFullMBean;
 	}
 
-	/**
-	 * @return the buscarMedMBean
-	 */
 	public buscarMedicamentMBean getBuscarMedMBean() {
 		return buscarMedMBean;
 	}
 
-	/**
-	 * @param buscarMedMBean the buscarMedMBean to set
-	 */
 	public void setBuscarMedMBean(buscarMedicamentMBean buscarMedMBean) {
 		this.buscarMedMBean = buscarMedMBean;
 	}
 
-	/**
-	 * @return the idExpedients
-	 */
 	public List<Integer> getIdExpedients() {
 		return idExpedients;
 	}
 
-	/**
-	 * @param idExpedients the idExpedients to set
-	 */
 	public void setIdExpedients(List<Integer> idExpedients) {
 		this.idExpedients = idExpedients;
 	}
-
 }

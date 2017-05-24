@@ -1,8 +1,7 @@
 /**
- * TFG JEE-SimpleSPD - Component: Full de Treball
+ * TFG JEE-SimpleSPD - Component: Full de Control
  * @author Albert Boix Isern
  */
-
 package ejb;
 
 import java.util.Calendar;
@@ -25,14 +24,19 @@ import jpa.FullDeTreballJPA;
 import jpa.PacientJPA;
 import jpa.TractamentJPA;
 
-
+/**
+ * EJB Session Bean Class 
+ */
 @Stateless
 public class FullControlNegociEJB implements FullControlNegociRemote{
 	@PersistenceContext(unitName="SPD") 
 	private EntityManager entman;
 	@Resource
 	private SessionContext sessionContext;
-	
+	/**
+	 * Mètode que crea un full de control
+	 * @param La id del full de treball associat, i el dni del treballador que el prepara.
+	 */
 	public void creaFullControl(int idFull, String dniP){
 		FullDeTreballJPA full = entman.find(FullDeTreballJPA.class,idFull);
 		ExpedientJPA expedient = full.getExpedient();
@@ -63,29 +67,33 @@ public class FullControlNegociEJB implements FullControlNegociRemote{
 		}
 		entman.merge(blister);
 	}
-	
+	/**
+	 * Mètode que consulta els blísters associats a un pacient
+	 * @param el cip del pacient
+	 * @return una col·lecció amb els blísters
+	 */
 	@SuppressWarnings("unchecked")
 	public Collection<BlisterJPA> consultarBlisters (String cip){
 		Collection<BlisterJPA> blisters = entman.createQuery("FROM BlisterJPA b WHERE b.cip = '" + cip +"' ").getResultList();
 	    return blisters;
 	}
-
+	/**
+	 * Mètode per consultar els fulls de treball vinculats a una empresa
+	 * @param el cif de l'empresa
+	 * @return una col·lecció de pacients
+	 */
 	public Collection<PacientJPA> llistarFulls (String cif){
 		@SuppressWarnings("unchecked")
 		Collection<PacientJPA> pacients = entman.createQuery("FROM PacientJPA p WHERE p.residencia = '" + cif +"' "+" OR p.farmacia = '" + cif +"'").getResultList();
 	    return pacients;
 	}
-/*	
-	//Pendent d'esborrar
-	@SuppressWarnings("unchecked")
-	public Collection<FullDeControlJPA> consultarFulls(String cip)throws PersistenceException{
-		PacientJPA pacient = entman.find(PacientJPA.class, cip);
-		int expedient = -1;
-		expedient=pacient.getExpedient().getId();
-		Collection<FullDeControlJPA> fulls = entman.createQuery("FROM FullDeControlJPA f WHERE f.idFullTreball = '" + expedient +"' ").getResultList();
-		return fulls;
-	}*/
-	  public String validar(int idFull, String dniV){
+
+	/**
+	 * Mètode per validar un full de treball
+	 * @param la id del full de treball i el dni del treballador que realitza la validació
+	 * @return Un missatge amb el resultat del procés en forma de String
+	 */
+	public String validar(int idFull, String dniV) throws PersistenceException{
 		FullDeTreballJPA full = null;
 		try{
 			full = entman.find(FullDeTreballJPA.class,idFull);

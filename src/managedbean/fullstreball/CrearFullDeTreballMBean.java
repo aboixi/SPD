@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: Fulls de Treball
+ * @author Albert Boix Isern
+ */
 package managedbean.fullstreball;
 
 import java.io.Serializable;
@@ -23,7 +27,7 @@ import jpa.TractamentJPA;
 import jpa.UsuariEmpresaJPA;
 
 /**
- * 
+ * Bean per crear el full de treball
  */
 @ManagedBean (name="crearFull")
 @SessionScoped
@@ -40,6 +44,9 @@ public class CrearFullDeTreballMBean implements Serializable{
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Crea un full de treball
+	 */
 	public String crearFull()throws Exception{
 		if (checkSession()){
 			Properties props = System.getProperties();
@@ -59,7 +66,9 @@ public class CrearFullDeTreballMBean implements Serializable{
 			return "accessError";
 		}
 	}
-	
+	/**
+	 * Consulta un llistat amb els id dels expedients
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Integer> getExpedientsSessio(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -68,7 +77,9 @@ public class CrearFullDeTreballMBean implements Serializable{
 		indexExpedients = (List<Integer>) activeSession.getAttribute("indexExpedients");
 		return indexExpedients;
 	}
-	
+	/**
+	 * Puja a sessió un llistat amb les id dels expedients dels pacients
+	 */
 	public void setExpedientsSessio(Collection<PacientJPA> pacients){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -82,6 +93,9 @@ public class CrearFullDeTreballMBean implements Serializable{
 		activeSession.setAttribute("indexExpedients", indexExpedients);
 	}
 	
+	/**
+	 * Puja a sessió un full de treball
+	 */
 	public void setFullSessio(FullDeTreballJPA full){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -96,7 +110,9 @@ public class CrearFullDeTreballMBean implements Serializable{
 			return this.idExpedients.get(0);
 		}
 	}
-
+	/**
+	 * Elimina una id de la llista de id
+	 */
 	@SuppressWarnings("unchecked")
 	public void eliminarIdExpedientSessio(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -106,12 +122,17 @@ public class CrearFullDeTreballMBean implements Serializable{
 			indexExpedients.remove(0);
 		}
 	}
-	
+	/**
+	 * Actualitza la matriu del blíster que mostra per pantalla la quantitat de medicaments que
+	 * hi haurà a cada compartiment.
+	 */
 	public String actualitzaFormulariBlister(){
 		ompleBlister();
 		return "vistaUsuariModificarFull";
 	}
-
+	/**
+	 * Omple la matriu que servirà per renderitzar el blíster
+	 */
 	public void ompleBlister(){
 		
 		int i=0;
@@ -204,7 +225,10 @@ public class CrearFullDeTreballMBean implements Serializable{
 			this.blister[i+27]="0";
 		}
 	}
-
+	/**
+	 * Mètode que comprova si l'usuari ha fet login i té la sessió activa.
+	 * @return un booleà amb el resultat
+	 */
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -215,7 +239,9 @@ public class CrearFullDeTreballMBean implements Serializable{
 			return (this.sessionOK=false);
 		}
 	}
-	
+	/**
+	 * Consulta el cif de l'empresa amb l'usuari actiu
+	 */
 	public String getSessionCif(){
  		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -224,87 +250,53 @@ public class CrearFullDeTreballMBean implements Serializable{
 	}
 
 	/**
-	 * @return the fullsRemotEJB
+	 * Getters i setters
 	 */
 	public FullTreballNegociRemote getFullsRemotEJB() {
 		return fullsRemotEJB;
 	}
 
-	/**
-	 * @param fullsRemotEJB the fullsRemotEJB to set
-	 */
 	public void setFullsRemotEJB(FullTreballNegociRemote fullsRemotEJB) {
 		this.fullsRemotEJB = fullsRemotEJB;
 	}
 
-	/**
-	 * @return the idExpedients
-	 */
 	public List<Integer> getIdExpedients() {
 		return idExpedients;
 	}
 
-	/**
-	 * @param idExpedients the idExpedients to set
-	 */
 	public void setIdExpedients(List<Integer> idExpedients) {
 		this.idExpedients = idExpedients;
 	}
 
-	/**
-	 * @return the blister
-	 */
 	public String[] getBlister() {
 		return blister;
 	}
 
-	/**
-	 * @param blister the blister to set
-	 */
 	public void setBlister(String[] blister) {
 		this.blister = blister;
 	}
 
-	/**
-	 * @return the expedient
-	 */
 	public ExpedientJPA getExpedient() {
 		return expedient;
 	}
 
-	/**
-	 * @param expedient the expedient to set
-	 */
 	public void setExpedient(ExpedientJPA expedient) {
 		this.expedient = expedient;
 	}
 
-	/**
-	 * @return the tractament
-	 */
 	public TractamentJPA getTractament() {
 		return tractament;
 	}
 
-	/**
-	 * @param tractament the tractament to set
-	 */
 	public void setTractament(TractamentJPA tractament) {
 		this.tractament = tractament;
 	}
 
-	/**
-	 * @return the full
-	 */
 	public FullDeTreballJPA getFull() {
 		return full;
 	}
 
-	/**
-	 * @param full the full to set
-	 */
 	public void setFull(FullDeTreballJPA full) {
 		this.full = full;
 	}
-	
 }

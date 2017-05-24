@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: Pacients
+ * @author Albert Boix Isern
+ */
 package managedbean.pacients;
 
 import java.io.Serializable;
@@ -21,6 +25,9 @@ import jpa.EmpresaJPA;
 import jpa.PacientJPA;
 import jpa.UsuariEmpresaJPA;
 
+/**
+ * Bean per modificar les dades d'un pacient.
+ */
 @ManagedBean(name="modificarPacient")
 @SessionScoped
 public class ModificarPacientMBean implements Serializable{
@@ -35,6 +42,9 @@ public class ModificarPacientMBean implements Serializable{
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Modifica les dades personals d'un pacient
+	 */
 	public String modificar() throws Exception{
 		if (checkSession()){
 			if (eliminarPacientMBean.getPacient()==null){
@@ -63,6 +73,9 @@ public class ModificarPacientMBean implements Serializable{
 		return null;
 	}
 	
+	/**
+	 * Mostra un llistat amb les farmacies donades d'alta al sistema
+	 */
 	public void consultaFarmacies() throws NamingException{
 		clearFields();//Evita que aparegui el llistat de farmacies quan l'usuari es d'una.
 		this.farmacies=null;
@@ -83,6 +96,9 @@ public class ModificarPacientMBean implements Serializable{
 		}
 	}
 	
+	/**
+	 * Comprova si l'usuari actiu és una farmàcia o una residència
+	 */
 	public String comprovaTipusUsuari(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -93,22 +109,34 @@ public class ModificarPacientMBean implements Serializable{
 			return "Residencia";
 		}
 	}
-	
+	/**
+	 * Neteja els camps del formulari de modificar pacient
+	 */
  	public void clearFields(){
  		setLlistaNomsFarmacies(null);
  	}
-	
+	/**
+	 * Mostra un missatge d'informació
+	 */
  	public void msgInfo(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Canvi correcte."));
  	}
+ 	/**
+ 	 * Mostra un missatge d'error
+ 	 */
  	public void msgError(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No estas autoritzat a modificar l'usuari."));
  	}
- 	
+ 	/**
+ 	 * Mostra un missatge d'avís
+ 	 */
  	public void msgAvis(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Avis", "Cap pacient seleccionat."));
  	}
- 	
+	/**
+	 * Mètode que comprova si l'usuari ha fet login i té la sessió activa.
+	 * @return un booleà amb el resultat
+	 */
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -119,7 +147,9 @@ public class ModificarPacientMBean implements Serializable{
 			return (this.sessionOK=false);
 		}
 	}
-	
+	/**
+	 * Consulta el cif de l'empresa amb l'usuari actiu.
+	 */
 	public String getSessionCif(){
  		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -128,57 +158,36 @@ public class ModificarPacientMBean implements Serializable{
 	}
 
 	/**
-	 * @return the eliminarPacientMBean
+	 * Getters i setters
 	 */
 	public EliminarPacientMBean getEliminarPacientMBean() {
 		return eliminarPacientMBean;
 	}
 
-	/**
-	 * @param eliminarPacientMBean the eliminarPacientMBean to set
-	 */
 	public void setEliminarPacientMBean(EliminarPacientMBean eliminarPacientMBean) {
 		this.eliminarPacientMBean = eliminarPacientMBean;
 	}
 
-	/**
-	 * @return the pacient
-	 */
 	public PacientJPA getPacient() {
 		return pacient;
 	}
 
-	/**
-	 * @param pacient the pacient to set
-	 */
 	public void setPacient(PacientJPA pacient) {
 		this.pacient = pacient;
 	}
 
-	/**
-	 * @return the farmacies
-	 */
 	public Collection<EmpresaJPA> getFarmacies() {
 		return farmacies;
 	}
 
-	/**
-	 * @param farmacies the farmacies to set
-	 */
 	public void setFarmacies(Collection<EmpresaJPA> farmacies) {
 		this.farmacies = farmacies;
 	}
 
-	/**
-	 * @return the llistaNomsFarmacies
-	 */
 	public String[] getLlistaNomsFarmacies() {
 		return llistaNomsFarmacies;
 	}
 
-	/**
-	 * @param llistaNomsFarmacies the llistaNomsFarmacies to set
-	 */
 	public void setLlistaNomsFarmacies(String[] llistaNomsFarmacies) {
 		this.llistaNomsFarmacies = llistaNomsFarmacies;
 	}

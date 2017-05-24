@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: Usuaris
+ * @author Albert Boix Isern
+ */
 package managedbean.usuaris;
 
 import java.io.Serializable;
@@ -12,7 +16,9 @@ import javax.naming.InitialContext;
 import javax.servlet.http.HttpSession;
 import ejb.UsuarisNegociRemote;
 import jpa.EmpresaJPA;
-
+/**
+ * Bean per crear un nou usuari vinculat a empresa
+ */
 @ManagedBean(name = "crearUsuari")
 @SessionScoped
 public class CrearUsuariMBean implements Serializable{
@@ -28,7 +34,9 @@ public class CrearUsuariMBean implements Serializable{
 	@SuppressWarnings("unused")
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;	
-	
+	/**
+	 * Crea un nou usuari vinculat a l'emapresa que el dona d'alta
+	 */
  	public String nouUsuari() throws Exception{
  		if (checkSession()){
 			EmpresaJPA empresa = getSessionObject();
@@ -53,7 +61,9 @@ public class CrearUsuariMBean implements Serializable{
 			return "accesError";
 			}
  		}
-
+ 	/**
+ 	 * Neteja els camps del formulari de donar d'alta un nou usuari
+ 	 */
  	public void clearFields(){
  		setDni(null);
  		setNom(null);
@@ -62,19 +72,28 @@ public class CrearUsuariMBean implements Serializable{
  		setTelefon(null);
  		setEmpresa(null);
  	}
-	
+	/**
+	 * Mostra un missatge d'informació
+	 */
  	public void msgCorrecte(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Nou usuari creat."));
  	}
- 	
+ 	/**
+ 	 * Mostra un missatge d'avís
+ 	 */
  	public void msgAvis(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Avís", "El nom d'usuari per entrar al sistema serà el seu DNI"));
  	}
- 	
+ 	/**
+ 	 * Mostra un missatge d'error
+ 	 */
  	public void msgError(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "L'usuari ja existeix al sistema."));
  	}
- 	
+ 	/**
+	 * Mètode que comprova si l'usuari ha fet login i té la sessió activa.
+	 * @return un booleà amb el resultat
+	 */
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -85,7 +104,9 @@ public class CrearUsuariMBean implements Serializable{
 			return (this.sessionOK=false);
 		}
 	}
-	
+	/**
+	 * Consulta la empresa pujada a sessió
+	 */
 	public EmpresaJPA getSessionObject(){
  		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -94,85 +115,52 @@ public class CrearUsuariMBean implements Serializable{
 	}
 
 	/**
-	 * @return the dni
+	 * Getters i setters
 	 */
 	public String getDni() {
 		return dni;
 	}
 
-	/**
-	 * @param dni the dni to set
-	 */
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
 
-	/**
-	 * @return the nom
-	 */
 	public String getNom() {
 		return nom;
 	}
 
-	/**
-	 * @param nom the nom to set
-	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 
-	/**
-	 * @return the cognom1
-	 */
 	public String getCognom1() {
 		return cognom1;
 	}
 
-	/**
-	 * @param cognom1 the cognom1 to set
-	 */
 	public void setCognom1(String cognom1) {
 		this.cognom1 = cognom1;
 	}
 
-	/**
-	 * @return the cognom2
-	 */
 	public String getCognom2() {
 		return cognom2;
 	}
 
-	/**
-	 * @param cognom2 the cognom2 to set
-	 */
 	public void setCognom2(String cognom2) {
 		this.cognom2 = cognom2;
 	}
 
-	/**
-	 * @return the telefon
-	 */
 	public String getTelefon() {
 		return telefon;
 	}
 
-	/**
-	 * @param telefon the telefon to set
-	 */
 	public void setTelefon(String telefon) {
 		this.telefon = telefon;
 	}
 
-	/**
-	 * @return the empresa
-	 */
 	public String getEmpresa() {
 		return empresa;
 	}
 
-	/**
-	 * @param empresa the empresa to set
-	 */
 	public void setEmpresa(String empresa) {
 		this.empresa = empresa;
 	}

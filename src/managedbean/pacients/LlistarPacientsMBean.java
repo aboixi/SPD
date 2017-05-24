@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: Pacients
+ * @author Albert Boix Isern
+ */
 package managedbean.pacients;
 
 import java.io.Serializable;
@@ -30,6 +34,9 @@ public class LlistarPacientsMBean implements Serializable{
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Mostra una llista amb els pacients vinculats a l'empresa
+	 */
 	public String llistar()throws Exception{
 		if (checkSession()){
 			String cif=getSessionCif();
@@ -43,21 +50,11 @@ public class LlistarPacientsMBean implements Serializable{
 			return "accessError";
 		}
 	}
-	
-	/**
-	 * @return the pacients
-	 */
-	public Collection<PacientJPA> getPacients() {
-		return pacients;
-	}
 
 	/**
-	 * @param pacients the pacients to set
+	 * Mètode que comprova si l'usuari ha fet login i té la sessió activa.
+	 * @return un booleà amb el resultat
 	 */
-	public void setPacients(Collection<PacientJPA> pacients) {
-		this.pacients = pacients;
-	}
-
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -68,11 +65,24 @@ public class LlistarPacientsMBean implements Serializable{
 			return (this.sessionOK=false);
 		}
 	}
-	
+	/**
+	 * Consulta el cif de l'empresa amb l'usuari actiu.
+	 */
 	public String getSessionCif(){
  		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
 		UsuariEmpresaJPA usuari = (UsuariEmpresaJPA) activeSession.getAttribute("sessioUsuari");
 		return usuari.getEmpresa();
+	}
+	
+	/**
+	 * Getters i setters
+	 */
+	public Collection<PacientJPA> getPacients() {
+		return pacients;
+	}
+
+	public void setPacients(Collection<PacientJPA> pacients) {
+		this.pacients = pacients;
 	}
 }

@@ -1,13 +1,14 @@
 /**
- * TFG JEE-SimpleSPD - Component: Usuaris
+ * TFG JEE-SimpleSPD
  * @author Albert Boix Isern
  */
 package jpa;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
-
+/**
+ * JPA Classe FullDeControlJPA
+ */
 @Entity
 @Table(name="spd.fulls_de_control")
 public class FullDeControlJPA implements Serializable{
@@ -58,11 +59,15 @@ public class FullDeControlJPA implements Serializable{
 	private boolean diumenge;
 	@Column(name = "numero_lot")
 	private String numLot;
-	
+	/**
+	 * Constructor
+	 */
 	public FullDeControlJPA(){
 		super();
 	}
-
+	/**
+	 * Constructor amb paràmetres
+	 */
 	public FullDeControlJPA(String dnip,String idBlister, TractamentJPA tract, int setmana) {
 		super();
 		this.idFullControl=idBlister.concat("-").concat(String.valueOf(tract.getIdTractament()));
@@ -89,269 +94,180 @@ public class FullDeControlJPA implements Serializable{
 		this.numLot = tract.getNumLot();
 	}
 	/**
-	 * @return the idFullControl
+	 * Getters i setters
 	 */
 	public String getIdFullControl() {
 		return idFullControl;
 	}
-	/**
-	 * @param idFullControl the idFullControl to set
-	 */
+
 	public void setIdFullControl(String idFullControl) {
 		this.idFullControl = idFullControl;
 	}
-	/**
-	 * @return the idBlister
-	 */
+
 	public String getIdBlister() {
 		return idBlister;
 	}
-	/**
-	 * @param idBlister the idBlister to set
-	 */
+
 	public void setIdBlister(String idBlister) {
 		this.idBlister = idBlister;
 	}
-	/**
-	 * @return the idFullTreball
-	 */
+
 	public String getIdFullTreball() {
 		return idFullTreball;
 	}
-	/**
-	 * @param idFullTreball the idFullTreball to set
-	 */
+
 	public void setIdFullTreball(String idFullTreball) {
 		this.idFullTreball = idFullTreball;
 	}
-	/**
-	 * @return the idTractament
-	 */
+
 	public String getIdTractament() {
 		return idTractament;
 	}
-	/**
-	 * @param idTractament the idTractament to set
-	 */
+
 	public void setIdTractament(String idTractament) {
 		this.idTractament = idTractament;
 	}
 
-	/**
-	 * @return the dataInici
-	 */
 	public int getSetmana() {
 		return setmana;
 	}
-	/**
-	 * @param dataInici the dataInici to set
-	 */
+
 	public void setSetmana(int setmana) {
 		this.setmana = setmana;
 	}
-	/**
-	 * @return the quantEntera
-	 */
+
 	public String getQuantEntera() {
 		return quantEntera;
 	}
-	/**
-	 * @param quantEntera the quantEntera to set
-	 */
+
 	public void setQuantEntera(String quantEntera) {
 		this.quantEntera = quantEntera;
 	}
-	/**
-	 * @return the quantFraccio
-	 */
+
 	public String getQuantFraccio() {
 		return quantFraccio;
 	}
-	/**
-	 * @param quantFraccio the quantFraccio to set
-	 */
+
 	public void setQuantFraccio(String quantFraccio) {
 		this.quantFraccio = quantFraccio;
 	}
-	/**
-	 * @return the quantitatSetmanal
-	 */
+
 	public String getQuantitatSetmanal() {
 		return quantitatSetmanal;
 	}
-	/**
-	 * @param quantitatSetmanal the quantitatSetmanal to set
-	 */
+
 	public void setQuantitatSetmanal(String quantitatSetmanal) {
 		this.quantitatSetmanal = quantitatSetmanal;
 	}
-	/**
-	 * @return the quantitatPresa
-	 */
+
 	public String getQuantitatPresa() {
 		return quantitatPresa;
 	}
-	/**
-	 * @param quantitatPresa the quantitatPresa to set
-	 */
+
 	public void setQuantitatPresa(String quantitatPresa) {
 		this.quantitatPresa = quantitatPresa;
 	}
-	/**
-	 * @return the esmorcar
-	 */
+
 	public boolean isEsmorcar() {
 		return esmorcar;
 	}
-	/**
-	 * @param esmorcar the esmorcar to set
-	 */
+
 	public void setEsmorcar(boolean esmorcar) {
 		this.esmorcar = esmorcar;
 	}
-	/**
-	 * @return the dinar
-	 */
+
 	public boolean isDinar() {
 		return dinar;
 	}
-	/**
-	 * @param dinar the dinar to set
-	 */
+
 	public void setDinar(boolean dinar) {
 		this.dinar = dinar;
 	}
-	/**
-	 * @return the sopar
-	 */
+
 	public boolean isSopar() {
 		return sopar;
 	}
-	/**
-	 * @param sopar the sopar to set
-	 */
+
 	public void setSopar(boolean sopar) {
 		this.sopar = sopar;
 	}
-	/**
-	 * @return the dormir
-	 */
+
 	public boolean isDormir() {
 		return dormir;
 	}
-	/**
-	 * @param dormir the dormir to set
-	 */
+
 	public void setDormir(boolean dormir) {
 		this.dormir = dormir;
 	}
-	/**
-	 * @return the dilluns
-	 */
+
 	public boolean isDilluns() {
 		return dilluns;
 	}
-	/**
-	 * @param dilluns the dilluns to set
-	 */
+
 	public void setDilluns(boolean dilluns) {
 		this.dilluns = dilluns;
 	}
-	/**
-	 * @return the dimarts
-	 */
+
 	public boolean isDimarts() {
 		return dimarts;
 	}
-	/**
-	 * @param dimarts the dimarts to set
-	 */
+
 	public void setDimarts(boolean dimarts) {
 		this.dimarts = dimarts;
 	}
-	/**
-	 * @return the dimecres
-	 */
+
 	public boolean isDimecres() {
 		return dimecres;
 	}
-	/**
-	 * @param dimecres the dimecres to set
-	 */
+
 	public void setDimecres(boolean dimecres) {
 		this.dimecres = dimecres;
 	}
-	/**
-	 * @return the dijous
-	 */
+
 	public boolean isDijous() {
 		return dijous;
 	}
-	/**
-	 * @param dijous the dijous to set
-	 */
+
 	public void setDijous(boolean dijous) {
 		this.dijous = dijous;
 	}
-	/**
-	 * @return the divendres
-	 */
+
 	public boolean isDivendres() {
 		return divendres;
 	}
-	/**
-	 * @param divendres the divendres to set
-	 */
+
 	public void setDivendres(boolean divendres) {
 		this.divendres = divendres;
 	}
-	/**
-	 * @return the dissabte
-	 */
+
 	public boolean isDissabte() {
 		return dissabte;
 	}
-	/**
-	 * @param dissabte the dissabte to set
-	 */
+
 	public void setDissabte(boolean dissabte) {
 		this.dissabte = dissabte;
 	}
-	/**
-	 * @return the diumenge
-	 */
+
 	public boolean isDiumenge() {
 		return diumenge;
 	}
-	/**
-	 * @param diumenge the diumenge to set
-	 */
+
 	public void setDiumenge(boolean diumenge) {
 		this.diumenge = diumenge;
 	}
-	/**
-	 * @return the numLot
-	 */
+
 	public String getNumLot() {
 		return numLot;
 	}
-	/**
-	 * @param numLot the numLot to set
-	 */
+
 	public void setNumLot(String numLot) {
 		this.numLot = numLot;
 	}
 
-	/**
-	 * @return the nomMedicament
-	 */
 	public String getNomMedicament() {
 		return nomMedicament;
 	}
 
-	/**
-	 * @param nomMedicament the nomMedicament to set
-	 */
 	public void setNomMedicament(String nomMedicament) {
 		this.nomMedicament = nomMedicament;
 	}

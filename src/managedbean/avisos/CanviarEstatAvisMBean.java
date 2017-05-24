@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: Avis
+ * @author Albert Boix Isern
+ */
 package managedbean.avisos;
 
 import java.io.Serializable;
@@ -14,7 +18,9 @@ import javax.servlet.http.HttpSession;
 
 import ejb.AvisNegociRemote;
 import jpa.AvisJPA;
-
+/**
+ * Bean per canviar l'estat d'un avís
+ */
 @ManagedBean(name="canviarEstatAvis")
 @SessionScoped
 public class CanviarEstatAvisMBean implements Serializable{
@@ -26,6 +32,9 @@ public class CanviarEstatAvisMBean implements Serializable{
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Mètode per canviar l'estat d'un avís.
+	 */
 	public String canviarEstat() throws NamingException{
 		if (checkSession()){
 			Properties props = System.getProperties();
@@ -41,6 +50,9 @@ public class CanviarEstatAvisMBean implements Serializable{
 			return "accessError";
 		}
 	}
+	/**
+	 * Mètode que comprova la sessió de l'usuari
+	 */
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -51,15 +63,14 @@ public class CanviarEstatAvisMBean implements Serializable{
 			return (this.sessionOK=false);
 		}
 	}
+	
 	/**
-	 * @return the avis
+	 * Getters i setters
 	 */
 	public AvisJPA getAvis() {
 		return avis;
 	}
-	/**
-	 * @param avis the avis to set
-	 */
+
 	public void setAvis(AvisJPA avis) {
 		this.avis = avis;
 	}

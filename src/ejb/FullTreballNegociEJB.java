@@ -25,17 +25,23 @@ import jpa.FullDeTreballJPA;
 import jpa.PacientJPA;
 import jpa.TractamentJPA;
 
-
+/**
+ * EJB Session Bean Class 
+ */
 @Stateless
 public class FullTreballNegociEJB implements FullTreballNegociRemote{
 	@PersistenceContext(unitName="SPD") 
 	private EntityManager entman;
 	@Resource
 	private SessionContext sessionContext;
-
+	
+	/**
+	 * Mètode que consulta els fulls de controls vinculats a l'empresa.
+	 * @param cif de l'empresa
+	 * @return una col·lecció de pacients amb fulls de control
+	 */
 	@SuppressWarnings("unchecked")
-	public Collection<PacientJPA> llistarFulls(String cif){
-		//Obtenim el número de setmana actual
+	public Collection<PacientJPA> llistarFulls(String cif) throws PersistenceException{
 		Calendar calendar = new GregorianCalendar();
 		Date time = new Date();
 		calendar.setTime(time);
@@ -63,12 +69,19 @@ public class FullTreballNegociEJB implements FullTreballNegociRemote{
 		}
 		return pacients;		
 	}
-	
+	/**
+	 * Mètode per consultar l'expedient
+	 * @param la id de l'expedient
+	 * @return l'expedient
+	 */
 	public ExpedientJPA consultarExpedient(int idExpedient){
 		ExpedientJPA expedient = entman.find(ExpedientJPA.class, idExpedient);
 		return expedient;
 	}
-	
+	/**
+	 * Mètode que actualitza el full de treball
+	 * @param el full de treball
+	 */
 	public void modificarFull (FullDeTreballJPA full){
 		//Full de treball
 		FullDeTreballJPA fullTreball = entman.find(FullDeTreballJPA.class, full.getExpedient().getId());
@@ -89,38 +102,4 @@ public class FullTreballNegociEJB implements FullTreballNegociRemote{
 		}
 	}
 }
-
-/* ORIGINAL SENSE BLISTERJPA
- 	@SuppressWarnings("unchecked")
-	public Collection<PacientJPA> llistarFulls(String cif){
-		//Obtenim el número de setmana actual
-		Calendar calendar = new GregorianCalendar();
-		Date time = new Date();
-		calendar.setTime(time);
-		int numSetmana = calendar.get(Calendar.WEEK_OF_YEAR);
-		int numAny = calendar.get(Calendar.YEAR);	
-		
-		ArrayList<PacientJPA> pacients = new ArrayList<PacientJPA>();
-		Collection<PacientJPA> llistaPacients = entman.createQuery("FROM PacientJPA p WHERE p.residencia = '" + cif +"' "+" OR p.farmacia = '" + cif +"'").getResultList();
-		PacientJPA pacient = null;
-		Iterator <PacientJPA> iter = llistaPacients.iterator();
-		while (iter.hasNext()){
-			ArrayList<FullDeControlJPA> fullsControl = new ArrayList<FullDeControlJPA>();
-			pacient = iter.next();
-			if((pacient.getExpedient().getTractaments().size()>0)&&(pacient.isAutoritzacio())&&(!(pacient.isExitus()))&&(!(pacient.isHospitalitzat()))&&(pacient.isSpd())){
-				String blister = pacient.getCip().concat(String.valueOf(numAny)).concat("-").concat(String.valueOf(numSetmana));
-				try{
-					fullsControl = (ArrayList<FullDeControlJPA>) entman.createQuery("FROM FullDeControlJPA f WHERE f.idBlister = '" + blister +"' ").getResultList();
-				}catch (PersistenceException e) {
-					System.out.println(e);
-				}
-				if (fullsControl.isEmpty()){
-				pacients.add(pacient);
-				}
-			}
-		}
-		return pacients;		
-	}
- 
- */
 	

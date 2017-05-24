@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: Fulls de Treball
+ * @author Albert Boix Isern
+ */
 package managedbean.fullstreball;
 
 import java.io.Serializable;
@@ -17,7 +21,7 @@ import jpa.PacientJPA;
 import jpa.UsuariEmpresaJPA;
 
 /**
- * 
+ * Bean per llistar els fulls de treball
  */
 @ManagedBean (name="llistarFulls")
 @SessionScoped
@@ -30,6 +34,9 @@ public class LlistarFullsMBean implements Serializable{
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Genera la vista amb una llista dels pacients 
+	 */
 	public String llistarFulls()throws Exception{
 		if (checkSession()){
 			UsuariEmpresaJPA usuari = getSessioUsuari();
@@ -46,7 +53,10 @@ public class LlistarFullsMBean implements Serializable{
 			return "accessError";
 		}
 	}
-
+	/**
+	 * Mètode que comprova si l'usuari ha fet login i té la sessió activa.
+	 * @return un booleà amb el resultat
+	 */
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -57,7 +67,9 @@ public class LlistarFullsMBean implements Serializable{
 			return (this.sessionOK=false);
 		}
 	}
-	
+	/**
+	 * Consulta l'usuari amb la sessió activa
+	 */
 	public UsuariEmpresaJPA getSessioUsuari(){
  		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -66,15 +78,12 @@ public class LlistarFullsMBean implements Serializable{
 	}
 
 	/**
-	 * @return the pacients
+	 * Getters i setters
 	 */
 	public Collection<PacientJPA> getPacients() {
 		return pacients;
 	}
 
-	/**
-	 * @param pacients the pacients to set
-	 */
 	public void setPacients(Collection<PacientJPA> pacients) {
 		this.pacients = pacients;
 	}

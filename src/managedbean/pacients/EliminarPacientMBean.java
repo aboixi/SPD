@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: Pacients
+ * @author Albert Boix Isern
+ */
 package managedbean.pacients;
 
 import java.io.Serializable;
@@ -12,7 +16,6 @@ import javax.faces.context.FacesContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpSession;
 
 import ejb.PacientsNegociRemote;
@@ -31,6 +34,11 @@ public class EliminarPacientMBean implements Serializable{
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Mètode per eliminar un pacient
+	 * @return la vista amb els canvis
+	 * @throws NamingException
+	 */
 	public String eliminar() throws NamingException{
 		if (checkSession()){
 			String cif = null;
@@ -60,13 +68,16 @@ public class EliminarPacientMBean implements Serializable{
 			return "accessError";
 		}
 	}
-	
-	public void actualitzar(){}
-		
+ 	/**
+ 	 * Mètode que dona valor null als atributs
+ 	 */
  	public void clearFields(){
  		setPacient(null);
  	}
-	
+	/**
+	 * Mètode que comprova si l'usuari ha fet login i té la sessió activa.
+	 * @return un booleà amb el resultat
+	 */
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -77,14 +88,20 @@ public class EliminarPacientMBean implements Serializable{
 			return (this.sessionOK=false);
 		}
 	}
-	
+	/**
+	 * Mètode que consulta el CIF de la empresa de l'usuari actiu
+	 * @return El cif de l'empresa.
+	 */
 	public String getSessionCif(){
  		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
 		UsuariEmpresaJPA usuari = (UsuariEmpresaJPA) activeSession.getAttribute("sessioUsuari");
 		return usuari.getEmpresa();
 	}
-	
+	/**
+	 * Metode que comprova si es tracta d'un usuari de Farmacia o Residència
+	 * @return Un missatge amb el tipus d'usuari
+	 */
 	public String comprovaTipusUsuari(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -95,37 +112,39 @@ public class EliminarPacientMBean implements Serializable{
 			return "Residencia";
 		}
 	}
-	
+	/**
+	 * Mostra un missatge d'error
+	 */
  	public void msgError(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No estas autoritzat a eliminar l'usuari."));
  	}
- 	
+ 	/**
+ 	 * Mostra un missatge d'avís
+ 	 */
  	public void msgAvis(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Avis", "Cap pacient seleccionat."));
  	}
- 	
+ 	/**
+ 	 * Mostra un missatge d'informació
+ 	 */
  	public void msgInfo(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Pacient eliminat."));
  	}
-
+ 	/**
+ 	 * Getters i setters
+ 	 */
 	public PacientJPA getPacient() {
 		return pacient;
 	}
-	/**
-	 * @param pacient the pacient to set
-	 */
+
 	public void setPacient(PacientJPA pacient) {
 		this.pacient = pacient;
-	}
-	/**
-	 * @return the pacients
-	 */
+	}	
+
 	public Collection<PacientJPA> getPacients() {
 		return pacients;
 	}
-	/**
-	 * @param pacients the pacients to set
-	 */
+
 	public void setPacients(Collection<PacientJPA> pacients) {
 		this.pacients = pacients;
 	}	

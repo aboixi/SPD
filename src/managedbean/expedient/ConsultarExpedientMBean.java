@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: Expedient
+ * @author Albert Boix Isern
+ */
 package managedbean.expedient;
 
 import java.io.Serializable;
@@ -17,7 +21,9 @@ import jpa.ExpedientJPA;
 import jpa.PacientJPA;
 import jpa.TractamentJPA;
 
-
+/**
+ * Bean per consultar un expedient
+ */
 @ManagedBean (name="consultarExpedient")
 @SessionScoped
 public class ConsultarExpedientMBean implements Serializable{
@@ -31,6 +37,9 @@ public class ConsultarExpedientMBean implements Serializable{
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Consulta els tractaments
+	 */
 	public String consultarTractaments()throws Exception{
 		if (checkSession()){
 			Properties props = System.getProperties();
@@ -44,7 +53,9 @@ public class ConsultarExpedientMBean implements Serializable{
 			return "accessError";
 		}
 	}
-	
+	/**
+	 * Llista els tractaments
+	 */
 	public void llistarTractaments(){
 		try{
 			this.expedient=pacient.getExpedient();
@@ -53,7 +64,10 @@ public class ConsultarExpedientMBean implements Serializable{
 			System.out.println("Cap tractament a la base de dades");
 		}
 	}
-
+	/**
+	 * Mètode que comprova si l'usuari ha fet login i té la sessió activa.
+	 * @return un booleà amb el resultat
+	 */
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -66,57 +80,36 @@ public class ConsultarExpedientMBean implements Serializable{
 	}
 
 	/**
-	 * @return the expedient
+	 * Getters i setters
 	 */
 	public ExpedientJPA getExpedient() {
 		return expedient;
 	}
 
-	/**
-	 * @param expedient the expedient to set
-	 */
 	public void setExpedient(ExpedientJPA expedient) {
 		this.expedient = expedient;
 	}
 
-	/**
-	 * @return the pacient
-	 */
 	public PacientJPA getPacient() {
 		return pacient;
 	}
 
-	/**
-	 * @param pacient the pacient to set
-	 */
 	public void setPacient(PacientJPA pacient) {
 		this.pacient = pacient;
 	}
 
-	/**
-	 * @return the tractaments
-	 */
 	public Collection<TractamentJPA> getTractaments() {
 		return tractaments;
 	}
 
-	/**
-	 * @param tractaments the tractaments to set
-	 */
 	public void setTractaments(Collection<TractamentJPA> tractaments) {
 		this.tractaments = tractaments;
 	}
 
-	/**
-	 * @return the expedientRemotEJB
-	 */
 	public ExpedientNegociRemote getExpedientRemotEJB() {
 		return ExpedientRemotEJB;
 	}
 
-	/**
-	 * @param expedientRemotEJB the expedientRemotEJB to set
-	 */
 	public void setExpedientRemotEJB(ExpedientNegociRemote expedientRemotEJB) {
 		ExpedientRemotEJB = expedientRemotEJB;
 	}

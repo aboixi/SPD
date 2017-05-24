@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: Fulls de Treball
+ * @author Albert Boix Isern
+ */
 package managedbean.fullstreball;
 
 import java.io.Serializable;
@@ -20,7 +24,7 @@ import jpa.PacientJPA;
 import jpa.UsuariEmpresaJPA;
 
 /**
- * 
+ * Bean per executar l'acció de començar a preparar els blísters.
  */
 @ManagedBean (name="comencar")
 @SessionScoped
@@ -32,7 +36,10 @@ public class comencarMBean implements Serializable{
 	@SuppressWarnings("unused")
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
-	
+	/**
+	 * Mostra per pantalla una llista amb els pacients que tenen un tractament actiu i no tenen fet
+	 * el blíster d'aquella setmana.
+	 */
 	public String comencar()throws Exception{
 		if (checkSession()){
 			String cif=getSessionCif();
@@ -47,7 +54,9 @@ public class comencarMBean implements Serializable{
 			return "accessError";
 		}
 	}
-	
+	/**
+	 * Puja a sessió un llistat amb els expedients dels pacients.
+	 */
 	public void setExpedientsSessio(Collection<PacientJPA> pacients){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -71,7 +80,9 @@ public class comencarMBean implements Serializable{
 			return (this.sessionOK=false);
 		}
 	}
-	
+	/**
+	 * Consulta el cif de l'empresa de l'usuari actiu
+	 */
 	public String getSessionCif(){
  		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -80,15 +91,12 @@ public class comencarMBean implements Serializable{
 	}
 
 	/**
-	 * @return the pacients
+	 * Getters i setters
 	 */
 	public Collection<PacientJPA> getPacients() {
 		return pacients;
 	}
 
-	/**
-	 * @param pacients the pacients to set
-	 */
 	public void setPacients(Collection<PacientJPA> pacients) {
 		this.pacients = pacients;
 	}

@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: Expedient
+ * @author Albert Boix Isern
+ */
 package managedbean.expedient;
 
 import java.io.Serializable;
@@ -14,7 +18,9 @@ import javax.servlet.http.HttpSession;
 import ejb.ExpedientNegociRemote;
 import jpa.TractamentJPA;
 
-
+/**
+ * Bean per eliminar un tractament de l'expedient
+ */
 @ManagedBean (name="eliminarTractament")
 @SessionScoped
 public class EliminarTractamentMBean implements Serializable{
@@ -26,6 +32,9 @@ public class EliminarTractamentMBean implements Serializable{
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Elimina un tractament de l'expedient
+	 */
 	public String eliminarTractament()throws Exception{
 		if (checkSession()){
 			Properties props = System.getProperties();
@@ -41,7 +50,10 @@ public class EliminarTractamentMBean implements Serializable{
 			return "accessError";
 		}
 	}
-
+	/**
+	 * Mètode que comprova si l'usuari ha fet login i té la sessió activa.
+	 * @return un booleà amb el resultat
+	 */
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -54,15 +66,12 @@ public class EliminarTractamentMBean implements Serializable{
 	}
 
 	/**
-	 * @return the tractament
+	 * Getters i setters
 	 */
 	public TractamentJPA getTractament() {
 		return tractament;
 	}
 
-	/**
-	 * @param tractament the tractament to set
-	 */
 	public void setTractament(TractamentJPA tractament) {
 		this.tractament = tractament;
 	}

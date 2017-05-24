@@ -22,6 +22,10 @@ import jpa.MedicamentJPA;
 import jpa.PacientJPA;
 import jpa.TractamentJPA;
 
+/**
+ * EJB Session Bean Class 
+ */
+
 @Stateless
 public class ExpedientNegociEJB implements ExpedientNegociRemote{
 	@PersistenceContext(unitName="SPD") 
@@ -29,19 +33,33 @@ public class ExpedientNegociEJB implements ExpedientNegociRemote{
 	@Resource
 	private SessionContext sessionContext;
 	
+	/**
+	 * Mètode que consulta, donat el cif d'una empresa, els pacients que té vinculats.
+	 * Ja sigui com a resident d'una residència o estigui assignat a la farmàcia.
+	 * @param cif de l'empresa
+	 * @return Una col·lecció amb els pacients.
+	 */
 	public Collection<PacientJPA> llistarExpedients (String cif){
 		@SuppressWarnings("unchecked")
 		Collection<PacientJPA> pacients = entman.createQuery("FROM PacientJPA p WHERE p.residencia = '" + cif +"' "+" OR p.farmacia = '" + cif +"'").getResultList();
 	    return pacients;
 	}
-	
+	/**
+	 * Mètode que consulta l'expedient donada la seva id
+	 * @param id de l'expedient
+	 * @return L'expedient 
+	 */
 	public ExpedientJPA consultarExpedient(int idExpedient){
 		ExpedientJPA expedient = entman.find(ExpedientJPA.class, idExpedient);
 		return expedient;
 	}
 	
+	/**
+	 * Mètode que agrega un tractament a un pacient
+	 * Un missatge en forma de String amb el resultat de la operació
+	 */
 	public String agregarTractament(String idExpedient, String cn,Date dInici, String qEntera, String qFraccio, 
-			boolean esmorcar, boolean dinar, boolean sopar, boolean dormir,boolean dill, boolean dima, boolean dime, boolean dijo, boolean dive, boolean diss, boolean dium, boolean foraBlister) {
+			boolean esmorcar, boolean dinar, boolean sopar, boolean dormir,boolean dill, boolean dima, boolean dime, boolean dijo, boolean dive, boolean diss, boolean dium, boolean foraBlister) throws PersistenceException{
 		
 		String dataInici = null;
 		Calendar cal = Calendar.getInstance();
@@ -130,7 +148,10 @@ public class ExpedientNegociEJB implements ExpedientNegociRemote{
 			return "persistenceException";		
 		}
 	}
-	
+	/**
+	 * Mètode que elimina el tractament d'un pacient donada la seva id
+	 * @param La id del tractament
+	 */
 	public void eliminarTractament(int idTractament)throws PersistenceException{
 		try{
 			TractamentJPA tractament = entman.find(TractamentJPA.class, idTractament);
@@ -141,6 +162,11 @@ public class ExpedientNegociEJB implements ExpedientNegociRemote{
 		}
 	}
 	
+	/**
+	 * Mètode que busca a la base de dades els medicaments
+	 * @param La paraula clau per realitzar la recerca
+	 * @return Una col·lecció amb els medicaments trobats.
+	 */
 	@SuppressWarnings("unchecked")
 	public Collection<MedicamentJPA> buscarMedicaments (String paraula){
 		String paraulaMajuscula = paraula.toUpperCase();

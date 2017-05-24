@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: FullsDeControl
+ * @author Albert Boix Isern
+ */
 package managedbean.fullscontrol;
 
 import java.io.Serializable;
@@ -19,7 +23,7 @@ import jpa.UsuariEmpresaJPA;
 import managedbean.fullstreball.CrearFullDeTreballMBean;
 
 /**
- * 
+ * Bean per crer el full de control
  */
 @ManagedBean (name="crearFullControl")
 @SessionScoped
@@ -33,6 +37,9 @@ public class CrearFullDeControlMBean implements Serializable{
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Crea un full de control
+	 */
 	public String crearFullControl()throws Exception{
 		if (checkSession()){
 			FullDeTreballJPA full=getFullSessio();
@@ -49,6 +56,9 @@ public class CrearFullDeControlMBean implements Serializable{
 		}
 	}
 	
+	/**
+	 * Consulta el full de treball pujat a sessió
+	 */
 	public FullDeTreballJPA getFullSessio(){
 		FullDeTreballJPA fullTreball = null;
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -56,14 +66,19 @@ public class CrearFullDeControlMBean implements Serializable{
 		fullTreball =(FullDeTreballJPA) activeSession.getAttribute("full");
 		return fullTreball;
 	}
-	
+	/**
+	 * Consulta el dni de l'usuari amb la sessió activa
+	 */
 	public String getDniUsuariSessio(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
 		UsuariEmpresaJPA usuari = (UsuariEmpresaJPA) activeSession.getAttribute("sessioUsuari");
 		return usuari.getDni();
 	}
-
+	/**
+	 * Mètode que comprova si l'usuari ha fet login i té la sessió activa.
+	 * @return un booleà amb el resultat
+	 */
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -74,21 +89,20 @@ public class CrearFullDeControlMBean implements Serializable{
 			return (this.sessionOK=false);
 		}
 	}
-	
+	/**
+	 * Mostra un missatge d'informació
+	 */
  	public void msgCorrecte(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Full de treball confirmat."));
  	}
 
 	/**
-	 * @return the fullTreMBean
+	 * Getters i setters
 	 */
 	public CrearFullDeTreballMBean getFullTreMBean() {
 		return fullTreMBean;
 	}
 
-	/**
-	 * @param fullTreMBean the fullTreMBean to set
-	 */
 	public void setFullTreMBean(CrearFullDeTreballMBean fullTreMBean) {
 		this.fullTreMBean = fullTreMBean;
 	}

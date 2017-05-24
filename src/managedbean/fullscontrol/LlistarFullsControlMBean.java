@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: FullsDeControl
+ * @author Albert Boix Isern
+ */
 package managedbean.fullscontrol;
 
 import java.io.Serializable;
@@ -18,7 +22,7 @@ import jpa.PacientJPA;
 import jpa.UsuariEmpresaJPA;
 
 /**
- * Bean per llistar els usuaris vinculats a la empresa.
+ * Bean per llistar els fulls de control
  */
 @ManagedBean (name="llistarFullsControl")
 @SessionScoped
@@ -59,7 +63,10 @@ public class LlistarFullsControlMBean implements Serializable{
 	public void setPacients(Collection<PacientJPA> pacients) {
 		this.pacients = pacients;
 	}
-
+	/**
+	 * Mètode que comprova si l'usuari ha fet login i té la sessió activa.
+	 * @return un booleà amb el resultat
+	 */
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);

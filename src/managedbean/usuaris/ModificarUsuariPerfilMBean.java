@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: Usuaris
+ * @author Albert Boix Isern
+ */
 package managedbean.usuaris;
 
 import java.io.Serializable;
@@ -13,7 +17,9 @@ import javax.servlet.http.HttpSession;
 
 import ejb.UsuarisNegociRemote;
 import jpa.UsuariEmpresaJPA;
-
+/**
+ * Bean per modificar les dades de l'usuari des del site d'usuari
+ */
 @ManagedBean(name = "modificarUsuariPerfil")
 @SessionScoped
 public class ModificarUsuariPerfilMBean implements Serializable{
@@ -31,6 +37,9 @@ public class ModificarUsuariPerfilMBean implements Serializable{
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Modifica les dades de l'usuari des del site d'usuaris. 
+	 */
 	public String modificar() throws Exception{
 		if (checkSession()){
 			donarValorAtributs();
@@ -49,7 +58,9 @@ public class ModificarUsuariPerfilMBean implements Serializable{
 			return "accessError";
 		}
 	}
-	
+	/**
+	 * Carrega les dades de l'usuari per ser mostrades a la vista
+	 */
  	public void donarValorAtributs(){
  		FacesContext facesContext = FacesContext.getCurrentInstance();
  		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -62,6 +73,9 @@ public class ModificarUsuariPerfilMBean implements Serializable{
  		this.clau=usuari.getClau();
  	}
  	
+ 	/**
+ 	 * Comprova si s'ha fet algún canvi a les dades del formulari
+ 	 */
  	public boolean compara(UsuariEmpresaJPA usr){
  		boolean sonIguals=false;
  		if(this.nom.equals(usr.getNom())&&this.cognom1.equals(usr.getCognom1())&&this.cognom2.equals(usr.getCognom2())&&
@@ -71,20 +85,30 @@ public class ModificarUsuariPerfilMBean implements Serializable{
  			return sonIguals=false;
  		}
  	}
- 	
+ 	/**
+ 	 * Actualitza l'objecte usuari pujat a sessió amb les noves dades
+ 	 */
  	public void actualitzarUsuariSessio(UsuariEmpresaJPA usuari){
  		FacesContext facesContext = FacesContext.getCurrentInstance();
  		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
  		activeSession.setAttribute("sessioUsari", usuari);
  	}
- 	
+ 	/**
+ 	 * Mostra un missatge d'informació
+ 	 */
  	public void msgInfo(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Canvi correcte."));
  	}
+ 	/**
+ 	 * Mostra un missatge d'error
+ 	 */
  	public void msgError(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Revisa les dades."));
  	}
-	
+ 	/**
+	 * Mètode que comprova si l'usuari ha fet login i té la sessió activa.
+	 * @return un booleà amb el resultat
+	 */
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -97,84 +121,52 @@ public class ModificarUsuariPerfilMBean implements Serializable{
 	}
 	
 	/**
-	 * @return the usuari
+	 * Getters i setters
 	 */
 	public UsuariEmpresaJPA getUsuari() {
 		return usuari;
 	}
-	/**
-	 * @param usuari the usuari to set
-	 */
+
 	public void setUsuari(UsuariEmpresaJPA usuari) {
 		this.usuari = usuari;
 	}
 
-	/**
-	 * @return the nom
-	 */
 	public String getNom() {
 		return nom;
 	}
 
-	/**
-	 * @param nom the nom to set
-	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 
-	/**
-	 * @return the cognom1
-	 */
 	public String getCognom1() {
 		return cognom1;
 	}
 
-	/**
-	 * @param cognom1 the cognom1 to set
-	 */
 	public void setCognom1(String cognom1) {
 		this.cognom1 = cognom1;
 	}
 
-	/**
-	 * @return the cognom2
-	 */
 	public String getCognom2() {
 		return cognom2;
 	}
 
-	/**
-	 * @param cognom2 the cognom2 to set
-	 */
 	public void setCognom2(String cognom2) {
 		this.cognom2 = cognom2;
 	}
 
-	/**
-	 * @return the telefon
-	 */
 	public String getTelefon() {
 		return telefon;
 	}
 
-	/**
-	 * @param telefon the telefon to set
-	 */
 	public void setTelefon(String telefon) {
 		this.telefon = telefon;
 	}
 
-	/**
-	 * @return the clau
-	 */
 	public String getClau() {
 		return clau;
 	}
 
-	/**
-	 * @param clau the clau to set
-	 */
 	public void setClau(String clau) {
 		this.clau = clau;
 	}
