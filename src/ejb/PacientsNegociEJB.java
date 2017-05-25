@@ -181,7 +181,7 @@ public class PacientsNegociEJB implements PacientsNegociRemote{
 	/**
 	 * Mètode per consultar una empresa
 	 * @param el cif de l'empresa
-	 * @return la empresa
+	 * @return empresa La empresa
 	 */
 	public EmpresaJPA consultarEmpresa(String cif){
 		EmpresaJPA empresa = entman.find(EmpresaJPA.class, cif);

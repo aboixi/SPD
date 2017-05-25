@@ -8,6 +8,7 @@ import java.util.Collection;
 import javax.persistence.PersistenceException;
 
 import jpa.BlisterJPA;
+import jpa.EmpresaJPA;
 import jpa.PacientJPA;
 
 /**
@@ -37,4 +38,16 @@ public interface FullControlNegociRemote {
 	 * @return Un missatge amb el resultat del procés en forma de String
 	 */
 	public String validar(int idFull, String dniV)throws PersistenceException;
+	/**
+	 * Mètode que consulta un blíster a la base de dades
+	 * @param idBlister
+	 * @return blister
+	 */
+	public BlisterJPA imprimir(String idBlister)throws PersistenceException;
+	/**
+	 * Mètode per consultar una empresa
+	 * @param el cif de l'empresa
+	 * @return empresa La empresa
+	 */
+	public EmpresaJPA consultarEmpresa(String cif);
 }

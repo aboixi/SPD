@@ -18,6 +18,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
 import jpa.BlisterJPA;
+import jpa.EmpresaJPA;
 import jpa.ExpedientJPA;
 import jpa.FullDeControlJPA;
 import jpa.FullDeTreballJPA;
@@ -119,4 +120,27 @@ public class FullControlNegociEJB implements FullControlNegociRemote{
 			return "procesCorrecte";
 		}
 	  }
+	/**
+	 * Mètode que consulta un blíster a la base de dades
+	 * @param idBlister
+	 * @return blister
+	 */
+	public BlisterJPA imprimir(String idBlister)throws PersistenceException{
+		BlisterJPA blister = null;
+		try{
+			blister = entman.find(BlisterJPA.class, idBlister);
+		}catch (PersistenceException e){
+			System.out.println(e);
+		}
+		return blister;
+	}
+	/**
+	 * Mètode per consultar una empresa
+	 * @param el cif de l'empresa
+	 * @return empresa La empresa
+	 */
+	public EmpresaJPA consultarEmpresa(String cif){
+		EmpresaJPA empresa = entman.find(EmpresaJPA.class, cif);
+		return empresa;
+	}
 }
