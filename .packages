@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><packages version="1.3">
-  <package exploded="false" inWorkspace="true" name="SimpleSPD.jar" todir="/SPD" type="jar">
+  <package exploded="false" inWorkspace="true" name="SimpleSPD.jar" todir="/SimpleSPD" type="jar">
     <fileset dir="bin" excludes="client/, man*/" flatten="false" inWorkspace="true" includes="**/*.class, **/*.properties">
       <properties/>
     </fileset>
@@ -13,7 +13,7 @@
       <property name="org.jboss.ide.eclipse.as.core.packages.ModuleIDPropertyKey" value="1320490195041"/>
     </properties>
   </package>
-  <package exploded="false" inWorkspace="true" name="SimpleSPD.war" todir="/SPD" type="jar">
+  <package exploded="false" inWorkspace="true" name="SimpleSPD.war" todir="/SimpleSPD" type="jar">
     <fileset dir="docroot" flatten="false" inWorkspace="true" includes="**">
       <properties/>
     </fileset>
@@ -33,7 +33,7 @@
       <property name="org.jboss.ide.eclipse.as.core.packages.ModuleIDPropertyKey" value="1321091898377"/>
     </properties>
   </package>
-  <package exploded="false" inWorkspace="true" name="SimpleSPD.ear" todir="/SPD" type="jar">
+  <package exploded="false" inWorkspace="true" name="SimpleSPD.ear" todir="/SimpleSPD" type="jar">
     <fileset dir="" flatten="false" inWorkspace="true" includes="*.war, *.jar">
       <properties/>
     </fileset>
