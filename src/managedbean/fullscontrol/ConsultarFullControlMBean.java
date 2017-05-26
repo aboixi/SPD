@@ -68,7 +68,7 @@ public class ConsultarFullControlMBean implements Serializable{
 		if (checkSession()){
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			controlRemotEJB = (FullControlNegociRemote) ctx.lookup("java:app/SPD.jar/FullControlNegociEJB!ejb.FullControlNegociRemote");
+			controlRemotEJB = (FullControlNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/FullControlNegociEJB!ejb.FullControlNegociRemote");
 			this.blisters = controlRemotEJB.consultarBlisters(pacient.getCip());
 			return "vistaUsuariFullsControlControl";
 		}else{

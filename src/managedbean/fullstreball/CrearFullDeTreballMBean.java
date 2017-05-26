@@ -51,7 +51,7 @@ public class CrearFullDeTreballMBean implements Serializable{
 		if (checkSession()){
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			fullsRemotEJB = (FullTreballNegociRemote) ctx.lookup("java:app/SPD.jar/FullTreballNegociEJB!ejb.FullTreballNegociRemote");
+			fullsRemotEJB = (FullTreballNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/FullTreballNegociEJB!ejb.FullTreballNegociRemote");
 			this.idExpedients = getExpedientsSessio();
 			int idExpedient = consultaPrimerIdExpedient();
 			if(idExpedient==-1){

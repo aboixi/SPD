@@ -44,7 +44,7 @@ public class ConsultarExpedientMBean implements Serializable{
 		if (checkSession()){
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			ExpedientRemotEJB = (ExpedientNegociRemote) ctx.lookup("java:app/SPD.jar/ExpedientNegociEJB!ejb.ExpedientNegociRemote");
+			ExpedientRemotEJB = (ExpedientNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/ExpedientNegociEJB!ejb.ExpedientNegociRemote");
 			this.setExpedient(ExpedientRemotEJB.consultarExpedient(pacient.getExpedient().getId()));
 			this.pacient = expedient.getPacient();
 			this.tractaments=expedient.getTractaments();

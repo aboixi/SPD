@@ -42,7 +42,7 @@ public class LlistarExpedientsMBean implements Serializable{
 			String cif=getSessionCif();
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			expedientRemotEJB = (ExpedientNegociRemote) ctx.lookup("java:app/SPD.jar/ExpedientNegociEJB!ejb.ExpedientNegociRemote");
+			expedientRemotEJB = (ExpedientNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/ExpedientNegociEJB!ejb.ExpedientNegociRemote");
 			this.pacients=expedientRemotEJB.llistarExpedients(cif);
 			this.setPacients(pacients);
 			return "vistaUsuariExpedients";

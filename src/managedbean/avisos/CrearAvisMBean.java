@@ -45,7 +45,7 @@ public class CrearAvisMBean implements Serializable{
 			String cifEmisor = usuari.getEmpresa();
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			avisNegoci = (AvisNegociRemote) ctx.lookup("java:app/SPD.jar/AvisNegociEJB!ejb.AvisNegociRemote");
+			avisNegoci = (AvisNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/AvisNegociEJB!ejb.AvisNegociRemote");
 			if (cifEmisor==null||nomReceptor==null){
 				msgError();
 				return "vistaUsuariAvisos";

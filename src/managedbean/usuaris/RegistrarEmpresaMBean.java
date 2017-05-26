@@ -43,7 +43,7 @@ public class RegistrarEmpresaMBean implements Serializable{
  	public void registrar() throws Exception{
 		Properties props = System.getProperties();
 		Context ctx = new InitialContext(props);
-		usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
+		usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
 		String missatge=usuarisRemotEJB.registrarEmpresa(cif, nom, poblacio, carrer, cp, telefon, fax, correu, clau, contacte, tipus);
 		if (missatge.equals("registreCorrecte")){
 			msgCorrecte();

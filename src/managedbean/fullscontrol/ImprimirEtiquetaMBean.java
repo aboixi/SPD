@@ -60,7 +60,7 @@ public class ImprimirEtiquetaMBean implements Serializable{
 			String idBlister = expedient.getPacient().getCip().concat(String.valueOf(any)).concat("-").concat(String.valueOf(setmana));
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			controlRemotEJB = (FullControlNegociRemote) ctx.lookup("java:app/SPD.jar/FullControlNegociEJB!ejb.FullControlNegociRemote");
+			controlRemotEJB = (FullControlNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/FullControlNegociEJB!ejb.FullControlNegociRemote");
 			this.setTractaments(expedient.getTractaments());
 			this.setPacient(expedient.getPacient());
 			this.setUsuari(getUsuariSessio());

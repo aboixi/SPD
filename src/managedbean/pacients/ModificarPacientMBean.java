@@ -55,7 +55,7 @@ public class ModificarPacientMBean implements Serializable{
 			consultaFarmacies();
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			pacientsRemotEJB = (PacientsNegociRemote) ctx.lookup("java:app/SPD.jar/PacientsNegociEJB!ejb.PacientsNegociRemote");
+			pacientsRemotEJB = (PacientsNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/PacientsNegociEJB!ejb.PacientsNegociRemote");
 			String missatge=null;
 			missatge=pacientsRemotEJB.modificarPacient(cif, eliminarPacientMBean.getPacient().getCip(),eliminarPacientMBean.getPacient().getNom(),eliminarPacientMBean.getPacient().getCognom1(),eliminarPacientMBean.getPacient().getCognom2(),
 					eliminarPacientMBean.getPacient().getNomFarmacia(),eliminarPacientMBean.getPacient().getFarmacia(),eliminarPacientMBean.getPacient().getMalalties(),eliminarPacientMBean.getPacient().getAlergies(),eliminarPacientMBean.getPacient().getMetge(),eliminarPacientMBean.getPacient().isAutoritzacio(),
@@ -83,7 +83,7 @@ public class ModificarPacientMBean implements Serializable{
 		if (comprovaTipusUsuari().equals("Residencia")){
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			pacientsRemotEJB = (PacientsNegociRemote) ctx.lookup("java:app/SPD.jar/PacientsNegociEJB!ejb.PacientsNegociRemote");
+			pacientsRemotEJB = (PacientsNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/PacientsNegociEJB!ejb.PacientsNegociRemote");
 			this.farmacies = pacientsRemotEJB.consultarFarmacies();
 			this.llistaNomsFarmacies=new String [farmacies.size()];
 			Iterator <EmpresaJPA> iter = farmacies.iterator();

@@ -51,7 +51,7 @@ public class LlistarAvisosMBean implements Serializable{
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
 			setLlistaEmpreses(mostraEmpreses());
-			avisNegoci = (AvisNegociRemote) ctx.lookup("java:app/SPD.jar/AvisNegociEJB!ejb.AvisNegociRemote");
+			avisNegoci = (AvisNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/AvisNegociEJB!ejb.AvisNegociRemote");
 			avisos = avisNegoci.llistarAvisos(getSessionCif());
 			iniciaLlistaEnviats(avisos);
 			iniciaLlistaRebuts(avisos);
@@ -108,7 +108,7 @@ public class LlistarAvisosMBean implements Serializable{
 		String cif = getSessionCif();
 		Properties props = System.getProperties();
 		Context ctx = new InitialContext(props);
-		avisNegoci = (AvisNegociRemote) ctx.lookup("java:app/SPD.jar/AvisNegociEJB!ejb.AvisNegociRemote");
+		avisNegoci = (AvisNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/AvisNegociEJB!ejb.AvisNegociRemote");
 		this.empreses = avisNegoci.consultaEmpreses(cif);
 		this.llistaEmpreses=new String [empreses.size()];
 		EmpresaJPA empresa = null;

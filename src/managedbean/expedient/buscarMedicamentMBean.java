@@ -45,7 +45,7 @@ public class buscarMedicamentMBean implements Serializable{
 		if (checkSession()){
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			expedientRemotEJB = (ExpedientNegociRemote) ctx.lookup("java:app/SPD.jar/ExpedientNegociEJB!ejb.ExpedientNegociRemote");
+			expedientRemotEJB = (ExpedientNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/ExpedientNegociEJB!ejb.ExpedientNegociRemote");
 			setMedicaments(expedientRemotEJB.buscarMedicaments(paraula));
 			setParaula(null);
 			return "vistaUsuariModificarExpedient";

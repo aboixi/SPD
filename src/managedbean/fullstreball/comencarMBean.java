@@ -45,7 +45,7 @@ public class comencarMBean implements Serializable{
 			String cif=getSessionCif();
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			fullsRemotEJB = (FullTreballNegociRemote) ctx.lookup("java:app/SPD.jar/FullTreballNegociEJB!ejb.FullTreballNegociRemote");
+			fullsRemotEJB = (FullTreballNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/FullTreballNegociEJB!ejb.FullTreballNegociRemote");
 			this.pacients=fullsRemotEJB.llistarFulls(cif);
 			this.setPacients(pacients);
 			setExpedientsSessio(pacients);

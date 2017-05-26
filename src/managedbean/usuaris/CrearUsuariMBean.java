@@ -42,7 +42,7 @@ public class CrearUsuariMBean implements Serializable{
 			EmpresaJPA empresa = getSessionObject();
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
+			usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
 			String missatge=usuarisRemotEJB.crearUsuari(dni,nom,cognom1,cognom2,telefon,empresa.getCif(),empresa.getTipus());
 			if (missatge.equals("procesCorrecte")){
 				clearFields();
