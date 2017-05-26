@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: Usuaris
+ * @author Albert Boix Isern
+ */
 package managedbean.usuaris;
 
 import java.io.Serializable;
@@ -15,7 +19,9 @@ import javax.servlet.http.HttpSession;
 
 import ejb.UsuarisNegociRemote;
 import jpa.UsuariEmpresaJPA;
-
+/**
+ * Bean per modificar les dades de l'usuari des del site d'empresa.
+ */
 @ManagedBean(name="modificarUsuari")
 @SessionScoped
 public class ModificarUsuariMBean implements Serializable{
@@ -28,6 +34,9 @@ public class ModificarUsuariMBean implements Serializable{
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Modifica les dades d'un usuari des del site de gestió de l'empresa.
+	 */
 	public String modificar() throws Exception{
 		if (checkSession()){
 			Properties props = System.getProperties();
@@ -45,14 +54,22 @@ public class ModificarUsuariMBean implements Serializable{
 			return "accessError";
 		}
 	}
-	
+	/**
+	 * Mostra un missatge d'informació
+	 */
  	public void msgInfo(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Canvi correcte."));
  	}
+ 	/**
+ 	 * Mostra un missatge d'error
+ 	 */
  	public void msgError(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Revisa les dades."));
  	}
- 	
+ 	/**
+	 * Mètode que comprova si l'usuari ha fet login i té la sessió activa.
+	 * @return un booleà amb el resultat
+	 */
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -65,27 +82,20 @@ public class ModificarUsuariMBean implements Serializable{
 	}
 	
 	/**
-	 * @return the usuari
+	 * Getters i setters
 	 */
 	public UsuariEmpresaJPA getUsuari() {
 		return usuari;
 	}
-	/**
-	 * @param usuari the usuari to set
-	 */
+
 	public void setUsuari(UsuariEmpresaJPA usuari) {
 		this.usuari = usuari;
 	}
-	/**
-	 * @return the eliminarUsuariMBean
-	 */
+
 	public EliminarUsuariMBean getEliminarUsuariMBean() {
 		return eliminarUsuariMBean;
 	}
 
-	/**
-	 * @param eliminarUsuariMBean the eliminarUsuariMBean to set
-	 */
 	public void setEliminarUsuariMBean(EliminarUsuariMBean eliminarUsuariMBean) {
 		this.eliminarUsuariMBean = eliminarUsuariMBean;
 	}

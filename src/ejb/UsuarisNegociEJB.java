@@ -17,7 +17,9 @@ import javax.persistence.PersistenceException;
 
 import jpa.EmpresaJPA;
 import jpa.UsuariEmpresaJPA;
-
+/**
+ * EJB Session Bean Class
+ */
 @Stateless
 public class UsuarisNegociEJB implements UsuarisNegociRemote{
 	@PersistenceContext(unitName="SPD") 
@@ -25,6 +27,10 @@ public class UsuarisNegociEJB implements UsuarisNegociRemote{
 	@Resource
 	private SessionContext sessionContext;
 	
+	/**
+	 *Mètode per registrar una nova empresa al sistema
+	 *@return String Un missatge amb el resultat del procés en forma de String 
+	 */
 	public String registrarEmpresa (String cif, String nom, String poblacio, String carrer, String cp, String telefon, String fax,String correu, String clau, String contacte, String tipus)throws PersistenceException{
 		String missatge;
 		String correuExistent=null;
@@ -50,7 +56,13 @@ public class UsuarisNegociEJB implements UsuarisNegociRemote{
 			}
 		}
 	}
-	
+	/**
+	 * Mètode per identificar-se al sistema. Es comprova si es tracta d'una empresa o d'un usuari.
+	 * @param usuari Nom d'usuari 
+	 * @param clau Clau d'accés
+	 * @return String Si el la identificació és correcta, retorna l'objecte de qui s'ha identificat, usuari o empresa.
+	 * @return String Si la identificació és incorrecta, retorna un usuari amb els camps "invalid" 
+	 */
 	public Object login(String usuari, String clau)throws PersistenceException{	
 		EmpresaJPA empresaInvalida = new EmpresaJPA();
 		UsuariEmpresaJPA usuariEmpresaInvalid = new UsuariEmpresaJPA();
@@ -81,7 +93,10 @@ public class UsuarisNegociEJB implements UsuarisNegociRemote{
 		}
 		return empresaInvalida;
 	}
-
+	/**
+	 * Mètode per modificar les dades de l'empresa
+	 * @return empresa L'objecte modificat
+	 */
 	public EmpresaJPA modificarEmpresa(String nif, String nom, String poblacio, String carrer, String cp, String telefon,
 			String fax, String correu, String clau, String contacte) {
 		
@@ -102,6 +117,10 @@ public class UsuarisNegociEJB implements UsuarisNegociRemote{
 		return empresa;
 	}
 	
+	/**
+	 * Mètode per donar d'alta un usuari d'una empresa al sistema.
+	 * @return String Un missatge amb el resultat del procés en forma de String
+	 */
 	public String crearUsuari (String dni, String nom, String cognom1, String cognom2, String telefon, String empresa, String tipus)throws PersistenceException{	
 		UsuariEmpresaJPA usuari = entman.find(UsuariEmpresaJPA.class, dni);
 		UsuariEmpresaJPA usuariRepetit = null;
@@ -130,13 +149,22 @@ public class UsuarisNegociEJB implements UsuarisNegociRemote{
 			return "usuariExistent";
 			}
 	}
-	
+	/**
+	 * Mètode per consultar els usuari vinculats a l'empresa
+	 * @param cif El cif de l'empresa
+	 * @return usuaris La col·lecció d'usuaris
+	 */
 	public Collection<UsuariEmpresaJPA> llistarUsuaris (String cif){
 		@SuppressWarnings("unchecked")
 		Collection<UsuariEmpresaJPA> usuaris = entman.createQuery("FROM UsuariEmpresaJPA a WHERE a.empresa = '" + cif +"'").getResultList();
 	    return usuaris;
 	}
-	
+	/**
+	 * Mètode per eliminar un usuari vinculat a l'empresa
+	 * @param cif El cif de l'empresa.
+	 * @param dni El dni de l'usuari que es vol eliminar.
+	 * @return usuaris Una col·lecció amb els usuaris de l'empresa després de la eliminació.
+	 */
 	public Collection<UsuariEmpresaJPA> eliminarUsuari(String cif, String dni){
 		UsuariEmpresaJPA usuari=null;
 		@SuppressWarnings("unchecked")
@@ -153,7 +181,10 @@ public class UsuarisNegociEJB implements UsuarisNegociRemote{
 		}
 		return usuaris;
 	}
-
+	/**
+	 * Mètode per modificar les dades d'un usuari. No es pot modificar ni el nom, ni el nom d'usuari
+	 * @return String Un missatge amb el resultat del procés en forma de String
+	 */
 	public String modificarUsuari(String dni, String nom, String cognom1, String cognom2, String telefon, String clau)throws PersistenceException{
 		UsuariEmpresaJPA usuari = entman.find(UsuariEmpresaJPA.class, dni);
 		usuari.setNom(nom);

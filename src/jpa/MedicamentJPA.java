@@ -1,5 +1,5 @@
 /**
- * TFG JEE-SimpleSPD - Component: Usuaris
+ * TFG JEE-SimpleSPD
  * @author Albert Boix Isern
  */
 package jpa;
@@ -7,7 +7,9 @@ package jpa;
 import java.io.Serializable;
 
 import javax.persistence.*;
-
+/**
+ * JPA Classe AvisJPA
+ */
 @Entity
 @Table(name="spd.medicaments")
 public class MedicamentJPA implements Serializable{
@@ -19,15 +21,23 @@ public class MedicamentJPA implements Serializable{
 	
 	@Column(name = "nom_comercial")
 	private String nomComercial;
-
+	/**
+	 * Constructor
+	 */
 	public MedicamentJPA(){
 		super();
 	}
+	/**
+	 * Constructor amb paràmetres
+	 */
 	public MedicamentJPA(String cn, String nom){
 		super();
 		this.cn=cn;
 		this.nomComercial=nom;
 	}
+	/**
+	 * Getters i setters
+	 */
 	public String getCn() {
 		return cn;
 	}

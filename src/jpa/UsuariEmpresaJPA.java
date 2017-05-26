@@ -1,5 +1,5 @@
 /**
- * TFG JEE-SimpleSPD - Component: Usuaris
+ * TFG JEE-SimpleSPD
  * @author Albert Boix Isern
  */
 package jpa;
@@ -8,7 +8,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- * JPA Class UsuarisEmpresaJPA
+ * JPA Classe UsuarisEmpresaJPA
  */
 
 @Entity
@@ -42,7 +42,9 @@ public class UsuariEmpresaJPA implements Serializable {
 	public UsuariEmpresaJPA() {
 		super();
 	}
-	
+	/**
+	 * Constructor amb paràmetres
+	 */
 	public UsuariEmpresaJPA(String dni, String nom, String cognom1, String cognom2, String telefon, String empresa,
 			String usuari, String clau, String tipus) {
 		super();
@@ -58,127 +60,76 @@ public class UsuariEmpresaJPA implements Serializable {
 	}
 	
 	/**
-	 * @return the dni
+	 * Getters i setters
 	 */
 	public String getDni() {
 		return dni;
 	}
 
-	/**
-	 * @param dni the dni to set
-	 */
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
 
-	/**
-	 * @return the nom
-	 */
 	public String getNom() {
 		return nom;
 	}
 
-	/**
-	 * @param nom the nom to set
-	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 
-	/**
-	 * @return the cognom1
-	 */
 	public String getCognom1() {
 		return cognom1;
 	}
 
-	/**
-	 * @param cognom1 the cognom1 to set
-	 */
 	public void setCognom1(String cognom1) {
 		this.cognom1 = cognom1;
 	}
 
-	/**
-	 * @return the cognom2
-	 */
 	public String getCognom2() {
 		return cognom2;
 	}
 
-	/**
-	 * @param cognom2 the cognom2 to set
-	 */
 	public void setCognom2(String cognom2) {
 		this.cognom2 = cognom2;
 	}
 
-	/**
-	 * @return the telefon
-	 */
 	public String getTelefon() {
 		return telefon;
 	}
 
-	/**
-	 * @param telefon the telefon to set
-	 */
 	public void setTelefon(String telefon) {
 		this.telefon = telefon;
 	}
 
-	/**
-	 * @return the empresa
-	 */
 	public String getEmpresa() {
 		return empresa;
 	}
 
-	/**
-	 * @param empresa the empresa to set
-	 */
 	public void setEmpresa(String empresa) {
 		this.empresa = empresa;
 	}
 
-	/**
-	 * @return the usuari
-	 */
 	public String getUsuari() {
 		return usuari;
 	}
 
-	/**
-	 * @param usuari the usuari to set
-	 */
 	public void setUsuari(String usuari) {
 		this.usuari = usuari;
 	}
 
-	/**
-	 * @return the clau
-	 */
 	public String getClau() {
 		return clau;
 	}
 
-	/**
-	 * @param clau the clau to set
-	 */
 	public void setClau(String clau) {
 		this.clau = clau;
 	}
 
-	/**
-	 * @return the tipusEmpresa
-	 */
 	public String getTipusEmpresa() {
 		return tipusEmpresa;
 	}
 
-	/**
-	 * @param tipusEmpresa the tipusEmpresa to set
-	 */
 	public void setTipusEmpresa(String tipusEmpresa) {
 		this.tipusEmpresa = tipusEmpresa;
 	}

@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: Usuaris
+ * @author Albert Boix Isern
+ */
 package managedbean.usuaris;
 
 import java.io.Serializable;
@@ -30,6 +34,9 @@ public class LlistarUsuarisMBean implements Serializable{
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Mostra una llista dels usuaris vinculats a l'empresa
+	 */
 	public String llistar()throws Exception{
 		if (checkSession()){
 			String cif=getSessionCif();
@@ -44,7 +51,10 @@ public class LlistarUsuarisMBean implements Serializable{
 			return "accessError";
 		}
 	}
-	
+	/**
+	 * Mètode que comprova si l'usuari ha fet login i té la sessió activa.
+	 * @return un booleà amb el resultat
+	 */
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -55,7 +65,9 @@ public class LlistarUsuarisMBean implements Serializable{
 			return (this.sessionOK=false);
 		}
 	}
-	
+	/**
+	 * Consulta el cif de l'empresa pujada a sessió
+	 */
 	public String getSessionCif(){
  		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -71,15 +83,12 @@ public class LlistarUsuarisMBean implements Serializable{
 	}
 
 	/**
-	 * @return the usuaris
+	 * Getters i setters
 	 */
 	public Collection<UsuariEmpresaJPA> getUsuaris() {
 		return usuaris;
 	}
 
-	/**
-	 * @param usuaris the usuaris to set
-	 */
 	public void setUsuaris(Collection<UsuariEmpresaJPA> usuaris) {
 		this.usuaris = usuaris;
 	}

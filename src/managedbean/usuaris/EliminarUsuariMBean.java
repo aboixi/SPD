@@ -1,3 +1,7 @@
+/**
+ * TFG JEE-SimpleSPD - Component: Usuaris
+ * @author Albert Boix Isern
+ */
 package managedbean.usuaris;
 
 import java.io.Serializable;
@@ -16,7 +20,9 @@ import javax.servlet.http.HttpSession;
 
 import ejb.UsuarisNegociRemote;
 import jpa.UsuariEmpresaJPA;
-
+/**
+ * Bean per eliminar un usuari vinculat a empresa
+ */
 @ManagedBean (name="eliminarUsuari")
 @SessionScoped
 public class EliminarUsuariMBean implements Serializable{
@@ -28,7 +34,10 @@ public class EliminarUsuariMBean implements Serializable{
 	@SuppressWarnings("unused")
 	private boolean sessionOK=false;
 	private static final long serialVersionUID = 1L;
-
+	
+	/**
+	 * Elimina un usuari 
+	 */
 	public String eliminar() throws NamingException{
 		if (checkSession()){
 			String dni=usuari.getDni();
@@ -43,12 +52,21 @@ public class EliminarUsuariMBean implements Serializable{
 			return "accessError";
 		}
 	}
+	/**
+	 * Mètode utilitzat per refrescar un formulari.
+	 */
 	public void actualitzaFormulari(){}
 	
+	/**
+	 * Neteja els camps del formulari alta pacient.
+	 */
  	public void clearFields(){
  		setUsuari(null);
  	}
-	
+ 	/**
+	 * Mètode que comprova si l'usuari ha fet login i té la sessió activa.
+	 * @return un booleà amb el resultat
+	 */
 	public boolean checkSession(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -59,37 +77,33 @@ public class EliminarUsuariMBean implements Serializable{
 			return (this.sessionOK=false);
 		}
 	}
-
+	/**
+	 * Mostra un missatge d'informació
+	 */
  	public void msgInfo(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Canvi correcte."));
  	}
+ 	/**
+ 	 * Mostra un missatge d'error
+ 	 */
  	public void msgError(){
  		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Revisa les dades."));
  	}
 	/**
-	 * @return the usuari
+	 * Getters i setters
 	 */
 	public UsuariEmpresaJPA getUsuari() {
 		return usuari;
 	}
 
-	/**
-	 * @param usuari the usuari to set
-	 */
 	public void setUsuari(UsuariEmpresaJPA usuari) {
 		this.usuari = usuari;
 	}
 
-	/**
-	 * @return the usuaris
-	 */
 	public Collection<UsuariEmpresaJPA> getUsuaris() {
 		return usuaris;
 	}
 
-	/**
-	 * @param usuaris the usuaris to set
-	 */
 	public void setUsuaris(Collection<UsuariEmpresaJPA> usuaris) {
 		this.usuaris = usuaris;
 	}
