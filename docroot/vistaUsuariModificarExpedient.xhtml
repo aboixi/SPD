@@ -154,13 +154,13 @@
                 	<h2>Nou Tractament</h2>
 						<h:form id="formulariNouTractament">
 							 <h:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
-								<h:outputText value="Data d'inici: " />
-								<p:calendar id="inici" value="#{agregarTractament.dataInici}" required="true"
-								requiredMessage="Falta la data d'inici del tractament"/>
 								<h:outputText value="CN: " />
 								<h:outputText id="cn" value="#{agregarTractament.cn}" required="true" editable="false"/>
 								<h:outputText value="Nom: " />
 								<h:outputText id="nom" value="#{agregarTractament.nomComercial}" required="true" editable="false"/>
+								<h:outputText value="Data d'inici: " />
+								<p:calendar id="inici" value="#{agregarTractament.dataInici}" required="true"
+								requiredMessage="Falta la data d'inici del tractament"/>
 							</h:panelGrid>
 							<h:panelGrid columns="6" layout="grid" styleClass="ui-panelgrid-blank form-group">
 							<h:outputText value="Unitats: " />

@@ -36,8 +36,8 @@ public class ExpedientNegociEJB implements ExpedientNegociRemote{
 	/**
 	 * Mètode que consulta, donat el cif d'una empresa, els pacients que té vinculats.
 	 * Ja sigui com a resident d'una residència o estigui assignat a la farmàcia.
-	 * @param cif de l'empresa
-	 * @return Una col·lecció amb els pacients.
+	 * @param cif Cif de l'empresa
+	 * @return pacients Una col·lecció amb els pacients.
 	 */
 	public Collection<PacientJPA> llistarExpedients (String cif){
 		@SuppressWarnings("unchecked")
@@ -46,8 +46,8 @@ public class ExpedientNegociEJB implements ExpedientNegociRemote{
 	}
 	/**
 	 * Mètode que consulta l'expedient donada la seva id
-	 * @param id de l'expedient
-	 * @return L'expedient 
+	 * @param idExpedient Id de l'expedient
+	 * @return expedient L'expedient 
 	 */
 	public ExpedientJPA consultarExpedient(int idExpedient){
 		ExpedientJPA expedient = entman.find(ExpedientJPA.class, idExpedient);
@@ -150,7 +150,7 @@ public class ExpedientNegociEJB implements ExpedientNegociRemote{
 	}
 	/**
 	 * Mètode que elimina el tractament d'un pacient donada la seva id
-	 * @param La id del tractament
+	 * @param idTractament La id del tractament
 	 */
 	public void eliminarTractament(int idTractament)throws PersistenceException{
 		try{
@@ -164,8 +164,8 @@ public class ExpedientNegociEJB implements ExpedientNegociRemote{
 	
 	/**
 	 * Mètode que busca a la base de dades els medicaments
-	 * @param La paraula clau per realitzar la recerca
-	 * @return Una col·lecció amb els medicaments trobats.
+	 * @param paraula La paraula clau per realitzar la recerca
+	 * @return medicaments Una col·lecció amb els medicaments trobats.
 	 */
 	@SuppressWarnings("unchecked")
 	public Collection<MedicamentJPA> buscarMedicaments (String paraula){

@@ -17,27 +17,27 @@ import jpa.EmpresaJPA;
 public interface AvisNegociRemote {
 	/**
 	 * Mètode per crear un nou avís.
-	 * @return un missatge en forma de String.
+	 * @return String Un missatge en forma de String.
 	 */
 	public String crearAvis(String cifE, String cifR, String tipus, String descripcio);
 	/**
 	 * Mètode per consultar tots els avisos on la empresa apareix com a emissor o receptor.
-	 * @return una colecció amb els missatges.
+	 * @return String Una colecció amb els missatges.
 	 */
 	public Collection<AvisJPA> llistarAvisos(String cif)throws PersistenceException;
 	/**
-	 * Mètode per eliminar un avís.
-	 * * @return Un missatge en forma de String.
+	 * Mètode per consultar tots els avisos on la empresa apareix com a emissor o receptor.
+	 * @return avisos Una colecció amb els missatges.
 	 */
 	public String eliminarAvis (int idAvis);
 	/**
-	 * Mètode que consulta totes les empreses i excepte la que realitza la consulta.
-	 * @return Una col·lecció amb les empresses.
-	 */
-	public Collection<EmpresaJPA> consultaEmpreses(String cif);
-	/**
 	 * Mètode per canviar l'estat d'un avís.
-	 * @return Un missatge en forma de String.
+	 * @return String Un missatge en forma de String.
 	 */
 	public String canviarEstatAvis(int i);
+	/**
+	 * Mètode per eliminar un avís.
+	 * * @return String Un missatge en forma de String.
+	 */
+	public Collection<EmpresaJPA> consultaEmpreses(String cif);
 }

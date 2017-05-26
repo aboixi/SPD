@@ -29,8 +29,8 @@ public class PacientsNegociEJB implements PacientsNegociRemote{
 	
 	/**
 	 * Mètode que consulta els pacients vinculats a una empresa
-	 * @param cif de l'empresa
-	 * @return col·lecció de pacients
+	 * @param cif El cif de l'empresa
+	 * @return pacients Col·lecció de pacients
 	 */
 	public Collection<PacientJPA> llistarPacients (String cif){
 		@SuppressWarnings("unchecked")
@@ -40,8 +40,9 @@ public class PacientsNegociEJB implements PacientsNegociRemote{
 	
 	/**
 	 * Mètode que elimina un pacient
-	 * @param cip del pacient i cif de l'empresa
-	 * @return una col·lecció amb els pacients que queden després de la eliminació
+	 * @param cip El cip del pacient
+	 * @param cif El cif de l'empresa
+	 * @return pacients Una col·lecció amb els pacients que queden després de la eliminació
 	 */
 	public Collection<PacientJPA> eliminarPacient(String cip, String cif){
 		EmpresaJPA empresa=entman.find(EmpresaJPA.class, cif);
@@ -78,8 +79,7 @@ public class PacientsNegociEJB implements PacientsNegociRemote{
 	}
 	/**
 	 * Mètode per modificar les dades personals d'un pacient
-	 * @param tots els camps excepte el cip
-	 * @return un missatge amb el resultat del procés en forma de String
+	 * @return String un missatge amb el resultat del procés en forma de String
 	 */
 	public String modificarPacient(String cif, String cip, String nom, String cognom1, String cognom2, String nomFarmacia, String cifFarmacia, String malalties, 
 			String alergies, String metge, boolean autoritzacio, boolean spd, boolean hospitalitzat, boolean exitus)throws PersistenceException{
@@ -145,7 +145,7 @@ public class PacientsNegociEJB implements PacientsNegociRemote{
 	}
 	/**
 	 * Metode per consultar les farmàcies donades d'alta al sistema
-	 * @return una col·lecció de farmàcies
+	 * @return farmacies Una col·lecció de farmàcies
 	 */
 	public Collection<EmpresaJPA> consultarFarmacies(){
 		@SuppressWarnings("unchecked")
@@ -154,8 +154,7 @@ public class PacientsNegociEJB implements PacientsNegociRemote{
 	}
 	/**
 	 * Mètode per donar d'alta un pacient
-	 * @param les dades del pacient
-	 * @return un missatge amb el resultat del procés en forma de String
+	 * @return String un missatge amb el resultat del procés en forma de String
 	 */
 	public String crearPacient (String cip, String nom, String cognom1, String cognom2, String malalties,String alergies, String metge, 
 			String cifResidencia, String nomResidencia, String cifFarmacia, String nomFarmacia, boolean autoritzacio, boolean spd, boolean hospitalitzat, boolean exitus)
@@ -180,7 +179,7 @@ public class PacientsNegociEJB implements PacientsNegociRemote{
 	}
 	/**
 	 * Mètode per consultar una empresa
-	 * @param el cif de l'empresa
+	 * @param cif El cif de l'empresa
 	 * @return empresa La empresa
 	 */
 	public EmpresaJPA consultarEmpresa(String cif){

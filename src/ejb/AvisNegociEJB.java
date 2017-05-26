@@ -29,7 +29,7 @@ public class AvisNegociEJB implements AvisNegociRemote{
 	
 	/**
 	 * Mètode per crear un nou avís.
-	 * @return un missatge en forma de String.
+	 * @return String Un missatge en forma de String.
 	 */
 	public String crearAvis(String cifE, String nomR, String tipus, String descripcio){
 		String query = "SELECT e.cif "+"FROM EmpresaJPA e WHERE e.nom = '" + nomR +"'";
@@ -50,7 +50,7 @@ public class AvisNegociEJB implements AvisNegociRemote{
 	
 	/**
 	 * Mètode per consultar tots els avisos on la empresa apareix com a emissor o receptor.
-	 * @return una colecció amb els missatges.
+	 * @return avisos Una colecció amb els missatges.
 	 */
 	@SuppressWarnings("unchecked")
 	public Collection<AvisJPA> llistarAvisos(String cif)throws PersistenceException{
@@ -65,7 +65,7 @@ public class AvisNegociEJB implements AvisNegociRemote{
 	
 	/**
 	 * Mètode per eliminar un avís.
-	 * * @return Un missatge en forma de String.
+	 * * @return String Un missatge en forma de String.
 	 */
 	public String eliminarAvis (int idAvis){
 		AvisJPA avis = entman.find(AvisJPA.class, idAvis);
@@ -75,7 +75,7 @@ public class AvisNegociEJB implements AvisNegociRemote{
 	
 	/**
 	 * Mètode per canviar l'estat d'un avís.
-	 * @return Un missatge en forma de String.
+	 * @return String Un missatge en forma de String.
 	 */
 	public String canviarEstatAvis(int idAvis){
 		AvisJPA avis = entman.find(AvisJPA.class, idAvis);
@@ -85,7 +85,7 @@ public class AvisNegociEJB implements AvisNegociRemote{
 	
 	/**
 	 * Mètode que consulta totes les empreses i excepte la que realitza la consulta.
-	 * @return Una col·lecció amb les empresses.
+	 * @return empreses Una col·lecció amb les empresses.
 	 */
 	@SuppressWarnings("unchecked")
 	public Collection<EmpresaJPA> consultaEmpreses(String cif){
