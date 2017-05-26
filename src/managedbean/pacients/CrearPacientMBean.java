@@ -56,7 +56,7 @@ public class CrearPacientMBean implements Serializable{
 			cifResidencia=usuari.getEmpresa();
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			pacientsRemotEJB = (PacientsNegociRemote) ctx.lookup("java:app/SPD.jar/PacientsNegociEJB!ejb.PacientsNegociRemote");
+			pacientsRemotEJB = (PacientsNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/PacientsNegociEJB!ejb.PacientsNegociRemote");
 			EmpresaJPA empresa = pacientsRemotEJB.consultarEmpresa(cifResidencia);
 			if (empresa.getTipus().equals("Residencia")){
 				nomResidencia=empresa.getNom();

@@ -42,7 +42,7 @@ public class LlistarPacientsMBean implements Serializable{
 			String cif=getSessionCif();
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			pacientsRemotEJB = (PacientsNegociRemote) ctx.lookup("java:app/SPD.jar/PacientsNegociEJB!ejb.PacientsNegociRemote");
+			pacientsRemotEJB = (PacientsNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/PacientsNegociEJB!ejb.PacientsNegociRemote");
 			this.pacients=pacientsRemotEJB.llistarPacients(cif);
 			this.setPacients(pacients);
 			return "vistaUsuariPacients";

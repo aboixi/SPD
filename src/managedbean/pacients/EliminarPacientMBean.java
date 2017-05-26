@@ -55,7 +55,7 @@ public class EliminarPacientMBean implements Serializable{
 				msgAvis();
 				return "vistaUsuariPacients";
 			}
-			PacientsRemotEJB = (PacientsNegociRemote) ctx.lookup("java:app/SPD.jar/PacientsNegociEJB!ejb.PacientsNegociRemote");
+			PacientsRemotEJB = (PacientsNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/PacientsNegociEJB!ejb.PacientsNegociRemote");
 			PacientsRemotEJB.eliminarPacient(cip, cif);
 			clearFields();
 			if (comprovaTipusUsuari().equals("Residencia")){

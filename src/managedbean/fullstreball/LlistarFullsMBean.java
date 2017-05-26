@@ -45,7 +45,7 @@ public class LlistarFullsMBean implements Serializable{
 			}
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			fullsRemotEJB = (FullTreballNegociRemote) ctx.lookup("java:app/SPD.jar/FullTreballNegociEJB!ejb.FullTreballNegociRemote");
+			fullsRemotEJB = (FullTreballNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/FullTreballNegociEJB!ejb.FullTreballNegociRemote");
 			this.pacients=fullsRemotEJB.llistarFulls(usuari.getEmpresa());
 			this.setPacients(pacients);
 			return "vistaUsuariFullsTreball";

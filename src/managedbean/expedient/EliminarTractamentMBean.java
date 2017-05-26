@@ -39,7 +39,7 @@ public class EliminarTractamentMBean implements Serializable{
 		if (checkSession()){
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			expedientRemotEJB = (ExpedientNegociRemote) ctx.lookup("java:app/SPD.jar/ExpedientNegociEJB!ejb.ExpedientNegociRemote");
+			expedientRemotEJB = (ExpedientNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/ExpedientNegociEJB!ejb.ExpedientNegociRemote");
 			try{
 				expedientRemotEJB.eliminarTractament(tractament.getIdTractament());
 			}catch (Exception e){

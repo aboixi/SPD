@@ -41,7 +41,7 @@ public class ModificarUsuariMBean implements Serializable{
 		if (checkSession()){
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
+			usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
 			String missatge=usuarisRemotEJB.modificarUsuari(eliminarUsuariMBean.getUsuari().getDni(), eliminarUsuariMBean.getUsuari().getNom(), eliminarUsuariMBean.getUsuari().getCognom1(), eliminarUsuariMBean.getUsuari().getCognom2(), eliminarUsuariMBean.getUsuari().getTelefon(), eliminarUsuariMBean.getUsuari().getClau());
 			if (missatge.equals("canviCorrecte")){
 				msgInfo();

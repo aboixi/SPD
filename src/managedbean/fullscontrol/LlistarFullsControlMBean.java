@@ -41,7 +41,7 @@ public class LlistarFullsControlMBean implements Serializable{
 			String cif=getSessionCif();
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			controlRemotEJB = (FullControlNegociRemote) ctx.lookup("java:app/SPD.jar/FullControlNegociEJB!ejb.FullControlNegociRemote");
+			controlRemotEJB = (FullControlNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/FullControlNegociEJB!ejb.FullControlNegociRemote");
 			this.pacients=controlRemotEJB.llistarFulls(cif);
 			this.setPacients(pacients);
 			return "vistaUsuariFullsControl";

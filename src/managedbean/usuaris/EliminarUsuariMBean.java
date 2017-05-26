@@ -44,7 +44,7 @@ public class EliminarUsuariMBean implements Serializable{
 			String cif=usuari.getEmpresa();
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
+			usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
 			usuarisRemotEJB.eliminarUsuari(cif, dni);
 			clearFields();
 			return null;

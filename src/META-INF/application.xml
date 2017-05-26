@@ -1,13 +1,13 @@
 <application>
-  <display-name>SPD</display-name>
+  <display-name>SimpleSPD</display-name>
   <module>
     <web>
-      <web-uri>SPD.war</web-uri>
-      <context-root>/SPD</context-root>
+      <web-uri>SimpleSPD.war</web-uri>
+      <context-root>/SimpleSPD</context-root>
     </web>
   </module>
   <module>
-    <ejb>SPD.jar</ejb>
+    <ejb>SimpleSPD.jar</ejb>
   </module>
 </application>
 

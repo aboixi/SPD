@@ -63,7 +63,7 @@ public class AgregarTractamentMBean implements Serializable{
 			}
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			expedientRemotEJB = (ExpedientNegociRemote) ctx.lookup("java:app/SPD.jar/ExpedientNegociEJB!ejb.ExpedientNegociRemote");
+			expedientRemotEJB = (ExpedientNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/ExpedientNegociEJB!ejb.ExpedientNegociRemote");
 			String missatge=expedientRemotEJB.agregarTractament(Integer.toString(expedient.getExpedient().getId()), cn, dataInici, qEntera, qFraccio, esmorcar, dinar, sopar, 
 					dormir, dill, dima, dime, dijo, dive, diss, dium, foraBlister);
 			clearFields();

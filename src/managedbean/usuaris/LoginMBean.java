@@ -43,7 +43,7 @@ public class LoginMBean implements Serializable{
 		HttpSession activeSession = (HttpSession) facesContext.getExternalContext().getSession(true);
 		Properties props = System.getProperties();
 		Context ctx = new InitialContext(props);
-		usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
+		usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
 		Object usuari = usuarisRemotEJB.login(nom, clau);
 		String tipusUsuari=usuari.getClass().getName();
 

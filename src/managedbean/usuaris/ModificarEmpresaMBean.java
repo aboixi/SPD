@@ -48,7 +48,7 @@ public class ModificarEmpresaMBean implements Serializable{
  			donarValorAtributs();
  			Properties props = System.getProperties();
  			Context ctx = new InitialContext(props);
- 			usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
+ 			usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
  			EmpresaJPA empresa=usuarisRemotEJB.modificarEmpresa(cif, nom, poblacio, carrer, cp, telefon, fax, correu, clau, contacte);
  			actualitzarUsuariSessio(empresa);
  			msgInfo();

@@ -45,7 +45,7 @@ public class CrearFullDeControlMBean implements Serializable{
 			FullDeTreballJPA full=getFullSessio();
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			controlRemotEJB = (FullControlNegociRemote) ctx.lookup("java:app/SPD.jar/FullControlNegociEJB!ejb.FullControlNegociRemote");
+			controlRemotEJB = (FullControlNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/FullControlNegociEJB!ejb.FullControlNegociRemote");
 			controlRemotEJB.creaFullControl(full.getExpedient().getId(), getDniUsuariSessio());
 			String [] blister = new String[28];
 			fullTreMBean.setBlister(blister);

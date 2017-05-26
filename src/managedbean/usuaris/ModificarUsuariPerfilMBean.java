@@ -45,7 +45,7 @@ public class ModificarUsuariPerfilMBean implements Serializable{
 			donarValorAtributs();
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
+			usuarisRemotEJB = (UsuarisNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/UsuarisNegociEJB!ejb.UsuarisNegociRemote");
 			String missatge=usuarisRemotEJB.modificarUsuari(dni, nom, cognom1, cognom2, telefon, clau);
 			if (missatge.equals("canviCorrecte")){
 				msgInfo();

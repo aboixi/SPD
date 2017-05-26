@@ -54,7 +54,7 @@ public class ModificarFullMBean implements Serializable{
 		if (checkSession()){
 			Properties props = System.getProperties();
 			Context ctx = new InitialContext(props);
-			fullsRemotEJB = (FullTreballNegociRemote) ctx.lookup("java:app/SPD.jar/FullTreballNegociEJB!ejb.FullTreballNegociRemote");
+			fullsRemotEJB = (FullTreballNegociRemote) ctx.lookup("java:app/SimpleSPD.jar/FullTreballNegociEJB!ejb.FullTreballNegociRemote");
 			fullsRemotEJB.modificarFull(getFullSessio());
 			idExpedients = getExpedientsSessio();
 			idExpedients.remove(0);
